@@ -3,7 +3,6 @@ import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import fc from "fast-check";
 import { b64urlDecode, b64urlEncode } from "../src/encoding.js";
-import { verifyChain } from "../src/index.js";
 
 const vector = new URL("../vectors/asor/valid_chain.json", import.meta.url);
 
@@ -28,8 +27,4 @@ test("base64url round trip", () => {
       assert.deepEqual(b64urlDecode(text), bytes);
     }),
   );
-});
-
-test("verifyChain is a placeholder", () => {
-  assert.throws(() => verifyChain([], "asor-02"), /not implemented/);
 });
