@@ -9,3 +9,14 @@ export function b64urlDecode(text: string): Uint8Array {
   }
   return new Uint8Array(Buffer.from(text, "base64url"));
 }
+
+/**
+ * Strict decoder: alphabet only, no padding, and the canonical encoding of the
+ * bytes it yields (non-zero trailing bits are rejected). `undefined` on any
+ * deviation.
+ */
+export function b64urlDecodeStrict(text: string): Uint8Array | undefined {
+  if (!/^[A-Za-z0-9_-]*$/.test(text)) return undefined;
+  const bytes = new Uint8Array(Buffer.from(text, "base64url"));
+  return b64urlEncode(bytes) === text ? bytes : undefined;
+}
