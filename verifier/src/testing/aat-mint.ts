@@ -161,6 +161,10 @@ export interface ChainSpec {
   overrides?: (Override | undefined)[];
   lifetime?: number;
   maxDepth?: number;
+  /** Deterministic inputs for vectors: trust anchor, holder key per token, jti per token. */
+  anchor?: Holder;
+  holders?: Holder[];
+  jtis?: string[];
 }
 
 export interface Chain {
@@ -175,9 +179,11 @@ export interface Chain {
 export function mintChain(spec: ChainSpec): Chain {
   const now = spec.now ?? 1_000_000;
   const life = spec.lifetime ?? 1000;
-  const anchor = newHolder();
+  const anchor = spec.anchor ?? newHolder();
   const root = mintRoot({
     anchor,
+    ...(spec.holders?.[0] && { holder: spec.holders[0] }),
+    ...(spec.jtis?.[0] && { jti: spec.jtis[0] }),
     iat: now - 10 * (spec.depth + 1),
     exp: now - 10 * (spec.depth + 1) + life,
     maxDepth: spec.maxDepth ?? Math.max(spec.depth, 3),
@@ -190,6 +196,8 @@ export function mintChain(spec: ChainSpec): Chain {
     tokens.push(
       derive({
         parent,
+        ...(spec.holders?.[i] && { holder: spec.holders[i] as Holder }),
+        ...(spec.jtis?.[i] && { jti: spec.jtis[i] as string }),
         iat: (parent.claims.iat as number) + 10,
         exp: (parent.claims.exp as number) - 1,
         ...(spec.linkTools?.[i - 1] && { tools: spec.linkTools[i - 1] as Tools }),

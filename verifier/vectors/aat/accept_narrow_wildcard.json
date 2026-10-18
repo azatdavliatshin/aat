@@ -1,0 +1,23 @@
+{
+  "name": "accept_narrow_wildcard",
+  "description": "wildcard: wildcard narrowed to exact; the widening case is exact -> wildcard (see below). Narrowing is valid attenuation.",
+  "draft": "01",
+  "now": 1800000000,
+  "trust_anchors": [
+    {
+      "kty": "OKP",
+      "crv": "Ed25519",
+      "x": "TLWr9q15-_WrvMr8wmnYXNJlHtS4hbWGnyQa7fCluik"
+    }
+  ],
+  "chain": [
+    "eyJhbGciOiJFZERTQSIsInR5cCI6ImF0K2p3dCJ9.eyJhdXRob3JpemF0aW9uX2RldGFpbHMiOlt7InRvb2xzIjp7InQiOnsiYSI6eyJjb25zdHJhaW50X3R5cGUiOiJ3aWxkY2FyZCJ9fX0sInR5cGUiOiJhdHRlbnVhdGluZ19hZ2VudF90b2tlbiJ9XSwiY25mIjp7Imp3ayI6eyJjcnYiOiJFZDI1NTE5Iiwia3R5IjoiT0tQIiwieCI6ImRDSzVpSFdZQm80eXhFU0tsSnJiS1EwUFRqVzU0QnNPNWZHaDVnRC1KblEifX0sImRlbF9kZXB0aCI6MCwiZGVsX21heF9kZXB0aCI6MywiZXhwIjoxODAwMDAwOTgwLCJpYXQiOjE3OTk5OTk5ODAsImlzcyI6Imh0dHBzOi8vYXV0aC5leGFtcGxlLmNvbSIsImp0aSI6IjAxOTU3YTNmLTRlMjMtN2IwMS1hOWQxLTAwNTA1NjljMmUwMSJ9.Z4nXwwkTFf2YPLi39kwQh_ybkPAdRpdNO7CmALhrGge3KJOft31ur9KfbEP74VvheEhJfKD9N98TClW9H040Cg",
+    "eyJhbGciOiJFZERTQSIsInR5cCI6ImF0K2p3dCJ9.eyJhdXRob3JpemF0aW9uX2RldGFpbHMiOlt7InRvb2xzIjp7InQiOnsiYSI6eyJjb25zdHJhaW50X3R5cGUiOiJleGFjdCIsInZhbHVlIjoiYSJ9fX0sInR5cGUiOiJhdHRlbnVhdGluZ19hZ2VudF90b2tlbiJ9XSwiY25mIjp7Imp3ayI6eyJjcnYiOiJFZDI1NTE5Iiwia3R5IjoiT0tQIiwieCI6Ijg0Rmlia0huQW42a01iX2pBSjZVdmRKYWRHdnV4R2lVald3OGZGM0pwVXMifX0sImRlbF9kZXB0aCI6MSwiZGVsX21heF9kZXB0aCI6MywiZXhwIjoxODAwMDAwOTc5LCJpYXQiOjE3OTk5OTk5OTAsImlzcyI6InVybjppZXRmOnBhcmFtczpvYXV0aDpqd2stdGh1bWJwcmludDpzaGEtMjU2OlRySTFnOWhlcjVtek50ZHdUaFV5cXd3R2ZaVkxLZDNNTW9Xa1JZLUZuOGMiLCJqdGkiOiIwMTk1N2EzZi00ZTIzLTdiMDEtYTlkMS0wMDUwNTY5YzJlMDIiLCJwYXJfaGFzaCI6InQxVmctdEsyd0UwT2RaNWgyQW9vdmd5dTNqRUFnMkg5MmZGS3R6ZjN5bmcifQ.ab8ka0U9YUJ9xURG2qg_DCTBkNmjtnbT4MLgLW8v80v2BOZyTXSWy-u0_yccolv2fCpdo2m5Rn2lwnAlpOu3AQ"
+  ],
+  "options": {
+    "maxTokenLifetime": 1000
+  },
+  "expect": {
+    "outcome": "accept"
+  }
+}

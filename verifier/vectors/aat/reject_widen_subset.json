@@ -1,0 +1,25 @@
+{
+  "name": "reject_widen_subset",
+  "description": "subset: widening is rejected by I4.",
+  "draft": "01",
+  "now": 1800000000,
+  "trust_anchors": [
+    {
+      "kty": "OKP",
+      "crv": "Ed25519",
+      "x": "TLWr9q15-_WrvMr8wmnYXNJlHtS4hbWGnyQa7fCluik"
+    }
+  ],
+  "chain": [
+    "eyJhbGciOiJFZERTQSIsInR5cCI6ImF0K2p3dCJ9.eyJhdXRob3JpemF0aW9uX2RldGFpbHMiOlt7InRvb2xzIjp7InQiOnsiYSI6eyJhbGxvd2VkIjpbMSwyXSwiY29uc3RyYWludF90eXBlIjoic3Vic2V0In19fSwidHlwZSI6ImF0dGVudWF0aW5nX2FnZW50X3Rva2VuIn1dLCJjbmYiOnsiandrIjp7ImNydiI6IkVkMjU1MTkiLCJrdHkiOiJPS1AiLCJ4IjoiZENLNWlIV1lCbzR5eEVTS2xKcmJLUTBQVGpXNTRCc081ZkdoNWdELUpuUSJ9fSwiZGVsX2RlcHRoIjowLCJkZWxfbWF4X2RlcHRoIjozLCJleHAiOjE4MDAwMDA5ODAsImlhdCI6MTc5OTk5OTk4MCwiaXNzIjoiaHR0cHM6Ly9hdXRoLmV4YW1wbGUuY29tIiwianRpIjoiMDE5NTdhM2YtNGUyMy03YjAxLWE5ZDEtMDA1MDU2OWMyZTAxIn0.XbKKJ6bgzyzYuo8D0h9DQOZkAAZI6B-MBXhwoE8hy--YX6t5ceaGqPzb_c7jlh_GLIfwNEIgZ5XZ9ZLdyB2LDQ",
+    "eyJhbGciOiJFZERTQSIsInR5cCI6ImF0K2p3dCJ9.eyJhdXRob3JpemF0aW9uX2RldGFpbHMiOlt7InRvb2xzIjp7InQiOnsiYSI6eyJhbGxvd2VkIjpbMSwyLDNdLCJjb25zdHJhaW50X3R5cGUiOiJzdWJzZXQifX19LCJ0eXBlIjoiYXR0ZW51YXRpbmdfYWdlbnRfdG9rZW4ifV0sImNuZiI6eyJqd2siOnsiY3J2IjoiRWQyNTUxOSIsImt0eSI6Ik9LUCIsIngiOiI4NEZpYmtIbkFuNmtNYl9qQUo2VXZkSmFkR3Z1eEdpVWpXdzhmRjNKcFVzIn19LCJkZWxfZGVwdGgiOjEsImRlbF9tYXhfZGVwdGgiOjMsImV4cCI6MTgwMDAwMDk3OSwiaWF0IjoxNzk5OTk5OTkwLCJpc3MiOiJ1cm46aWV0ZjpwYXJhbXM6b2F1dGg6andrLXRodW1icHJpbnQ6c2hhLTI1NjpUckkxZzloZXI1bXpOdGR3VGhVeXF3d0dmWlZMS2QzTU1vV2tSWS1GbjhjIiwianRpIjoiMDE5NTdhM2YtNGUyMy03YjAxLWE5ZDEtMDA1MDU2OWMyZTAyIiwicGFyX2hhc2giOiJZaDBtNU45cVhhUV9GNE4wTkhGTGNNVzMyc2Q3SUlYTE55YnQxZ0RZQlJvIn0.EcnU8LIQ-jmF4cFUJgB774C3H1WV1PHsz8pnCWjVc1hXhG3oe08xqJ1B0wcM8CgsCOwVJV03DMVcL8FRuw2HBQ"
+  ],
+  "options": {
+    "maxTokenLifetime": 1000
+  },
+  "expect": {
+    "outcome": "reject",
+    "code": "I4",
+    "check": "constraint_subsumption"
+  }
+}

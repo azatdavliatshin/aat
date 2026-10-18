@@ -1,0 +1,30 @@
+{
+  "name": "valid_depth_0",
+  "description": "A valid chain of 1 token(s) with a PoP over tool read.",
+  "draft": "01",
+  "now": 1800000000,
+  "trust_anchors": [
+    {
+      "kty": "OKP",
+      "crv": "Ed25519",
+      "x": "TLWr9q15-_WrvMr8wmnYXNJlHtS4hbWGnyQa7fCluik"
+    }
+  ],
+  "chain": [
+    "eyJhbGciOiJFZERTQSIsInR5cCI6ImF0K2p3dCJ9.eyJhdXRob3JpemF0aW9uX2RldGFpbHMiOlt7InRvb2xzIjp7InBpbmciOnt9LCJyZWFkIjp7ImxpbWl0Ijp7ImNvbnN0cmFpbnRfdHlwZSI6InJhbmdlIiwibWF4IjoxMDB9LCJwYXRoIjp7ImNvbnN0cmFpbnRfdHlwZSI6Im9uZV9vZiIsInZhbHVlcyI6WyIvZGF0YS9hIiwiL2RhdGEvYiJdfX19LCJ0eXBlIjoiYXR0ZW51YXRpbmdfYWdlbnRfdG9rZW4ifV0sImNuZiI6eyJqd2siOnsiY3J2IjoiRWQyNTUxOSIsImt0eSI6Ik9LUCIsIngiOiJkQ0s1aUhXWUJvNHl4RVNLbEpyYktRMFBUalc1NEJzTzVmR2g1Z0QtSm5RIn19LCJkZWxfZGVwdGgiOjAsImRlbF9tYXhfZGVwdGgiOjMsImV4cCI6MTgwMDAwMDk5MCwiaWF0IjoxNzk5OTk5OTkwLCJpc3MiOiJodHRwczovL2F1dGguZXhhbXBsZS5jb20iLCJqdGkiOiIwMTk1N2EzZi00ZTIzLTdiMDEtYTlkMS0wMDUwNTY5YzJlMDEifQ.nwMEm-tOBVdXZywyGlRq0JYa2UO4VFU-xZHZe6F9U_nPMpz17CxPm47w8FrOWA53hCVHlzQ01xiUsVTAPT9vCQ"
+  ],
+  "request": {
+    "tool": "read",
+    "args": {
+      "path": "/data/a",
+      "limit": 10
+    }
+  },
+  "pop": "eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhYXRfaWQiOiIwMTk1N2EzZi00ZTIzLTdiMDEtYTlkMS0wMDUwNTY5YzJlMDEiLCJhYXRfdG9vbCI6InJlYWQiLCJodGEiOnsibGltaXQiOjEwLCJwYXRoIjoiL2RhdGEvYSJ9LCJpYXQiOjE4MDAwMDAwMDAsImp0aSI6ImM5ODBmMmExLTRhMzctNGU4OC1iYjNjLTlkZWZkMzdjMWE0NSJ9.kHhnhFrg-bUK4-x-4JIqfWFZ_jL6xGepQA-gS7vHAHmiO5Srgg4ULcOYFVd5uiI4uENEzY8tPO2enEMcHS9ABA",
+  "options": {
+    "maxTokenLifetime": 1000
+  },
+  "expect": {
+    "outcome": "accept"
+  }
+}

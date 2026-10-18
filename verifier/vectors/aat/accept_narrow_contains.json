@@ -1,0 +1,23 @@
+{
+  "name": "accept_narrow_contains",
+  "description": "contains: requirement added / removed. Narrowing is valid attenuation.",
+  "draft": "01",
+  "now": 1800000000,
+  "trust_anchors": [
+    {
+      "kty": "OKP",
+      "crv": "Ed25519",
+      "x": "TLWr9q15-_WrvMr8wmnYXNJlHtS4hbWGnyQa7fCluik"
+    }
+  ],
+  "chain": [
+    "eyJhbGciOiJFZERTQSIsInR5cCI6ImF0K2p3dCJ9.eyJhdXRob3JpemF0aW9uX2RldGFpbHMiOlt7InRvb2xzIjp7InQiOnsiYSI6eyJjb25zdHJhaW50X3R5cGUiOiJjb250YWlucyIsInJlcXVpcmVkIjpbMV19fX0sInR5cGUiOiJhdHRlbnVhdGluZ19hZ2VudF90b2tlbiJ9XSwiY25mIjp7Imp3ayI6eyJjcnYiOiJFZDI1NTE5Iiwia3R5IjoiT0tQIiwieCI6ImRDSzVpSFdZQm80eXhFU0tsSnJiS1EwUFRqVzU0QnNPNWZHaDVnRC1KblEifX0sImRlbF9kZXB0aCI6MCwiZGVsX21heF9kZXB0aCI6MywiZXhwIjoxODAwMDAwOTgwLCJpYXQiOjE3OTk5OTk5ODAsImlzcyI6Imh0dHBzOi8vYXV0aC5leGFtcGxlLmNvbSIsImp0aSI6IjAxOTU3YTNmLTRlMjMtN2IwMS1hOWQxLTAwNTA1NjljMmUwMSJ9.57SWa9NUbyDdyNhp_CBWG3sAaQZKzyQo_m8LbBNGod8EITMjBD_FRm21dt8yaxRGsGzl-UAR8T3buG42zWdnAQ",
+    "eyJhbGciOiJFZERTQSIsInR5cCI6ImF0K2p3dCJ9.eyJhdXRob3JpemF0aW9uX2RldGFpbHMiOlt7InRvb2xzIjp7InQiOnsiYSI6eyJjb25zdHJhaW50X3R5cGUiOiJjb250YWlucyIsInJlcXVpcmVkIjpbMSwyXX19fSwidHlwZSI6ImF0dGVudWF0aW5nX2FnZW50X3Rva2VuIn1dLCJjbmYiOnsiandrIjp7ImNydiI6IkVkMjU1MTkiLCJrdHkiOiJPS1AiLCJ4IjoiODRGaWJrSG5BbjZrTWJfakFKNlV2ZEphZEd2dXhHaVVqV3c4ZkYzSnBVcyJ9fSwiZGVsX2RlcHRoIjoxLCJkZWxfbWF4X2RlcHRoIjozLCJleHAiOjE4MDAwMDA5NzksImlhdCI6MTc5OTk5OTk5MCwiaXNzIjoidXJuOmlldGY6cGFyYW1zOm9hdXRoOmp3ay10aHVtYnByaW50OnNoYS0yNTY6VHJJMWc5aGVyNW16TnRkd1RoVXlxd3dHZlpWTEtkM01Nb1drUlktRm44YyIsImp0aSI6IjAxOTU3YTNmLTRlMjMtN2IwMS1hOWQxLTAwNTA1NjljMmUwMiIsInBhcl9oYXNoIjoiV1M3MERMVHNNQmhWLVVnV19HVzhmY3V4OVc4OEVVUnduejdoZ2Jqb0UwbyJ9.tD-8nxrMGAaPw86rDVHg7X_Jowk5jb9__yjxwvQk4mu9z33zoNZUKx2_j5aEXuyQMRkkS2cqFA9DYusIgoO8CA"
+  ],
+  "options": {
+    "maxTokenLifetime": 1000
+  },
+  "expect": {
+    "outcome": "accept"
+  }
+}

@@ -6,7 +6,8 @@
   "engines": { "node": ">=22" },
   "scripts": {
     "test": "node --test --import tsx \"test/**/*.test.ts\"",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "vectors:aat": "tsx src/testing/aat-vectors.ts"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",

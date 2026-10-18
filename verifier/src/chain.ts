@@ -150,10 +150,10 @@ export function walkChain<T>(tokens: readonly string[], profile: Profile<T>, opt
     if (!jws.ok) {
       // An unusable algorithm is a step 1 denial; structure problems are parse-time.
       const code = jws.code.startsWith("alg_") ? "signature_invalid" : jws.code;
-      return { ...jws, code, token: index };
+      return { ...jws, code, token: index, check: "jws_parse" };
     }
     const claims = profile.parse(jws.value);
-    if (!claims.ok) return { ...claims, token: index };
+    if (!claims.ok) return { ...claims, token: index, check: claims.check ?? "claims_parse" };
     chain.push({ index, jws: jws.value, claims: claims.value });
   }
 

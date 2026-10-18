@@ -1,0 +1,25 @@
+{
+  "name": "reject_i4_argument_key_dropped",
+  "description": "Child drops the limit constraint from a constrained tool (closed world: the key set must be preserved).",
+  "draft": "01",
+  "now": 1800000000,
+  "trust_anchors": [
+    {
+      "kty": "OKP",
+      "crv": "Ed25519",
+      "x": "TLWr9q15-_WrvMr8wmnYXNJlHtS4hbWGnyQa7fCluik"
+    }
+  ],
+  "chain": [
+    "eyJhbGciOiJFZERTQSIsInR5cCI6ImF0K2p3dCJ9.eyJhdXRob3JpemF0aW9uX2RldGFpbHMiOlt7InRvb2xzIjp7InBpbmciOnt9LCJyZWFkIjp7ImxpbWl0Ijp7ImNvbnN0cmFpbnRfdHlwZSI6InJhbmdlIiwibWF4IjoxMDB9LCJwYXRoIjp7ImNvbnN0cmFpbnRfdHlwZSI6Im9uZV9vZiIsInZhbHVlcyI6WyIvZGF0YS9hIiwiL2RhdGEvYiJdfX19LCJ0eXBlIjoiYXR0ZW51YXRpbmdfYWdlbnRfdG9rZW4ifV0sImNuZiI6eyJqd2siOnsiY3J2IjoiRWQyNTUxOSIsImt0eSI6Ik9LUCIsIngiOiJkQ0s1aUhXWUJvNHl4RVNLbEpyYktRMFBUalc1NEJzTzVmR2g1Z0QtSm5RIn19LCJkZWxfZGVwdGgiOjAsImRlbF9tYXhfZGVwdGgiOjMsImV4cCI6MTgwMDAwMDk4MCwiaWF0IjoxNzk5OTk5OTgwLCJpc3MiOiJodHRwczovL2F1dGguZXhhbXBsZS5jb20iLCJqdGkiOiIwMTk1N2EzZi00ZTIzLTdiMDEtYTlkMS0wMDUwNTY5YzJlMDEifQ.V4yuz2cZV44P3NP9RGI8iN24rZazVcqUt9YW4v3_lnx8a_7w4qh41Q1WEaJTgGzsA_2RdTnlCkMIjWn-VfODBw",
+    "eyJhbGciOiJFZERTQSIsInR5cCI6ImF0K2p3dCJ9.eyJhdXRob3JpemF0aW9uX2RldGFpbHMiOlt7InRvb2xzIjp7InJlYWQiOnsicGF0aCI6eyJjb25zdHJhaW50X3R5cGUiOiJleGFjdCIsInZhbHVlIjoiL2RhdGEvYSJ9fX0sInR5cGUiOiJhdHRlbnVhdGluZ19hZ2VudF90b2tlbiJ9XSwiY25mIjp7Imp3ayI6eyJjcnYiOiJFZDI1NTE5Iiwia3R5IjoiT0tQIiwieCI6Ijg0Rmlia0huQW42a01iX2pBSjZVdmRKYWRHdnV4R2lVald3OGZGM0pwVXMifX0sImRlbF9kZXB0aCI6MSwiZGVsX21heF9kZXB0aCI6MywiZXhwIjoxODAwMDAwOTc5LCJpYXQiOjE3OTk5OTk5OTAsImlzcyI6InVybjppZXRmOnBhcmFtczpvYXV0aDpqd2stdGh1bWJwcmludDpzaGEtMjU2OlRySTFnOWhlcjVtek50ZHdUaFV5cXd3R2ZaVkxLZDNNTW9Xa1JZLUZuOGMiLCJqdGkiOiIwMTk1N2EzZi00ZTIzLTdiMDEtYTlkMS0wMDUwNTY5YzJlMDIiLCJwYXJfaGFzaCI6IkxvQV9rRmpoVmN5eVF4YkRXenNfTy16akMxSkJKdmFVOUJFYnZSM3VGY0EifQ.aAChxDDu-nr__Pd-cq224sTkp3sldFt0DHUmAg_joOXVj60WTZUN31uSb9G3CH1wQ38FfN6M5E6yRLeDqkrnDQ"
+  ],
+  "options": {
+    "maxTokenLifetime": 1000
+  },
+  "expect": {
+    "outcome": "reject",
+    "code": "I4",
+    "check": "argument_keys_preserved"
+  }
+}

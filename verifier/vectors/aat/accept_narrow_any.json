@@ -1,0 +1,23 @@
+{
+  "name": "accept_narrow_any",
+  "description": "any: clause removed / a clause outside the parent's. Narrowing is valid attenuation.",
+  "draft": "01",
+  "now": 1800000000,
+  "trust_anchors": [
+    {
+      "kty": "OKP",
+      "crv": "Ed25519",
+      "x": "TLWr9q15-_WrvMr8wmnYXNJlHtS4hbWGnyQa7fCluik"
+    }
+  ],
+  "chain": [
+    "eyJhbGciOiJFZERTQSIsInR5cCI6ImF0K2p3dCJ9.eyJhdXRob3JpemF0aW9uX2RldGFpbHMiOlt7InRvb2xzIjp7InQiOnsiYSI6eyJjb25zdHJhaW50X3R5cGUiOiJhbnkiLCJjb25zdHJhaW50cyI6W3siY29uc3RyYWludF90eXBlIjoiZXhhY3QiLCJ2YWx1ZSI6ImEifSx7ImNvbnN0cmFpbnRfdHlwZSI6ImV4YWN0IiwidmFsdWUiOiJiIn0seyJjb25zdHJhaW50X3R5cGUiOiJleGFjdCIsInZhbHVlIjoiYyJ9XX19fSwidHlwZSI6ImF0dGVudWF0aW5nX2FnZW50X3Rva2VuIn1dLCJjbmYiOnsiandrIjp7ImNydiI6IkVkMjU1MTkiLCJrdHkiOiJPS1AiLCJ4IjoiZENLNWlIV1lCbzR5eEVTS2xKcmJLUTBQVGpXNTRCc081ZkdoNWdELUpuUSJ9fSwiZGVsX2RlcHRoIjowLCJkZWxfbWF4X2RlcHRoIjozLCJleHAiOjE4MDAwMDA5ODAsImlhdCI6MTc5OTk5OTk4MCwiaXNzIjoiaHR0cHM6Ly9hdXRoLmV4YW1wbGUuY29tIiwianRpIjoiMDE5NTdhM2YtNGUyMy03YjAxLWE5ZDEtMDA1MDU2OWMyZTAxIn0.U4005abx8fT_LwDqM0UAKLptDkBpFKsA4QH3Ya1QTThPP516hJ3yPyN6ogOBma7jcddhfRvyJlynw1KjldBqBg",
+    "eyJhbGciOiJFZERTQSIsInR5cCI6ImF0K2p3dCJ9.eyJhdXRob3JpemF0aW9uX2RldGFpbHMiOlt7InRvb2xzIjp7InQiOnsiYSI6eyJjb25zdHJhaW50X3R5cGUiOiJhbnkiLCJjb25zdHJhaW50cyI6W3siY29uc3RyYWludF90eXBlIjoiZXhhY3QiLCJ2YWx1ZSI6ImEifSx7ImNvbnN0cmFpbnRfdHlwZSI6ImV4YWN0IiwidmFsdWUiOiJiIn1dfX19LCJ0eXBlIjoiYXR0ZW51YXRpbmdfYWdlbnRfdG9rZW4ifV0sImNuZiI6eyJqd2siOnsiY3J2IjoiRWQyNTUxOSIsImt0eSI6Ik9LUCIsIngiOiI4NEZpYmtIbkFuNmtNYl9qQUo2VXZkSmFkR3Z1eEdpVWpXdzhmRjNKcFVzIn19LCJkZWxfZGVwdGgiOjEsImRlbF9tYXhfZGVwdGgiOjMsImV4cCI6MTgwMDAwMDk3OSwiaWF0IjoxNzk5OTk5OTkwLCJpc3MiOiJ1cm46aWV0ZjpwYXJhbXM6b2F1dGg6andrLXRodW1icHJpbnQ6c2hhLTI1NjpUckkxZzloZXI1bXpOdGR3VGhVeXF3d0dmWlZMS2QzTU1vV2tSWS1GbjhjIiwianRpIjoiMDE5NTdhM2YtNGUyMy03YjAxLWE5ZDEtMDA1MDU2OWMyZTAyIiwicGFyX2hhc2giOiI2eVYtLWhfRGNDV05xNWNOdlJVdjR6ejd6QTc3V2tUbGVoQkJiM1hFdzhFIn0.jVJ2KmMb9re_XmhbX4heVVUxbey7udV6b9x8Z-8NcvvvPpUySnoBQ10QBKmVKjRYH9JScC5ii5mb-GDJdDKMBw"
+  ],
+  "options": {
+    "maxTokenLifetime": 1000
+  },
+  "expect": {
+    "outcome": "accept"
+  }
+}
