@@ -2,6 +2,7 @@ import { verifyJws, parseJws, type ParsedJws, type TrustedKey } from "./jws.js";
 import { parentHash } from "./hash.js";
 import { fail, type Failure, type Outcome } from "./result.js";
 import { timingSafeEqual } from "node:crypto";
+import type { AatOptions } from "./profiles/aat01.js";
 
 /**
  * Generic chain walk. A profile supplies claim parsing and its own named
@@ -35,8 +36,12 @@ export interface Check {
 }
 
 export interface VerifyOptions {
-  /** Trusted keys by header `kid`. */
-  keys: Readonly<Record<string, TrustedKey>>;
+  /** Trusted keys by header `kid` (asor-02). */
+  keys?: Readonly<Record<string, TrustedKey>>;
+  /** Trust anchors, a set of root issuer keys without identifiers (AAT-01 §7 inputs). */
+  trustAnchors?: readonly TrustedKey[];
+  /** AAT-01 limits and policy; defaults are the draft's recommendations where it gives one. */
+  aat?: AatOptions;
   /** Local list of accepted algorithms (asor-02 §6 step 1). Default: EdDSA only. */
   acceptedAlgs?: readonly string[];
   /** Verification time, NumericDate. */
@@ -50,6 +55,8 @@ export interface VerifyOptions {
 export interface RequestContext {
   dpop?: { proof: string; method: string; url: string };
   action?: { scope: string; params?: Readonly<Record<string, unknown>> };
+  /** AAT-01 §7 inputs `tool`, `args`, `pop_jwt` (steps 6 and 7). */
+  aat?: { tool: string; args: Readonly<Record<string, unknown>>; pop: string };
   /** Running totals for cumulative constraints, supplied out of band. */
   totals?: Readonly<Record<string, number>>;
 }
@@ -69,6 +76,10 @@ export interface Profile<T> {
   rootChecks(root: Node<T>, ctx: ChainContext<T>): Check[];
   linkChecks(parent: Node<T>, child: Node<T>, ctx: ChainContext<T>): Check[];
   leafChecks(leaf: Node<T>, ctx: ChainContext<T>): Check[];
+  /** Size and shape limits applied to the raw tokens before any parsing (AAT-01 §7 step 2). */
+  preflight?(tokens: readonly string[], opts: VerifyOptions): Failure | undefined;
+  /** Replaces the shared signature and parent-commitment checks when the profile selects keys differently. */
+  sharedChecks?(chain: readonly Node<T>[], opts: VerifyOptions): Check[];
 }
 
 export interface WalkSuccess<T> {
@@ -78,7 +89,7 @@ export interface WalkSuccess<T> {
   stepsPerformed: readonly number[];
 }
 
-function sharedChecks<T>(profile: Profile<T>, chain: readonly Node<T>[], opts: VerifyOptions): Check[] {
+export function defaultSharedChecks<T>(profile: Profile<T>, chain: readonly Node<T>[], opts: VerifyOptions): Check[] {
   const accepted = opts.acceptedAlgs ?? ["EdDSA"];
   const out: Check[] = [];
   for (const node of chain) {
@@ -93,7 +104,7 @@ function sharedChecks<T>(profile: Profile<T>, chain: readonly Node<T>[], opts: V
           return { code: "signature_invalid", section, message: `alg ${node.jws.alg} is not on the accepted list` };
         }
         const kid = node.jws.header.kid;
-        const key = typeof kid === "string" ? opts.keys[kid] : undefined;
+        const key = typeof kid === "string" ? opts.keys?.[kid] : undefined;
         if (!key) return { code: "signature_invalid", section, message: "no trusted key for this token's kid" };
         if (key.alg !== node.jws.alg) {
           return { code: "signature_invalid", section, message: "alg differs from the one configured for the key" };
@@ -130,6 +141,8 @@ function sharedChecks<T>(profile: Profile<T>, chain: readonly Node<T>[], opts: V
  * order. Throws only on programmer error (an empty token list).
  */
 export function walkChain<T>(tokens: readonly string[], profile: Profile<T>, opts: VerifyOptions): WalkSuccess<T> | Failure {
+  const early = profile.preflight?.(tokens, opts);
+  if (early) return early;
   if (tokens.length === 0) throw new Error("walkChain: empty chain");
   const chain: Node<T>[] = [];
   for (const [index, compact] of tokens.entries()) {
@@ -148,7 +161,7 @@ export function walkChain<T>(tokens: readonly string[], profile: Profile<T>, opt
   const root = chain[0] as Node<T>;
   const leaf = chain[chain.length - 1] as Node<T>;
   const checks: Check[] = [
-    ...sharedChecks(profile, chain, opts),
+    ...(profile.sharedChecks?.(chain, opts) ?? defaultSharedChecks(profile, chain, opts)),
     ...chain.flatMap((n) => profile.tokenChecks(n, ctx)),
     ...profile.rootChecks(root, ctx),
     ...chain.slice(1).flatMap((c) => profile.linkChecks(chain[c.index - 1] as Node<T>, c, ctx)),
