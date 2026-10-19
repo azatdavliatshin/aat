@@ -1,9 +1,11 @@
-# ProVerif model of AAT-01 delegation chains
+# ProVerif model of AAT-01 and asor-02 delegation chains
 
 A symbolic (Dolev–Yao) model, in ProVerif's typed applied pi-calculus, of
 the chain verification of `draft-niyikiza-oauth-attenuating-agent-tokens-01`
-(AAT-01). The mechanism is the draft's; this is an independent analysis of
-it. Section numbers are those of -01.
+(AAT-01) and `draft-asor-wimse-agent-delegation-chain-02` (asor-02). The
+mechanisms are the drafts'; this is an independent analysis of them.
+Section numbers are those of -01 unless a section says otherwise; the
+asor-02 sections use that draft's numbering.
 
 ## Running
 
@@ -15,22 +17,36 @@ make -C model summary    # also write out/SUMMARY.md
 make -C model clean
 ```
 
-`make` fails if a query of a normal model is false or cannot be proved, or
-if an `.expectfalse.pv` model has no false query. For `.expectfalse.pv`
-models the derivation and the attack trace of each false query go to
-`out/<name>.trace.txt`. All four models take about 1.5 minutes on a laptop
-(`aat01.pv` about 42 s).
+`make` fails if a query of a normal model is false or cannot be proved, if
+an `.expectfalse.pv` model has no false query, or if an event of a
+`.reachable.pv` model (reachability query `query event(E)`) is not
+reached. For `.expectfalse.pv` and `.reachable.pv` models the derivation
+and the trace of each false query (for reachability: of each reached
+event) go to `out/<name>.trace.txt`. Model names are
+`<profile>[-variant][.expectfalse|.reachable].pv`; each runs with
+`common.pvl` and `<profile>.pvl`. The whole set takes about 25 minutes of
+CPU (about 9 minutes with `make -j6`); the slowest file is
+`asor02-m2.expectfalse.pv` (about 9 minutes).
 
 | File | Content |
 |---|---|
-| `common.pvl` | Types, signatures, hash, thumbprint, bounded naturals, capability sets, events, the §7 Verifier (parameterised by the I5 and I6 checks) |
-| `aat01.pvl` | AAT-01 roles: key generation, key compromise, Anchor, Holder |
+| `common.pvl` | Types, signatures, hash, thumbprint, bounded naturals, capability sets, events, honest key generation and key compromise (both profiles), the AAT-01 §7 Verifier (parameterised by the I5 and I6 checks) |
+| `aat01.pvl` | AAT-01 roles: Anchor, Holder |
 | `aat01.pv` | AAT-01 with every check; queries P1–P4 |
 | `aat01-no-i5.expectfalse.pv` | I5 (`par_hash`) check removed; P1 |
 | `aat01-no-i6.expectfalse.pv` | I6 (PoP signature) check removed; P4 |
 | `aat01-p4-inj.expectfalse.pv` | every check; P4 as an injective correspondence |
+| `aat01-m1.reachable.pv` | Madden M1: parent accepted after derivation (no compromise) |
+| `aat01-m2.pv` | Madden M2 (a), (b), (c) |
+| `asor02.pvl` | asor-02 token, roles (Anchor, Holder) and §6 Verifier with flag `dpop` |
+| `asor02.pv` | asor-02, DPoP on; P1a, P1b′, P2, P3, P4 |
+| `asor02-p1b.expectfalse.pv` | asor-02, DPoP on; P1b as for AAT-01 (A1) |
+| `asor02-nodpop.expectfalse.pv` | asor-02, step 6 not performed; P1a, P1b, P1b′, P2, P3, P4 |
+| `asor02-m1.reachable.pv` | Madden M1 for asor-02 (DPoP on, no compromise) |
+| `asor02-m2.expectfalse.pv` | Madden M2 for asor-02, DPoP on |
+| `asor02-nodpop-m2.expectfalse.pv` | Madden M2 for asor-02, DPoP off |
 
-## The model
+## The AAT-01 model
 
 - **Tokens** are terms `tok(jti, iss, cnf, del_depth, del_max_depth, exp,
   tools, par_hash)` carried as `sign(tok(...), k)`. Signatures are perfect:
@@ -146,25 +162,116 @@ holder can sign anything, but the verifier's link checks still bound it.
   leaf key and leaf `jti`, not the leaf token. The `aat01-p4-inj` trace
   shows the consequence: one PoP is accepted under two different chains.
 
+## The asor-02 model
+
+`asor02.pvl` encodes §3–§7 of asor-02 as the draft states them, on the
+same theory (`common.pvl`: keys, compromise, signatures, `h`, tool sets,
+events). Step numbers are those of asor-02 §6.
+
+- **Tokens** are `dt(jti, iss, cnf, del_depth, del_max_depth, exp, tools,
+  par_hash)` carried as `sign(dt(...), k)`. `del_max_depth` is `md(n)` or
+  absent (`nomd`): §3 requires it in DT_0 only. `par_hash` is `h` of the
+  parent payload (the JWS signing input, §3).
+- **Step 1 and A1.** DT_0 must verify under the anchor key. For DT_i,
+  i > 0, the draft names no key (A1). The Verifier takes a key from the
+  attacker (the JWS `kid`) and accepts DT_i if that key is one it is
+  configured with — here, any honest holder key — and the signature
+  verifies. It does not compare that key with DT_{i-1}.`cnf`: §6 does not
+  ask for it, and neither does the TypeScript verifier's reading
+  (`verifier/src/profiles/asor02.ts`).
+- **Steps 2–5.** `par_hash = h(parent)`; `del_depth = i`; `n <
+  DT_0.del_max_depth`; tool sets narrow (rule 1, tool level only); a
+  stated child `del_max_depth` is positive (§3) and at most the nearest
+  stated ancestor's (rule 5, A2 as the TypeScript verifier reads it);
+  `exp` non-increasing (rule 4). No clock.
+- **Step 6 (holder binding, §7)** under the flag `dpop`. On: a DPoP proof
+  `sign(popm(proof_jti, ath, tool, args), sk)` must verify under
+  DT_n.`cnf`, with `ath = h(DT_n as presented)` (RFC 9449 `ath`) and the
+  request's tool and arguments (`htm`/`htu` abstracted). Off: §6.1's
+  verifier that has not performed step 6; `Accept` carries the constant
+  `nodpop`. §6 makes step 6 a MUST for an Enforcement Point; §6.1 and
+  §7 describe verifiers that cannot perform it.
+- **Step 8** at tool level: the tool is in DT_n's tool set.
+- **Roles.** `AnchorAsor` mints DT_0 for an honest holder with
+  `del_max_depth` in 1..4 (so chains of at most 4 tokens, as for AAT-01).
+  `HolderAsor` takes any token naming its key in `cnf` and either signs a
+  child for another honest holder with its own key, or sends a DPoP proof
+  for a tool and arguments the attacker chooses. The draft does not say
+  who signs a child; the holder of the parent is the reading under which
+  P1b is meaningful, and it is the role AAT-01 gives the same party.
+- **Not modelled:** `sub` invariance and `client_id` (strings compared for
+  equality; no query depends on them), `aud`, `nbf`/`now`, status lists
+  (step 7), constraint types and cumulative constraints (step 8),
+  JCS and `alg` checks, more than one trust anchor (§6.4).
+
+### Queries (asor-02)
+
+P1a, P2, P3 and P4 are the AAT-01 queries over `dt(...)`. P3 is stated as
+asor-02 bounds depth: `leaf.del_depth < root.del_max_depth`, `leaf.exp <=
+root.exp`, and a `del_max_depth` the leaf states is at most the root's. P1b
+is stated twice:
+
+- **P1b** (as for AAT-01) `AcceptedLink(p, c) && HonestKey(cnf(p)) ==>
+  Derived(p, c) || Corrupt(cnf(p))`: the link was made by the holder of
+  the parent.
+- **P1b′** `AcceptedLinkBy(k, p, c) && HonestKey(k) ==> Derived(p, c) ||
+  Corrupt(k)`, where `k` is the key the verifier used for `c`: the link was
+  made, from exactly that parent, by the holder of *some* configured key
+  that is not compromised.
+
+| Draft (asor-02) | Model construct | Query |
+|---|---|---|
+| §3 claims; DT_0 under trusted root key (step 1) | `dt(...)`, `AnchorAsor`, `check_root_asor` | P1a |
+| Step 1 for DT_i, i > 0 (no key named; A1) | `get keys(=k_i, _)`, `checksign(s_i, k_i)` | P1b, P1b′ |
+| §5, step 2 `par_hash` | `cpar = h(parent payload)` | P1b′ |
+| Step 3 depth | `cd = pd + 1`; `n < m` per chain length | P3 |
+| §4.3 rule 1, step 4 | pointwise `<=` on `cs(...)` (tool sets only) | P2 |
+| §4.3 rule 5, step 4; §3 (A2) | `md(cm)`: `1 <= cm <= ` nearest stated bound | P3 |
+| §4.3 rule 4, step 5 | `ce <= pe` | P3 |
+| §7, step 6 | `checksign(pop, leaf.cnf)`, `ath = h(leaf)`, flag `dpop` | P4; `asor02-nodpop` |
+| Step 8 (scope) | `has_tool(x, leaf.tools)` | P2 |
+
 ## Results
 
-From `out/SUMMARY.md` (ProVerif 2.05):
+From `out/SUMMARY.md` (ProVerif 2.05). Seconds are per model file
+(`make -j6`, so files ran concurrently); per-query times are in the status
+notes, not here.
 
 | Model | Query | Result | Seconds (model) |
 |---|---|---|---|
-| `aat01` | P1a | true | 42 |
-| `aat01` | P1b | true | 42 |
-| `aat01` | P2 | true | 42 |
-| `aat01` | P3 | true | 42 |
-| `aat01` | P4 (non-injective) | true | 42 |
-| `aat01-no-i5.expectfalse` | P1a | true | 16 |
-| `aat01-no-i5.expectfalse` | P1b | **false** (trace) | 16 |
-| `aat01-no-i6.expectfalse` | P4 | **false** (trace) | 12 |
-| `aat01-p4-inj.expectfalse` | P4 injective | **false** (trace) | 24 |
-| `aat01-p4-inj.expectfalse` | P4 non-injective (printed by ProVerif alongside) | true | 24 |
+| `aat01` | P1a | true | 63 |
+| `aat01` | P1b | true | 63 |
+| `aat01` | P2 | true | 63 |
+| `aat01` | P3 | true | 63 |
+| `aat01` | P4 (non-injective) | true | 63 |
+| `aat01-no-i5.expectfalse` | P1a | true | 22 |
+| `aat01-no-i5.expectfalse` | P1b | **false** (trace) | 22 |
+| `aat01-no-i6.expectfalse` | P4 | **false** (trace) | 17 |
+| `aat01-p4-inj.expectfalse` | P4 injective | **false** (trace) | 34 |
+| `aat01-p4-inj.expectfalse` | P4 non-injective (printed by ProVerif alongside) | true | 34 |
+| `asor02` (DPoP on) | P1a | true | 245 |
+| `asor02` | P1b′ | true | 245 |
+| `asor02` | P2 | true | 245 |
+| `asor02` | P3 (depth, exp) | true | 245 |
+| `asor02` | P3 (rule 5) | true | 245 |
+| `asor02` | P4 (non-injective) | true | 245 |
+| `asor02-p1b.expectfalse` (DPoP on) | P1b | **false** (trace) | 57 |
+| `asor02-nodpop.expectfalse` | P1a | true | 161 |
+| `asor02-nodpop.expectfalse` | P1b | **false** (trace) | 161 |
+| `asor02-nodpop.expectfalse` | P1b′ | true | 161 |
+| `asor02-nodpop.expectfalse` | P2 | true | 161 |
+| `asor02-nodpop.expectfalse` | P3 (depth, exp) | true | 161 |
+| `asor02-nodpop.expectfalse` | P4 | **false** (trace) | 161 |
 
-The model is sensitive to the invariants it is supposed to depend on:
-removing I5 breaks P1, removing I6 breaks P4.
+The Madden files (`*-m1.reachable`, `*-m2*`) are in "Madden properties"
+below.
+
+The AAT-01 model is sensitive to the invariants it is supposed to depend
+on: removing I5 breaks P1, removing I6 breaks P4. For asor-02, P1b is
+false with and without DPoP, and P1b′ is true with and without it: the
+draft's step 1 guarantees that each link was made by the holder of *a*
+configured key, not by the holder of the parent (A1). DPoP decides only
+P4.
 
 ### Attack traces
 
@@ -193,10 +300,112 @@ and that `jti`. The verifier accepts the one PoP under both chains: §7
 alone does not prevent replay, and because the PoP commits only to the
 leaf `jti` (B23), the replay need not even reuse the chain.
 
+**asor-02 P1b, DPoP on (`asor02-p1b`) and off (`asor02-nodpop`).** The
+anchor mints DT_0 for an honest holder H0; the attacker compromises an
+unrelated honest holder X. With X's key it signs a DT_1 that commits to
+DT_0 (`par_hash`), names an honest holder H1 and narrows correctly; the
+verifier, given X's `kid`, accepts the link although H0 never derived it.
+H1, an honest holder, then derives DT_2 for H2 from that DT_1, and the
+attacker again signs DT_3 below DT_2 with X's key. Both traces are the
+same chain: the link checks are passed by any configured key, and H0 and
+H2 are never compromised.
+
+**asor-02 P4, DPoP off (`asor02-nodpop`).** Honest holders build a
+three-token chain for tool `ta` (H0 → H1 → H2). The attacker reads it off
+the network and presents it with a tool and arguments of its choice and no
+proof; a verifier that does not perform step 6 accepts the request as
+H2's.
+
+The `asor02-p1b` trace also shows a rule-5 effect: DT_1 states
+`del_max_depth` 1, yet DT_2 and DT_3 below it are accepted, because step 3
+compares the chain length with DT_0's `del_max_depth` only; rule 5 only
+forbids a child from raising the value.
+
+## Madden properties
+
+The two points of Neil Madden's critique of chained attenuating tokens, as
+queries on both profiles. Setting for M2: every token an honest party
+creates is sent on the public channel (the Anchor and Holder `out` each
+signed token, as tokens travel with requests), so the attacker "learns a
+mid-chain token T" for every T. It does not get T's holder key; it may
+compromise any *other* holder (`Compromise`).
+
+**M1, parent validity after derivation** (`*-m1.reachable.pv`). Event
+`AcceptParentAfterDerive(P, C)` is emitted after `Accept` with leaf P if
+the holder of P had already derived C from P (private table `derived`,
+written by the holder, read by the verifier). Reachability query; the
+models have no `Compromise` process, so a reached event is a run of honest
+roles only.
+
+| Profile | M1 reached? | Seconds (model) |
+|---|---|---|
+| AAT-01 | yes (trace) | 1 |
+| asor-02 (DPoP on) | yes (trace) | 208 |
+
+This is a property of both designs, not a defect: neither re-keys the
+parent or revokes it on derivation (AAT-01 §8.9 defers revocation;
+asor-02 §9.1 states it and points to short TTLs and status lists).
+
+**M2, intermediate links without PoP** (`*-m2*.pv`). For a T whose holder
+is honest and not compromised:
+(a) *derive* — an accepted link below T that T's holder did not make
+(P1b);
+(b) *leaf accepted* — an accepted request (after step 6 / §7 step 7)
+whose chain passes through such a link (`AcceptVia`);
+(c) *PoP-bound* — an accepted request with T, or any leaf, that its
+holder did not make (P4).
+
+| Profile | (a) attacker derives a child of T | (b) leaf under T accepted | (c) T usable without its key |
+|---|---|---|---|
+| AAT-01 | no (P1b true) | no (true) | no (P4 true) |
+| asor-02, DPoP on | **yes** (false, trace) | **yes** (false, trace) | no (P4 true) |
+| asor-02, DPoP off | **yes** (false, trace) | **yes** (false, trace) | **yes** (false, trace) |
+
+Seconds (model): `aat01-m2` 60, `asor02-m2.expectfalse` 539,
+`asor02-nodpop-m2.expectfalse` 175.
+
+Trace summaries (`out/*.trace.txt`):
+
+- **M1, AAT-01.** The anchor mints a root for H1; H1 derives a child for
+  H2; H2 derives a child of its token for H3 and then signs a PoP for `ta`
+  with its own token. The verifier accepts the two-token chain ending in
+  H2's token, after H2 derived from it.
+- **M1, asor-02.** The same run on a longer chain: H0 → H1 → H2 by honest
+  derivation, H2 derives for H3, then presents its own DT_2 with a DPoP
+  proof. The verifier accepts DT_2 as the leaf.
+- **M2 (a), asor-02, both variants.** As the P1b trace above: with the key
+  of an unrelated compromised holder X the attacker signs a child of a
+  token held by an honest H, and the verifier accepts the link.
+- **M2 (b), asor-02, DPoP on.** As (a), but the forged leaf below the
+  honest chain names in `cnf` a key the attacker made itself, and the
+  attacker presents it with a DPoP proof under that key. Step 6 checks
+  exactly that key, so the request is accepted under a chain whose upper
+  links are honest. The prediction that DPoP stops (b) does not hold.
+- **M2 (b), asor-02, DPoP off.** The same forged chain, presented without
+  a proof.
+- **M2 (c), asor-02, DPoP off.** As the P4 trace above: an honest chain
+  presented by the attacker without a proof.
+
+## AAT-01 vs asor-02
+
+The queries show the following and nothing more. Both profiles bound the
+leaf by the root on tools, depth and expiry (P2, P3), and both accept a
+parent after its holder has derived from it (M1). In AAT-01 every accepted
+link below an honest, uncompromised holder's token was made by that holder
+(P1b), and no request is accepted under a link it did not make (M2 b). In
+asor-02 an accepted link was made by the holder of *some* configured,
+uncompromised key (P1b′) but not necessarily by the holder of the parent
+(P1b false), so one compromised configured key lets the attacker extend
+any chain, and with its own key in the leaf `cnf` have the request
+accepted even with DPoP (M2 b). DPoP in asor-02 gives exactly P4: a leaf
+naming an honest key is used only by that key's holder. It binds the
+presenter of the leaf, not the deriver of each link.
+
 ## What the model does not say
 
-Nothing about constraint semantics (I4 below the tool level), time
-(freshness, skew, lifetimes), revocation, the trust anchor's key, size and
-algorithm checks, or chains longer than 4 tokens. Results are for the
+Nothing about constraint semantics (I4 below the tool level; asor-02
+constraint types), time (freshness, skew, lifetimes), revocation (asor-02
+step 7), the trust anchor's key, size and algorithm checks, asor-02's
+`sub`, `client_id` and `aud`, or chains longer than 4 tokens. Results are for the
 bounded model above; a `true` is a ProVerif proof for unbounded sessions
 of that model, not for the draft text.

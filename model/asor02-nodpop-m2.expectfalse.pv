@@ -1,0 +1,18 @@
+(* asor02-nodpop-m2.expectfalse.pv — Madden M2 for asor-02 without holder
+   binding (step 6 not performed). Expected: (a), (b), (c) all false.
+   Setting and queries (a), (b), (c) as in aat01-m2.pv. *)
+
+query pj: bitstring, pi: ident, pk_: pkey, pd: nat, pm: maxd, pe: nat, pt: caps, pp: bitstring, ch: bitstring;
+  event(AcceptedLink(dt(pj, pi, pk_, pd, pm, pe, pt, pp), ch)) && event(HonestKey(pk_))
+  ==> event(Derived(dt(pj, pi, pk_, pd, pm, pe, pt, pp), ch)) || event(Corrupt(pk_)).
+
+query pj: bitstring, pi: ident, pk_: pkey, pd: nat, pm: maxd, pe: nat, pt: caps, pp: bitstring, ch: bitstring;
+  event(AcceptVia(dt(pj, pi, pk_, pd, pm, pe, pt, pp), ch)) && event(HonestKey(pk_))
+  ==> event(Derived(dt(pj, pi, pk_, pd, pm, pe, pt, pp), ch)) || event(Corrupt(pk_)).
+
+query r: bitstring, lj: bitstring, li: ident, lk: pkey, ld: nat, lm: maxd, le: nat, lt: caps, lp: bitstring,
+      x: tool, a: bitstring, pj: bitstring;
+  event(Accept(r, dt(lj, li, lk, ld, lm, le, lt, lp), x, a, pj)) && event(HonestKey(lk))
+  ==> event(Invoked(lk, lj, x, a, pj)) || event(Corrupt(lk)).
+
+process ASOR02(false)

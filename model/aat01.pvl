@@ -36,6 +36,7 @@ let Holder =
       new cj: bitstring;
       let child = tok(cj, thumb(k), k2, cd, cm, ce, cs(c1, c2, c3), h(p)) in
       event Derived(p, child);
+      insert derived(p, child);
       out(c, sign(child, sk))
     ) | (
       (* Invoke (§5.2): PoP over (pop jti, aat_id = leaf jti, tool, args) *)

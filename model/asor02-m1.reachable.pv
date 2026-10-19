@@ -1,0 +1,9 @@
+(* asor02-m1.reachable.pv — Madden M1 for asor-02 (holder binding on):
+   after H derives C from P, a request H makes with P itself is accepted.
+   Expected reachable: §9.1 says so ("Attenuation ... does not, by itself,
+   invalidate the parent").  No Compromise process: honest roles only. *)
+
+query p: bitstring, ch: bitstring;
+  event(AcceptParentAfterDerive(p, ch)).
+
+process KeyGen | AnchorAsor | HolderAsor | VerifierAsor(true)

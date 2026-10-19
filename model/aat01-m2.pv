@@ -1,0 +1,26 @@
+(* aat01-m2.pv — Madden M2, intermediate links without their own PoP.
+   The attacker knows every token: Anchor and Holder output each signed
+   token on the public channel, so "learns a mid-chain token T" holds for
+   every T.  It may also hold any other holder's key (Compromise).  For a
+   T whose holder is honest and not compromised:
+   (a) derive: no accepted link below T that T's holder did not make (P1b);
+   (b) leaf accepted: no accepted request whose chain passes through such
+       a link;
+   (c) PoP-bound: no accepted request with T (or any leaf) by anyone but
+       its holder (P4).
+   Expected: all three true (I1, I5, I6). *)
+
+query pj: bitstring, pi: ident, pk_: pkey, pd: nat, pm: nat, pe: nat, pt: caps, pp: bitstring, ch: bitstring;
+  event(AcceptedLink(tok(pj, pi, pk_, pd, pm, pe, pt, pp), ch)) && event(HonestKey(pk_))
+  ==> event(Derived(tok(pj, pi, pk_, pd, pm, pe, pt, pp), ch)) || event(Corrupt(pk_)).
+
+query pj: bitstring, pi: ident, pk_: pkey, pd: nat, pm: nat, pe: nat, pt: caps, pp: bitstring, ch: bitstring;
+  event(AcceptVia(tok(pj, pi, pk_, pd, pm, pe, pt, pp), ch)) && event(HonestKey(pk_))
+  ==> event(Derived(tok(pj, pi, pk_, pd, pm, pe, pt, pp), ch)) || event(Corrupt(pk_)).
+
+query r: bitstring, lj: bitstring, li: ident, lk: pkey, ld: nat, lm: nat, le: nat, lt: caps, lp: bitstring,
+      x: tool, a: bitstring, pj: bitstring;
+  event(Accept(r, tok(lj, li, lk, ld, lm, le, lt, lp), x, a, pj)) && event(HonestKey(lk))
+  ==> event(Invoked(lk, lj, x, a, pj)) || event(Corrupt(lk)).
+
+process AAT01(true, true)

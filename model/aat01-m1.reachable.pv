@@ -1,0 +1,11 @@
+(* aat01-m1.reachable.pv — Madden M1, parent validity after derivation.
+   Reachability: an honest holder H derives a child C from its token P for
+   another holder H', and afterwards a request H makes with P itself is
+   accepted.  Expected reachable: AAT-01 has no re-keying and nothing
+   revokes P (§8.9 defers revocation).  No Compromise process: the trace
+   is a run of honest roles only, not an attack. *)
+
+query p: bitstring, ch: bitstring;
+  event(AcceptParentAfterDerive(p, ch)).
+
+process KeyGen | Anchor | Holder | Verifier(true, true)

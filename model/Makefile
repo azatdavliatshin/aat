@@ -1,11 +1,14 @@
 # ProVerif models.  `make` runs every .pv file and writes out/<name>.txt;
 # `make summary` collects the RESULT lines into out/SUMMARY.md.
 #
-# A model <profile>[-variant][.expectfalse].pv is run with the libraries
-# common.pvl and <profile>.pvl.  The run fails if any query of a normal
-# model is false or cannot be proved, and if no query of an
-# .expectfalse.pv model is false.  For .expectfalse.pv models the
-# derivations of the false queries go to out/<name>.trace.txt.
+# A model <profile>[-variant][.expectfalse|.reachable].pv is run with the
+# libraries common.pvl and <profile>.pvl.  The run fails if any query of a
+# normal model is false or cannot be proved, if no query of an
+# .expectfalse.pv model is false, and if any query of a .reachable.pv
+# model (reachability: `query event(E)`) is not reached, i.e. is not
+# reported as "not event(E) is false".  For .expectfalse.pv and
+# .reachable.pv models the derivations of the false queries go to
+# out/<name>.trace.txt.
 
 PROVERIF ?= proverif
 SHELL := /bin/bash
@@ -23,6 +26,10 @@ all: $(OUTS)
 	    *.expectfalse) \
 	      if ! grep -q '^RESULT .* is false\.$$' $$f; then \
 	        echo "FAIL $$n: expected a false query, none found"; status=1; fi ;; \
+	    *.reachable) \
+	      if grep -Eq '^RESULT .* (is true|cannot be proved)\.$$' $$f \
+	         || grep '^RESULT' $$f | grep -vq '^RESULT not '; then \
+	        echo "FAIL $$n: an event is not reachable"; status=1; fi ;; \
 	    *) \
 	      if grep -Eq '^RESULT .* (is false|cannot be proved)\.$$' $$f; then \
 	        echo "FAIL $$n: a query is false or cannot be proved"; status=1; fi ;; \
@@ -38,7 +45,7 @@ out/%.txt: %.pv common.pvl $$(firstword $$(subst -, ,$$(basename $$*))).pvl | ou
 	end=$$(date +%s); \
 	mv $@.tmp $@; \
 	echo $$((end - start)) > out/$*.seconds; \
-	case $* in *.expectfalse) \
+	case $* in *.expectfalse|*.reachable) \
 	  awk '/^Starting query/ { buf = "" } { buf = buf $$0 "\n" } \
 	       /^RESULT .* is false\.$$/ { printf "%s\n", buf }' $@ > out/$*.trace.txt ;; \
 	esac

@@ -71,6 +71,7 @@ let HolderAsor =
       new cj: bitstring;
       let child = dt(cj, thumb(k), k2, pd + 1, cmx, ce, cs(c1, c2, c3), h(p)) in
       event Derived(p, child);
+      insert derived(p, child);
       out(c, sign(child, sk))
     ) | (
       in(c, (x: tool, a: bitstring));
@@ -121,7 +122,8 @@ let VerifierAsor(dpop: bool) =
      let r = check_root_asor(s0) in
      event AcceptedRoot(r);
      let pj = leaf_asor(dpop, s0, r, x, a, pop) in
-     event Accept(r, r, x, a, pj))
+     event Accept(r, r, x, a, pj);
+     AfterAccept(r))
   |
   (! in(c, (s0: bitstring, k1: pkey, s1: bitstring, x: tool, a: bitstring, pop: bitstring));
      let r = check_root_asor(s0) in
@@ -133,7 +135,9 @@ let VerifierAsor(dpop: bool) =
      event AcceptedLink(r, t1);
      event AcceptedLinkBy(k1, r, t1);
      let pj = leaf_asor(dpop, s1, t1, x, a, pop) in
-     event Accept(r, t1, x, a, pj))
+     event Accept(r, t1, x, a, pj);
+     event AcceptVia(r, t1);
+     AfterAccept(t1))
   |
   (! in(c, (s0: bitstring, k1: pkey, s1: bitstring, k2: pkey, s2: bitstring, x: tool, a: bitstring, pop: bitstring));
      let r = check_root_asor(s0) in
@@ -149,7 +153,10 @@ let VerifierAsor(dpop: bool) =
      event AcceptedLinkBy(k1, r, t1);
      event AcceptedLinkBy(k2, t1, t2);
      let pj = leaf_asor(dpop, s2, t2, x, a, pop) in
-     event Accept(r, t2, x, a, pj))
+     event Accept(r, t2, x, a, pj);
+     event AcceptVia(r, t1);
+     event AcceptVia(t1, t2);
+     AfterAccept(t2))
   |
   (! in(c, (s0: bitstring, k1: pkey, s1: bitstring, k2: pkey, s2: bitstring, k3: pkey, s3: bitstring, x: tool, a: bitstring, pop: bitstring));
      let r = check_root_asor(s0) in
@@ -170,7 +177,11 @@ let VerifierAsor(dpop: bool) =
      event AcceptedLinkBy(k2, t1, t2);
      event AcceptedLinkBy(k3, t2, t3);
      let pj = leaf_asor(dpop, s3, t3, x, a, pop) in
-     event Accept(r, t3, x, a, pj)).
+     event Accept(r, t3, x, a, pj);
+     event AcceptVia(r, t1);
+     event AcceptVia(t1, t2);
+     event AcceptVia(t2, t3);
+     AfterAccept(t3)).
 
 let ASOR02(dpop: bool) =
   KeyGen | Compromise | AnchorAsor | HolderAsor | VerifierAsor(dpop).

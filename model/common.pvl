@@ -80,6 +80,18 @@ event AcceptedLink(bitstring, bitstring).    (* parent, child payloads of an acc
 event Accept(bitstring, bitstring, tool, bitstring, bitstring).
                                          (* root payload, leaf payload, tool, args, pop jti *)
 
+(* Madden properties (model/README.md, "Madden properties").  AcceptVia:
+   parent, child payloads of a link of a chain whose request was accepted
+   (after the leaf and PoP steps, unlike AcceptedLink).
+   AcceptParentAfterDerive: a token was accepted as the leaf after its
+   holder had derived the given child from it. *)
+event AcceptVia(bitstring, bitstring).
+event AcceptParentAfterDerive(bitstring, bitstring).
+
+(* Children honest holders have derived: (parent payload, child payload).
+   Read only by the verifier, after Accept, for M1. *)
+table derived(bitstring, bitstring).
+
 free c: channel.
 
 (* ---- Honest holder keys (both profiles) ---- *)
@@ -142,12 +154,17 @@ letfun has_tool(x: tool, t: caps) =
   let cs(n1, n2, n3) = t in
   (x = ta && n1 >= 1) || (x = tb && n2 >= 1) || (x = tc && n3 >= 1).
 
-let Leaf(i6: bool, r: bitstring, l: bitstring, x: tool, a: bitstring, pop: bitstring) =
+letfun leaf_pop(i6: bool, l: bitstring, x: tool, a: bitstring, pop: bitstring) =
   let tok(lj, li, lk, ld, lm, le, lt, lp) = l in
   if has_tool(x, lt) then                                        (* 6b *)
   let popm(pj, aid, ptool, pargs) = pop_payload(i6, pop, lk) in  (* I6, 7b *)
-  if aid = lj && ptool = x && pargs = a then                     (* 7c, 7e, 7f *)
-  event Accept(r, l, x, a, pj).
+  if aid = lj && ptool = x && pargs = a then pj.                 (* 7c, 7e, 7f *)
+
+(* After Accept (M1): was the accepted leaf a parent its holder had already
+   derived from? *)
+let AfterAccept(l: bitstring) =
+  get derived(=l, ch) in
+  event AcceptParentAfterDerive(l, ch).
 
 (* One process per chain length 1..4; step 5 (len = leaf.del_depth + 1)
    holds by construction of the depth checks.  AcceptedRoot/AcceptedLink
@@ -157,14 +174,19 @@ let Verifier(i5: bool, i6: bool) =
   (! in(c, (s0: bitstring, x: tool, a: bitstring, pop: bitstring));
      let r = check_root(s0) in
      event AcceptedRoot(r);
-     Leaf(i6, r, r, x, a, pop))
+     let pj = leaf_pop(i6, r, x, a, pop) in
+     event Accept(r, r, x, a, pj);
+     AfterAccept(r))
   |
   (! in(c, (s0: bitstring, s1: bitstring, x: tool, a: bitstring, pop: bitstring));
      let r = check_root(s0) in
      let t1 = check_link(i5, r, s1) in
      event AcceptedRoot(r);
      event AcceptedLink(r, t1);
-     Leaf(i6, r, t1, x, a, pop))
+     let pj = leaf_pop(i6, t1, x, a, pop) in
+     event Accept(r, t1, x, a, pj);
+     event AcceptVia(r, t1);
+     AfterAccept(t1))
   |
   (! in(c, (s0: bitstring, s1: bitstring, s2: bitstring, x: tool, a: bitstring, pop: bitstring));
      let r = check_root(s0) in
@@ -173,7 +195,11 @@ let Verifier(i5: bool, i6: bool) =
      event AcceptedRoot(r);
      event AcceptedLink(r, t1);
      event AcceptedLink(t1, t2);
-     Leaf(i6, r, t2, x, a, pop))
+     let pj = leaf_pop(i6, t2, x, a, pop) in
+     event Accept(r, t2, x, a, pj);
+     event AcceptVia(r, t1);
+     event AcceptVia(t1, t2);
+     AfterAccept(t2))
   |
   (! in(c, (s0: bitstring, s1: bitstring, s2: bitstring, s3: bitstring, x: tool, a: bitstring, pop: bitstring));
      let r = check_root(s0) in
@@ -184,4 +210,9 @@ let Verifier(i5: bool, i6: bool) =
      event AcceptedLink(r, t1);
      event AcceptedLink(t1, t2);
      event AcceptedLink(t2, t3);
-     Leaf(i6, r, t3, x, a, pop)).
+     let pj = leaf_pop(i6, t3, x, a, pop) in
+     event Accept(r, t3, x, a, pj);
+     event AcceptVia(r, t1);
+     event AcceptVia(t1, t2);
+     event AcceptVia(t2, t3);
+     AfterAccept(t3)).
