@@ -1,21 +1,22 @@
 DRAFT := draft-davliatshin-oauth-attenuation-chains-analysis
 SRC   := $(DRAFT).md
+OUT   := $(DRAFT)-00
 
 .PHONY: all idnits clean
 
-all: $(DRAFT).xml $(DRAFT).txt $(DRAFT).html
+all: $(OUT).xml $(OUT).txt $(OUT).html
 
-$(DRAFT).xml: $(SRC)
+$(OUT).xml: $(SRC)
 	kramdown-rfc $(SRC) > $@.tmp && mv $@.tmp $@
 
-$(DRAFT).txt: $(DRAFT).xml
+$(OUT).txt: $(OUT).xml
 	xml2rfc --text $<
 
-$(DRAFT).html: $(DRAFT).xml
+$(OUT).html: $(OUT).xml
 	xml2rfc --html $<
 
-idnits: $(DRAFT).txt
+idnits: $(OUT).txt
 	idnits $<
 
 clean:
-	rm -f $(DRAFT).xml $(DRAFT).txt $(DRAFT).html $(DRAFT).xml.tmp
+	rm -f $(OUT).xml $(OUT).txt $(OUT).html $(OUT).xml.tmp
