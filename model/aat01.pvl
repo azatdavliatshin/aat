@@ -1,0 +1,68 @@
+(* aat01.pvl — AAT-01 roles (draft-niyikiza-oauth-attenuating-agent-tokens-01).
+
+   Shared by aat01.pv and its sensitivity variants, which differ only in the
+   Verifier flags and the queries.  Requires common.pvl. *)
+
+(* Honest holder keys.  The private table is the set of keys honest roles
+   accept as "another holder"; the attacker gets a key only via Compromise. *)
+table keys(pkey, skey).
+
+let KeyGen =
+  ! new sk: skey;
+    event HonestKey(pk(sk));
+    insert keys(pk(sk), sk);
+    out(c, pk(sk)).
+
+(* Key compromise (§8.4): any honest holder key may be handed to the
+   attacker, at any time.  The attacker then derives and invokes as that
+   holder, including for keys of its own; P1 and P4 speak only about
+   keys that are honest (HonestKey) and not corrupted. *)
+let Compromise =
+  ! get keys(k, sk) in
+    event Corrupt(k);
+    out(c, sk).
+
+(* Anchor (§3.7.3): mints a root for an honest holder.  The attacker
+   chooses the grant (del_max_depth, exp, tools); one anchor, one issuer
+   URI (B11: with several anchors, root.iss is not tied to the key that
+   verified the root — not modelled). *)
+let Anchor =
+  ! get keys(k, sk) in
+    in(c, (m: nat, e: nat, t1: nat, t2: nat, t3: nat));
+    if m <= 3 && e <= 3 && t1 <= 1 && t2 <= 1 && t3 <= 1 then
+    let t = cs(t1, t2, t3) in
+    new j: bitstring;
+    let r = tok(j, anchor_uri, k, 0, m, e, t, nopar) in
+    event Minted(r);
+    event Granted(j, t);
+    out(c, sign(r, skA)).
+
+(* Holder (§6, §5.2): an honest holder takes any signed token from the
+   network that names its key in cnf (it does not verify the chain above
+   it), and either derives a child for another honest holder or produces
+   a PoP for a tool invocation. *)
+let Holder =
+  ! get keys(k, sk) in
+    in(c, s: bitstring);
+    let p = getmess(s) in
+    let tok(pj, pi, =k, pd, pm, pe, cs(p1, p2, p3), ppar) = p in
+    (
+      (* Derive (§6, steps 1-9) *)
+      in(c, (k2: pkey, cm: nat, ce: nat, c1: nat, c2: nat, c3: nat));
+      get keys(=k2, sk2) in
+      let cd = pd + 1 in
+      if cd <= cm && cm <= pm && ce <= pe && c1 <= p1 && c2 <= p2 && c3 <= p3 then
+      new cj: bitstring;
+      let child = tok(cj, thumb(k), k2, cd, cm, ce, cs(c1, c2, c3), h(p)) in
+      event Derived(p, child);
+      out(c, sign(child, sk))
+    ) | (
+      (* Invoke (§5.2): PoP over (pop jti, aat_id = leaf jti, tool, args) *)
+      in(c, (x: tool, a: bitstring));
+      new popj: bitstring;
+      event Invoked(k, pj, x, a, popj);
+      out(c, sign(popm(popj, pj, x, a), sk))
+    ).
+
+let AAT01(i5: bool, i6: bool) =
+  KeyGen | Compromise | Anchor | Holder | Verifier(i5, i6).

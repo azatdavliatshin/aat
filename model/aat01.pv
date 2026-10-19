@@ -1,0 +1,39 @@
+(* aat01.pv — AAT-01 with every §7 check: I1, I2, I3 (exp), I4 (tool
+   sets), I5, I6.  Queries P1-P4.  Run: make -C model (see README.md). *)
+
+(* P1a: every root of a chain that passes §7 steps 1-5 was minted by the
+   anchor. *)
+query r: bitstring;
+  event(AcceptedRoot(r)) ==> event(Minted(r)).
+
+(* P1b: every link of such a chain whose parent names an honest holder key
+   was derived by that holder, unless the key was compromised. *)
+query pj: bitstring, pi: ident, pk_: pkey, pd: nat, pm: nat, pe: nat, pt: caps, pp: bitstring, ch: bitstring;
+  event(AcceptedLink(tok(pj, pi, pk_, pd, pm, pe, pt, pp), ch)) && event(HonestKey(pk_))
+  ==> event(Derived(tok(pj, pi, pk_, pd, pm, pe, pt, pp), ch)) || event(Corrupt(pk_)).
+
+(* P2: an accepted tool is in the tool set the anchor granted at the root. *)
+query rj: bitstring, ri: ident, rk: pkey, rd: nat, rm: nat, re: nat, r1: nat, r2: nat, r3: nat, rp: bitstring,
+      l: bitstring, x: tool, a: bitstring, pj: bitstring;
+  event(Accept(tok(rj, ri, rk, rd, rm, re, cs(r1, r2, r3), rp), l, x, a, pj))
+  ==> event(Granted(rj, cs(r1, r2, r3)))
+      && ((x = ta && r1 >= 1) || (x = tb && r2 >= 1) || (x = tc && r3 >= 1)).
+
+(* P3: the leaf's depth is within the root's del_max_depth and the leaf
+   expires no later than the root. *)
+query rj: bitstring, ri: ident, rk: pkey, rd: nat, rm: nat, re: nat, rt: caps, rp: bitstring,
+      lj: bitstring, li: ident, lk: pkey, ld: nat, lm: nat, le: nat, lt: caps, lp: bitstring,
+      x: tool, a: bitstring, pj: bitstring;
+  event(Accept(tok(rj, ri, rk, rd, rm, re, rt, rp), tok(lj, li, lk, ld, lm, le, lt, lp), x, a, pj))
+  ==> ld <= rm && lm <= rm && le <= re.
+
+(* P4: if the leaf names an honest holder key, that holder signed this
+   invocation (leaf jti, tool, args), unless the key was compromised.  Non-injective: the §7
+   algorithm is stateless, so a captured PoP can be replayed (§5.3, §8.5);
+   see aat01-p4-inj.expectfalse.pv. *)
+query r: bitstring, lj: bitstring, li: ident, lk: pkey, ld: nat, lm: nat, le: nat, lt: caps, lp: bitstring,
+      x: tool, a: bitstring, pj: bitstring;
+  event(Accept(r, tok(lj, li, lk, ld, lm, le, lt, lp), x, a, pj)) && event(HonestKey(lk))
+  ==> event(Invoked(lk, lj, x, a, pj)) || event(Corrupt(lk)).
+
+process AAT01(true, true)

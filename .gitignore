@@ -4,3 +4,7 @@ dist/
 *.local.md
 .claude/
 model/*.out
+model/out/*.txt
+!model/out/*.trace.txt
+model/out/*.seconds
+model/out/*.tmp
