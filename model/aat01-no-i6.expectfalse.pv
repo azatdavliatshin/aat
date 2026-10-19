@@ -1,0 +1,10 @@
+(* aat01-no-i6.expectfalse.pv — sensitivity check: AAT-01 with the PoP
+   signature check (I6, §7 step 7b) removed.  P4 is expected to be false:
+   anyone who has seen the chain can invoke as the leaf holder. *)
+
+query r: bitstring, lj: bitstring, li: ident, lk: pkey, ld: nat, lm: nat, le: nat, lt: caps, lp: bitstring,
+      x: tool, a: bitstring, pj: bitstring;
+  event(Accept(r, tok(lj, li, lk, ld, lm, le, lt, lp), x, a, pj)) && event(HonestKey(lk))
+  ==> event(Invoked(lk, lj, x, a, pj)) || event(Corrupt(lk)).
+
+process AAT01(true, false)

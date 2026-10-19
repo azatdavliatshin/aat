@@ -1,0 +1,13 @@
+(* aat01-no-i5.expectfalse.pv — sensitivity check: AAT-01 with the par_hash
+   check (I5, §7 step 4q) removed.  P1b is expected to be false: a child
+   signed by a holder that holds two compatible parents can be presented
+   under the other parent (grant-context substitution, §4.6). *)
+
+query r: bitstring;
+  event(AcceptedRoot(r)) ==> event(Minted(r)).
+
+query pj: bitstring, pi: ident, pk_: pkey, pd: nat, pm: nat, pe: nat, pt: caps, pp: bitstring, ch: bitstring;
+  event(AcceptedLink(tok(pj, pi, pk_, pd, pm, pe, pt, pp), ch)) && event(HonestKey(pk_))
+  ==> event(Derived(tok(pj, pi, pk_, pd, pm, pe, pt, pp), ch)) || event(Corrupt(pk_)).
+
+process AAT01(false, true)

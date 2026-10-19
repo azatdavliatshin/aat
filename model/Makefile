@@ -49,7 +49,7 @@ summary: all
 	   echo "| Model | Seconds | Result |"; echo "|---|---|---|"; \
 	   for n in $(NAMES); do \
 	     s=$$(cat out/$$n.seconds); \
-	     grep '^RESULT' out/$$n.txt | sed -e 's/^RESULT //' -e 's/|/\\|/g' \
+	     grep '^RESULT' out/$$n.txt | sed -e 's/^RESULT //' -e 's/^(\(.*\))$$/\1/' -e 's/|/\\|/g' \
 	       | while read -r line; do echo "| $$n | $$s | \`$${line% is *}\` is $${line##* is } |"; done; \
 	   done; } > out/SUMMARY.md
 	@cat out/SUMMARY.md

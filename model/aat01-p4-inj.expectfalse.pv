@@ -1,0 +1,12 @@
+(* aat01-p4-inj.expectfalse.pv — P4 as an injective correspondence, with
+   every §7 check on.  Expected to be false: §7 keeps no state, so one PoP
+   is accepted as many times as it is presented.  §5.3 and §8.5 leave
+   replay prevention to stateful jti tracking outside the algorithm; the
+   model has no such cache (see README.md). *)
+
+query r: bitstring, lj: bitstring, li: ident, lk: pkey, ld: nat, lm: nat, le: nat, lt: caps, lp: bitstring,
+      x: tool, a: bitstring, pj: bitstring;
+  inj-event(Accept(r, tok(lj, li, lk, ld, lm, le, lt, lp), x, a, pj)) && event(HonestKey(lk))
+  ==> inj-event(Invoked(lk, lj, x, a, pj)) || event(Corrupt(lk)).
+
+process AAT01(true, true)

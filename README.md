@@ -19,7 +19,7 @@ Status: work in progress toward IETF 127.
 ```
 npm --prefix verifier install
 npm --prefix verifier test
-make -C model        # placeholder: no models yet
+make -C model summary   # ProVerif models, see model/README.md
 ```
 
 ## Licence
