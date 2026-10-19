@@ -1,0 +1,12 @@
+(* asor02-p1b.expectfalse.pv — P1b exactly as for AAT-01, against asor-02
+   with holder binding (step 6, DPoP) on.  Expected to be false (A1): step 1
+   accepts a child under any configured key, so the holder of any one
+   compromised key derives children of every parent, including parents
+   held by honest, uncompromised holders.  DPoP does not change this: it
+   checks the presenter of DT_n, not the signer of each link. *)
+
+query pj: bitstring, pi: ident, pk_: pkey, pd: nat, pm: maxd, pe: nat, pt: caps, pp: bitstring, ch: bitstring;
+  event(AcceptedLink(dt(pj, pi, pk_, pd, pm, pe, pt, pp), ch)) && event(HonestKey(pk_))
+  ==> event(Derived(dt(pj, pi, pk_, pd, pm, pe, pt, pp), ch)) || event(Corrupt(pk_)).
+
+process ASOR02(true)

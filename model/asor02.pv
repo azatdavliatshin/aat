@@ -1,0 +1,48 @@
+(* asor02.pv — asor-02 with every §6 step the model has, holder binding
+   (step 6, DPoP) on.  Queries P1a, P1b' (signer-relative), P2, P3, P4.
+   P1b as stated for AAT-01 is false here; see asor02-p1b.expectfalse.pv. *)
+
+(* P1a: every DT_0 of a chain that passes steps 1-5 was minted by the
+   anchor. *)
+query r: bitstring;
+  event(AcceptedRoot(r)) ==> event(Minted(r)).
+
+(* P1b': every link of such a chain that verified under an honest key k
+   was derived by the holder of k from exactly that parent, unless k was
+   compromised.  This is what step 1 gives: a link is made by *some*
+   configured key's holder, not by the parent's holder. *)
+query k: pkey, p: bitstring, ch: bitstring;
+  event(AcceptedLinkBy(k, p, ch)) && event(HonestKey(k))
+  ==> event(Derived(p, ch)) || event(Corrupt(k)).
+
+(* P2: an accepted tool is in the tool set the anchor granted at DT_0. *)
+query rj: bitstring, ri: ident, rk: pkey, rd: nat, rm: maxd, re: nat, r1: nat, r2: nat, r3: nat, rp: bitstring,
+      l: bitstring, x: tool, a: bitstring, pj: bitstring;
+  event(Accept(dt(rj, ri, rk, rd, rm, re, cs(r1, r2, r3), rp), l, x, a, pj))
+  ==> event(Granted(rj, cs(r1, r2, r3)))
+      && ((x = ta && r1 >= 1) || (x = tb && r2 >= 1) || (x = tc && r3 >= 1)).
+
+(* P3: the leaf's position is below DT_0's del_max_depth and the leaf
+   expires no later than DT_0. *)
+query rj: bitstring, ri: ident, rk: pkey, rd: nat, rm: nat, re: nat, rt: caps, rp: bitstring,
+      lj: bitstring, li: ident, lk: pkey, ld: nat, lm: maxd, le: nat, lt: caps, lp: bitstring,
+      x: tool, a: bitstring, pj: bitstring;
+  event(Accept(dt(rj, ri, rk, rd, md(rm), re, rt, rp), dt(lj, li, lk, ld, lm, le, lt, lp), x, a, pj))
+  ==> ld < rm && le <= re.
+
+(* P3, rule 5: a del_max_depth the leaf states is at most DT_0's. *)
+query rj: bitstring, ri: ident, rk: pkey, rd: nat, rm: nat, re: nat, rt: caps, rp: bitstring,
+      lj: bitstring, li: ident, lk: pkey, ld: nat, lm: nat, le: nat, lt: caps, lp: bitstring,
+      x: tool, a: bitstring, pj: bitstring;
+  event(Accept(dt(rj, ri, rk, rd, md(rm), re, rt, rp), dt(lj, li, lk, ld, md(lm), le, lt, lp), x, a, pj))
+  ==> lm <= rm.
+
+(* P4: if DT_n names an honest key, its holder made this request (leaf jti,
+   tool, args, proof jti), unless the key was compromised.  Non-injective,
+   as for AAT-01. *)
+query r: bitstring, lj: bitstring, li: ident, lk: pkey, ld: nat, lm: maxd, le: nat, lt: caps, lp: bitstring,
+      x: tool, a: bitstring, pj: bitstring;
+  event(Accept(r, dt(lj, li, lk, ld, lm, le, lt, lp), x, a, pj)) && event(HonestKey(lk))
+  ==> event(Invoked(lk, lj, x, a, pj)) || event(Corrupt(lk)).
+
+process ASOR02(true)

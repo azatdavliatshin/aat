@@ -82,6 +82,28 @@ event Accept(bitstring, bitstring, tool, bitstring, bitstring).
 
 free c: channel.
 
+(* ---- Honest holder keys (both profiles) ---- *)
+
+(* Honest holder keys.  The private table is the set of keys honest roles
+   accept as "another holder"; the attacker gets a key only via Compromise. *)
+table keys(pkey, skey).
+
+let KeyGen =
+  ! new sk: skey;
+    event HonestKey(pk(sk));
+    insert keys(pk(sk), sk);
+    out(c, pk(sk)).
+
+(* Key compromise (AAT-01 §8.4): any honest holder key may be handed to
+   the attacker, at any time.  The attacker then derives and invokes as that
+   holder, including for keys of its own; P1 and P4 speak only about
+   keys that are honest (HonestKey) and not corrupted. *)
+let Compromise =
+  ! get keys(k, sk) in
+    event Corrupt(k);
+    out(c, sk).
+
+
 (* ---- Verifier, §7 of AAT-01, parameterised by the profile's link checks ----
    i5: check par_hash (I5);  i6: verify the PoP signature (I6).
    I1 (child signed under parent.cnf, iss = thumb(parent.cnf)), I2, I3 (exp

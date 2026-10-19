@@ -1,0 +1,34 @@
+(* asor02-nodpop.expectfalse.pv — asor-02 without holder binding (step 6
+   not performed; §6.1).  The same queries as asor02.pv plus P1b as for
+   AAT-01.  Expected: P1b false (A1, as with DPoP) and P4 false (anyone
+   who has seen DT_n presents it). *)
+
+query r: bitstring;
+  event(AcceptedRoot(r)) ==> event(Minted(r)).
+
+query pj: bitstring, pi: ident, pk_: pkey, pd: nat, pm: maxd, pe: nat, pt: caps, pp: bitstring, ch: bitstring;
+  event(AcceptedLink(dt(pj, pi, pk_, pd, pm, pe, pt, pp), ch)) && event(HonestKey(pk_))
+  ==> event(Derived(dt(pj, pi, pk_, pd, pm, pe, pt, pp), ch)) || event(Corrupt(pk_)).
+
+query k: pkey, p: bitstring, ch: bitstring;
+  event(AcceptedLinkBy(k, p, ch)) && event(HonestKey(k))
+  ==> event(Derived(p, ch)) || event(Corrupt(k)).
+
+query rj: bitstring, ri: ident, rk: pkey, rd: nat, rm: maxd, re: nat, r1: nat, r2: nat, r3: nat, rp: bitstring,
+      l: bitstring, x: tool, a: bitstring, pj: bitstring;
+  event(Accept(dt(rj, ri, rk, rd, rm, re, cs(r1, r2, r3), rp), l, x, a, pj))
+  ==> event(Granted(rj, cs(r1, r2, r3)))
+      && ((x = ta && r1 >= 1) || (x = tb && r2 >= 1) || (x = tc && r3 >= 1)).
+
+query rj: bitstring, ri: ident, rk: pkey, rd: nat, rm: nat, re: nat, rt: caps, rp: bitstring,
+      lj: bitstring, li: ident, lk: pkey, ld: nat, lm: maxd, le: nat, lt: caps, lp: bitstring,
+      x: tool, a: bitstring, pj: bitstring;
+  event(Accept(dt(rj, ri, rk, rd, md(rm), re, rt, rp), dt(lj, li, lk, ld, lm, le, lt, lp), x, a, pj))
+  ==> ld < rm && le <= re.
+
+query r: bitstring, lj: bitstring, li: ident, lk: pkey, ld: nat, lm: maxd, le: nat, lt: caps, lp: bitstring,
+      x: tool, a: bitstring, pj: bitstring;
+  event(Accept(r, dt(lj, li, lk, ld, lm, le, lt, lp), x, a, pj)) && event(HonestKey(lk))
+  ==> event(Invoked(lk, lj, x, a, pj)) || event(Corrupt(lk)).
+
+process ASOR02(false)

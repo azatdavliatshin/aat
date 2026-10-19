@@ -3,25 +3,6 @@
    Shared by aat01.pv and its sensitivity variants, which differ only in the
    Verifier flags and the queries.  Requires common.pvl. *)
 
-(* Honest holder keys.  The private table is the set of keys honest roles
-   accept as "another holder"; the attacker gets a key only via Compromise. *)
-table keys(pkey, skey).
-
-let KeyGen =
-  ! new sk: skey;
-    event HonestKey(pk(sk));
-    insert keys(pk(sk), sk);
-    out(c, pk(sk)).
-
-(* Key compromise (§8.4): any honest holder key may be handed to the
-   attacker, at any time.  The attacker then derives and invokes as that
-   holder, including for keys of its own; P1 and P4 speak only about
-   keys that are honest (HonestKey) and not corrupted. *)
-let Compromise =
-  ! get keys(k, sk) in
-    event Corrupt(k);
-    out(c, sk).
-
 (* Anchor (§3.7.3): mints a root for an honest holder.  The attacker
    chooses the grant (del_max_depth, exp, tools); one anchor, one issuer
    URI (B11: with several anchors, root.iss is not tied to the key that

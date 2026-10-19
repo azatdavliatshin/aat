@@ -1,0 +1,705 @@
+Starting query event(AcceptedLink(dt(pj_15,pi_7,pk__6,pd_7,pm_1,pe_7,pt,pp),ch)) && event(HonestKey(pk__6)) ==> event(Derived(dt(pj_15,pi_7,pk__6,pd_7,pm_1,pe_7,pt,pp),ch)) || event(Corrupt(pk__6))
+200 rules inserted. Base: 75 rules (46 with conclusion selected). Queue: 79 rules.
+goal reachable: b_2 ≥ cm_7 && b2_1 ≥ b_2 && 4 ≥ b2_1 && p3_7 ≥ c3_7 && p3_8 ≥ p3_7 && p3_9 ≥ p3_8 && 1 ≥ p3_9 && p1_7 ≥ c1_7 && p1_8 ≥ p1_7 && p1_9 ≥ p1_8 && 1 ≥ p1_9 && p2_7 ≥ c2_7 && p2_8 ≥ p2_7 && p2_9 ≥ p2_8 && 1 ≥ p2_9 && pe_7 ≥ ce_7 && pe_8 ≥ pe_7 && pe_9 ≥ pe_8 && 3 ≥ pe_9 && cm_7 ≥ 1 && attacker(cj_7) && attacker(ci_6) && attacker(ck_6) && attacker(cm_7) && attacker(ce_7) && attacker(c1_7) && attacker(c2_7) && attacker(c3_7) && b-event(Derived(dt(pj_15,pi_7,pk(sk_4),1,md(b2_1),pe_8,cs(p1_8,p2_8,p3_8),h(dt(j_8,anchor_uri,pk(sk_5),0,md(4),pe_9,cs(p1_9,p2_9,p3_9),nopar))),dt(cj_8,thumb(pk(sk_4)),pk(sk_6),2,md(b_2),pe_7,cs(p1_7,p2_7,p3_7),h(dt(pj_15,pi_7,pk(sk_4),1,md(b2_1),pe_8,cs(p1_8,p2_8,p3_8),h(dt(j_8,anchor_uri,pk(sk_5),0,md(4),pe_9,cs(p1_9,p2_9,p3_9),nopar))))))) && attacker(k_10) && attacker(b_2) && attacker(pe_7) && attacker(p1_7) && attacker(p2_7) && attacker(p3_7) && attacker(pj_15) && attacker(pi_7) && attacker(b2_1) && attacker(pe_8) && attacker(p1_8) && attacker(p2_8) && attacker(p3_8) && attacker(pe_9) && attacker(p1_9) && attacker(p2_9) && attacker(p3_9) && b-event(Corrupt(pk(sk_7))) -> event(AcceptedLink(dt(cj_8,thumb(pk(sk_4)),pk(sk_6),2,md(b_2),pe_7,cs(p1_7,p2_7,p3_7),h(dt(pj_15,pi_7,pk(sk_4),1,md(b2_1),pe_8,cs(p1_8,p2_8,p3_8),h(dt(j_8,anchor_uri,pk(sk_5),0,md(4),pe_9,cs(p1_9,p2_9,p3_9),nopar))))),dt(cj_7,ci_6,ck_6,3,md(cm_7),ce_7,cs(c1_7,c2_7,c3_7),h(dt(cj_8,thumb(pk(sk_4)),pk(sk_6),2,md(b_2),pe_7,cs(p1_7,p2_7,p3_7),h(dt(pj_15,pi_7,pk(sk_4),1,md(b2_1),pe_8,cs(p1_8,p2_8,p3_8),h(dt(j_8,anchor_uri,pk(sk_5),0,md(4),pe_9,cs(p1_9,p2_9,p3_9),nopar))))))))) && event(HonestKey(pk(sk_6)))
+Abbreviations:
+sk_6 = sk[!1 = @sid]
+sk_4 = sk[!1 = @sid_1]
+sk_5 = sk[!1 = @sid_2]
+j_8 = j[t3 = p3_9,t2 = p2_9,t1 = p1_9,e = pe_9,m = 4,sk_2 = sk_5,k_1 = pk(sk_5),!1 = @sid_3]
+cj_8 = cj[sk2 = sk_6,c3 = p3_7,c2 = p2_7,c1 = p1_7,ce = pe_7,cmx = md(b_2),k2 = pk(sk_6),s = sign(dt(pj_15,pi_7,pk(sk_4),1,md(b2_1),pe_8,cs(p1_8,p2_8,p3_8),h(dt(j_8,anchor_uri,pk(sk_5),0,md(4),pe_9,cs(p1_9,p2_9,p3_9),nopar))),k_10),sk_3 = sk_4,k_2 = pk(sk_4),!1 = @sid_4]
+sk_7 = sk[!1 = @sid_5]
+
+Derivation:
+Abbreviations:
+sk_4 = sk[!1 = @sid]
+sk_5 = sk[!1 = @sid_1]
+sk_6 = sk[!1 = @sid_2]
+j_8 = j[t3 = p3_7,t2 = p2_7,t1 = p1_7,e = pe_7,m = 4,sk_2 = sk_6,k_1 = pk(sk_6),!1 = @sid_3]
+cj_7 = cj[sk2 = sk_4,c3 = p3_8,c2 = p2_8,c1 = p1_8,ce = pe_8,cmx = md(b_2),k2 = pk(sk_4),s = sign(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))),k_10),sk_3 = sk_5,k_2 = pk(sk_5),!1 = @sid_4]
+sk_7 = sk[!1 = @sid_5]
+
+1. Event HonestKey(pk(sk_4)) may be executed at {4}.
+event(HonestKey(pk(sk_4))).
+
+2. The attacker has some term pop_4.
+attacker(pop_4).
+
+3. The attacker has some term a_5.
+attacker(a_5).
+
+4. The attacker has some term x_5.
+attacker(x_5).
+
+5. The entry keys(pk(sk_7),sk_7) may be inserted in a table at insert {5}.
+table(keys(pk(sk_7),sk_7)).
+
+6. The entry keys(pk(sk_7),sk_7) that may be in a table by 5 may be read at get {10}.
+The event Corrupt(pk(sk_7)) may be executed at {8}.
+So the message sk_7 may be sent to the attacker at output {9}.
+attacker(sk_7).
+
+7. Using the function nopar the attacker may obtain nopar.
+attacker(nopar).
+
+8. We assume as hypothesis that
+attacker(p3_7).
+
+9. We assume as hypothesis that
+attacker(p2_7).
+
+10. We assume as hypothesis that
+attacker(p1_7).
+
+11. By 10, the attacker may know p1_7.
+By 9, the attacker may know p2_7.
+By 8, the attacker may know p3_7.
+Using the function cs the attacker may obtain cs(p1_7,p2_7,p3_7).
+attacker(cs(p1_7,p2_7,p3_7)).
+
+12. We assume as hypothesis that
+attacker(pe_7).
+
+13. Using the function 0 the attacker may obtain 0.
+attacker(0).
+
+14. By 13, the attacker may know 0.
+Using the function + the attacker may obtain 1.
+attacker(1).
+
+15. By 14, the attacker may know 1.
+Using the function + the attacker may obtain 2.
+attacker(2).
+
+16. By 15, the attacker may know 2.
+Using the function + the attacker may obtain 3.
+attacker(3).
+
+17. By 16, the attacker may know 3.
+Using the function + the attacker may obtain 4.
+attacker(4).
+
+18. By 17, the attacker may know 4.
+Using the function md the attacker may obtain md(4).
+attacker(md(4)).
+
+19. The message pk(sk_6) may be sent to the attacker at output {6}.
+attacker(pk(sk_6)).
+
+20. Using the function anchor_uri the attacker may obtain anchor_uri.
+attacker(anchor_uri).
+
+21. The entry keys(pk(sk_6),sk_6) may be inserted in a table at insert {5}.
+table(keys(pk(sk_6),sk_6)).
+
+22. By 17, the attacker may know 4.
+By 12, the attacker may know pe_7.
+By 10, the attacker may know p1_7.
+By 9, the attacker may know p2_7.
+By 8, the attacker may know p3_7.
+Using the function 5-tuple the attacker may obtain (4,pe_7,p1_7,p2_7,p3_7).
+attacker((4,pe_7,p1_7,p2_7,p3_7)).
+
+23. The entry keys(pk(sk_6),sk_6) that may be in a table by 21 may be read at get {20}.
+The message (4,pe_7,p1_7,p2_7,p3_7) that the attacker may have by 22 may be received at input {12}.
+We have 1 ≥ p3_7 && 1 ≥ p1_7 && 4 ≥ 4 && 3 ≥ pe_7 && 1 ≥ p2_7 && 4 ≥ 1.
+So the message sign(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar),skA[]) may be sent to the attacker at output {19}.
+attacker(sign(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar),skA[])).
+
+24. By 23, the attacker may know sign(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar),skA[]).
+Using the function getmess the attacker may obtain dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar).
+attacker(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar)).
+
+25. By 24, the attacker may know dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar).
+Using the function 1-proj-dt the attacker may obtain j_8.
+attacker(j_8).
+
+26. By 25, the attacker may know j_8.
+By 20, the attacker may know anchor_uri.
+By 19, the attacker may know pk(sk_6).
+By 13, the attacker may know 0.
+By 18, the attacker may know md(4).
+By 12, the attacker may know pe_7.
+By 11, the attacker may know cs(p1_7,p2_7,p3_7).
+By 7, the attacker may know nopar.
+Using the function dt the attacker may obtain dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar).
+attacker(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar)).
+
+27. By 26, the attacker may know dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar).
+Using the function h the attacker may obtain h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar)).
+attacker(h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))).
+
+28. We assume as hypothesis that
+attacker(p3_9).
+
+29. We assume as hypothesis that
+attacker(p2_9).
+
+30. We assume as hypothesis that
+attacker(p1_9).
+
+31. By 30, the attacker may know p1_9.
+By 29, the attacker may know p2_9.
+By 28, the attacker may know p3_9.
+Using the function cs the attacker may obtain cs(p1_9,p2_9,p3_9).
+attacker(cs(p1_9,p2_9,p3_9)).
+
+32. We assume as hypothesis that
+attacker(pe_9).
+
+33. We assume as hypothesis that
+attacker(b2_1).
+
+34. By 33, the attacker may know b2_1.
+Using the function md the attacker may obtain md(b2_1).
+attacker(md(b2_1)).
+
+35. The message pk(sk_5) may be sent to the attacker at output {6}.
+attacker(pk(sk_5)).
+
+36. We assume as hypothesis that
+attacker(pi_7).
+
+37. We assume as hypothesis that
+attacker(pj_15).
+
+38. By 37, the attacker may know pj_15.
+By 36, the attacker may know pi_7.
+By 35, the attacker may know pk(sk_5).
+By 14, the attacker may know 1.
+By 34, the attacker may know md(b2_1).
+By 32, the attacker may know pe_9.
+By 31, the attacker may know cs(p1_9,p2_9,p3_9).
+By 27, the attacker may know h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar)).
+Using the function dt the attacker may obtain dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))).
+attacker(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar)))).
+
+39. By 38, the attacker may know dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))).
+Using the function h the attacker may obtain h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar)))).
+attacker(h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))))).
+
+40. We assume as hypothesis that
+attacker(p3_8).
+
+41. We assume as hypothesis that
+attacker(p2_8).
+
+42. We assume as hypothesis that
+attacker(p1_8).
+
+43. By 42, the attacker may know p1_8.
+By 41, the attacker may know p2_8.
+By 40, the attacker may know p3_8.
+Using the function cs the attacker may obtain cs(p1_8,p2_8,p3_8).
+attacker(cs(p1_8,p2_8,p3_8)).
+
+44. We assume as hypothesis that
+attacker(pe_8).
+
+45. We assume as hypothesis that
+attacker(b_2).
+
+46. By 45, the attacker may know b_2.
+Using the function md the attacker may obtain md(b_2).
+attacker(md(b_2)).
+
+47. The message pk(sk_4) may be sent to the attacker at output {6}.
+attacker(pk(sk_4)).
+
+48. By 35, the attacker may know pk(sk_5).
+Using the function thumb the attacker may obtain thumb(pk(sk_5)).
+attacker(thumb(pk(sk_5))).
+
+49. The entry keys(pk(sk_5),sk_5) may be inserted in a table at insert {5}.
+table(keys(pk(sk_5),sk_5)).
+
+50. We assume as hypothesis that
+attacker(k_10).
+
+51. By 38, the attacker may know dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))).
+By 50, the attacker may know k_10.
+Using the function sign the attacker may obtain sign(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))),k_10).
+attacker(sign(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))),k_10)).
+
+52. By 47, the attacker may know pk(sk_4).
+By 46, the attacker may know md(b_2).
+By 44, the attacker may know pe_8.
+By 42, the attacker may know p1_8.
+By 41, the attacker may know p2_8.
+By 40, the attacker may know p3_8.
+Using the function 6-tuple the attacker may obtain (pk(sk_4),md(b_2),pe_8,p1_8,p2_8,p3_8).
+attacker((pk(sk_4),md(b_2),pe_8,p1_8,p2_8,p3_8)).
+
+53. The entry keys(pk(sk_4),sk_4) may be inserted in a table at insert {5}.
+table(keys(pk(sk_4),sk_4)).
+
+54. The entry keys(pk(sk_5),sk_5) that may be in a table by 49 may be read at get {43}.
+The message sign(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))),k_10) that the attacker may have by 51 may be received at input {22}.
+The message (pk(sk_4),md(b_2),pe_8,p1_8,p2_8,p3_8) that the attacker may have by 52 may be received at input {25}.
+The entry keys(pk(sk_4),sk_4) that may be in a table by 53 may be read at get {38}.
+The event Derived(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))),dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar)))))) may be executed at {36}.
+We have b2_1 ≥ b_2 && p3_9 ≥ p3_8 && p1_9 ≥ p1_8 && pe_9 ≥ pe_8 && p2_9 ≥ p2_8 && b_2 ≥ 1.
+So the message sign(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))))),sk_5) may be sent to the attacker at output {37}.
+attacker(sign(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))))),sk_5)).
+
+55. By 54, the attacker may know sign(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))))),sk_5).
+Using the function getmess the attacker may obtain dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))))).
+attacker(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar)))))).
+
+56. By 55, the attacker may know dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))))).
+Using the function 1-proj-dt the attacker may obtain cj_7.
+attacker(cj_7).
+
+57. By 56, the attacker may know cj_7.
+By 48, the attacker may know thumb(pk(sk_5)).
+By 47, the attacker may know pk(sk_4).
+By 15, the attacker may know 2.
+By 46, the attacker may know md(b_2).
+By 44, the attacker may know pe_8.
+By 43, the attacker may know cs(p1_8,p2_8,p3_8).
+By 39, the attacker may know h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar)))).
+Using the function dt the attacker may obtain dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))))).
+attacker(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar)))))).
+
+58. By 57, the attacker may know dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))))).
+Using the function h the attacker may obtain h(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar)))))).
+attacker(h(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))))))).
+
+59. We assume as hypothesis that
+attacker(c3_7).
+
+60. We assume as hypothesis that
+attacker(c2_7).
+
+61. We assume as hypothesis that
+attacker(c1_7).
+
+62. By 61, the attacker may know c1_7.
+By 60, the attacker may know c2_7.
+By 59, the attacker may know c3_7.
+Using the function cs the attacker may obtain cs(c1_7,c2_7,c3_7).
+attacker(cs(c1_7,c2_7,c3_7)).
+
+63. We assume as hypothesis that
+attacker(ce_7).
+
+64. We assume as hypothesis that
+attacker(cm_7).
+
+65. By 64, the attacker may know cm_7.
+Using the function md the attacker may obtain md(cm_7).
+attacker(md(cm_7)).
+
+66. We assume as hypothesis that
+attacker(ck_6).
+
+67. We assume as hypothesis that
+attacker(ci_6).
+
+68. We assume as hypothesis that
+attacker(cj_8).
+
+69. By 68, the attacker may know cj_8.
+By 67, the attacker may know ci_6.
+By 66, the attacker may know ck_6.
+By 16, the attacker may know 3.
+By 65, the attacker may know md(cm_7).
+By 63, the attacker may know ce_7.
+By 62, the attacker may know cs(c1_7,c2_7,c3_7).
+By 58, the attacker may know h(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar)))))).
+Using the function dt the attacker may obtain dt(cj_8,ci_6,ck_6,3,md(cm_7),ce_7,cs(c1_7,c2_7,c3_7),h(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))))))).
+attacker(dt(cj_8,ci_6,ck_6,3,md(cm_7),ce_7,cs(c1_7,c2_7,c3_7),h(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar)))))))).
+
+70. By 69, the attacker may know dt(cj_8,ci_6,ck_6,3,md(cm_7),ce_7,cs(c1_7,c2_7,c3_7),h(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))))))).
+By 6, the attacker may know sk_7.
+Using the function sign the attacker may obtain sign(dt(cj_8,ci_6,ck_6,3,md(cm_7),ce_7,cs(c1_7,c2_7,c3_7),h(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))))))),sk_7).
+attacker(sign(dt(cj_8,ci_6,ck_6,3,md(cm_7),ce_7,cs(c1_7,c2_7,c3_7),h(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))))))),sk_7)).
+
+71. The message pk(sk_7) may be sent to the attacker at output {6}.
+attacker(pk(sk_7)).
+
+72. By 38, the attacker may know dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))).
+By 6, the attacker may know sk_7.
+Using the function sign the attacker may obtain sign(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))),sk_7).
+attacker(sign(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))),sk_7)).
+
+73. By 23, the attacker may know sign(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar),skA[]).
+By 71, the attacker may know pk(sk_7).
+By 72, the attacker may know sign(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))),sk_7).
+By 35, the attacker may know pk(sk_5).
+By 54, the attacker may know sign(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))))),sk_5).
+By 71, the attacker may know pk(sk_7).
+By 70, the attacker may know sign(dt(cj_8,ci_6,ck_6,3,md(cm_7),ce_7,cs(c1_7,c2_7,c3_7),h(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))))))),sk_7).
+By 4, the attacker may know x_5.
+By 3, the attacker may know a_5.
+By 2, the attacker may know pop_4.
+Using the function 10-tuple the attacker may obtain (sign(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar),skA[]),pk(sk_7),sign(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))),sk_7),pk(sk_5),sign(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))))),sk_5),pk(sk_7),sign(dt(cj_8,ci_6,ck_6,3,md(cm_7),ce_7,cs(c1_7,c2_7,c3_7),h(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))))))),sk_7),x_5,a_5,pop_4).
+attacker((sign(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar),skA[]),pk(sk_7),sign(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))),sk_7),pk(sk_5),sign(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))))),sk_5),pk(sk_7),sign(dt(cj_8,ci_6,ck_6,3,md(cm_7),ce_7,cs(c1_7,c2_7,c3_7),h(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))))))),sk_7),x_5,a_5,pop_4)).
+
+74. The message (sign(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar),skA[]),pk(sk_7),sign(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))),sk_7),pk(sk_5),sign(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))))),sk_5),pk(sk_7),sign(dt(cj_8,ci_6,ck_6,3,md(cm_7),ce_7,cs(c1_7,c2_7,c3_7),h(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))))))),sk_7),x_5,a_5,pop_4) that the attacker may have by 73 may be received at input {282}.
+The entry keys(pk(sk_7),sk_7) that may be in a table by 5 may be read at get {444}.
+The entry keys(pk(sk_5),sk_5) that may be in a table by 49 may be read at get {443}.
+The entry keys(pk(sk_7),sk_7) that may be in a table by 5 may be read at get {442}.
+We have pe_8 ≥ ce_7 && pe_9 ≥ pe_8 && pe_7 ≥ pe_9 && p2_8 ≥ c2_7 && p2_9 ≥ p2_8 && p2_7 ≥ p2_9 && p1_7 ≥ p1_9 && p1_8 ≥ c1_7 && p1_9 ≥ p1_8 && p3_7 ≥ p3_9 && p3_8 ≥ c3_7 && p3_9 ≥ p3_8 && 4 ≥ b2_1 && b_2 ≥ cm_7 && b2_1 ≥ b_2 && cm_7 ≥ 1 && 4 ≥ 4.
+So event AcceptedLink(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))))),dt(cj_8,ci_6,ck_6,3,md(cm_7),ce_7,cs(c1_7,c2_7,c3_7),h(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar)))))))) may be executed at {413}.
+event(AcceptedLink(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))))),dt(cj_8,ci_6,ck_6,3,md(cm_7),ce_7,cs(c1_7,c2_7,c3_7),h(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))))))))).
+
+75. By 74, event(AcceptedLink(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))))),dt(cj_8,ci_6,ck_6,3,md(cm_7),ce_7,cs(c1_7,c2_7,c3_7),h(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))))))))).
+By 1, event(HonestKey(pk(sk_4))).
+The goals are reached, combined in the following fact:
+event(AcceptedLink(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))))),dt(cj_8,ci_6,ck_6,3,md(cm_7),ce_7,cs(c1_7,c2_7,c3_7),h(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))))))))) && event(HonestKey(pk(sk_4))).
+
+
+A more detailed output of the traces is available with
+  set traceDisplay = long.
+
+new sk: skey creating sk_8 at {3} in copy a_6
+
+event HonestKey(pk(sk_8)) at {4} in copy a_6 (goal)
+
+insert keys(pk(sk_8),sk_8) at {5} in copy a_6
+
+out(c, ~M) with ~M = pk(sk_8) at {6} in copy a_6
+
+new sk: skey creating sk_9 at {3} in copy a_7
+
+event HonestKey(pk(sk_9)) at {4} in copy a_7
+
+insert keys(pk(sk_9),sk_9) at {5} in copy a_7
+
+out(c, ~M_1) with ~M_1 = pk(sk_9) at {6} in copy a_7
+
+new sk: skey creating sk_10 at {3} in copy a_8
+
+event HonestKey(pk(sk_10)) at {4} in copy a_8
+
+insert keys(pk(sk_10),sk_10) at {5} in copy a_8
+
+out(c, ~M_2) with ~M_2 = pk(sk_10) at {6} in copy a_8
+
+new sk: skey creating sk_11 at {3} in copy a_9
+
+event HonestKey(pk(sk_11)) at {4} in copy a_9
+
+insert keys(pk(sk_11),sk_11) at {5} in copy a_9
+
+out(c, ~M_3) with ~M_3 = pk(sk_11) at {6} in copy a_9
+
+get keys(pk(sk_9),sk_9) at {10} in copy a_10
+
+event Corrupt(pk(sk_9)) at {8} in copy a_10
+
+out(c, ~M_4) with ~M_4 = sk_9 at {9} in copy a_10
+
+get keys(pk(sk_10),sk_10) at {20} in copy a_11
+
+in(c, (4,0,0,0,0)) at {12} in copy a_11
+
+new j: bitstring creating j_9 at {15} in copy a_11
+
+event Minted(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar)) at {17} in copy a_11
+
+event Granted(j_9,cs(0,0,0)) at {18} in copy a_11
+
+out(c, ~M_5) with ~M_5 = sign(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar),skA) at {19} in copy a_11
+
+get keys(pk(sk_11),sk_11) at {43} in copy a_12
+
+in(c, sign(dt(a_13,a_14,~M_3,1,md(1),0,cs(0,0,0),h(dt(1-proj-dt(getmess(~M_5)),anchor_uri,~M_2,0,md(4),0,cs(0,0,0),nopar))),a_15)) with sign(dt(a_13,a_14,~M_3,1,md(1),0,cs(0,0,0),h(dt(1-proj-dt(getmess(~M_5)),anchor_uri,~M_2,0,md(4),0,cs(0,0,0),nopar))),a_15) = sign(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(0,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar))),a_15) at {22} in copy a_12
+
+in(c, (~M,md(1),0,0,0,0)) with ~M = pk(sk_8) at {25} in copy a_12
+
+get keys(pk(sk_8),sk_8) at {38} in copy a_12
+
+new cj: bitstring creating cj_9 at {34} in copy a_12
+
+event Derived(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(0,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar))),dt(cj_9,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(0,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(0,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar)))))) at {36} in copy a_12
+
+out(c, ~M_6) with ~M_6 = sign(dt(cj_9,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(0,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(0,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar))))),sk_11) at {37} in copy a_12
+
+in(c, (~M_5,~M_1,sign(dt(a_13,a_14,~M_3,1,md(1),0,cs(0,0,0),h(dt(1-proj-dt(getmess(~M_5)),anchor_uri,~M_2,0,md(4),0,cs(0,0,0),nopar))),~M_4),~M_3,~M_6,~M_1,sign(dt(a_16,a_17,a_18,3,md(1),0,cs(0,0,0),h(dt(1-proj-dt(getmess(~M_6)),thumb(~M_3),~M,2,md(1),0,cs(0,0,0),h(dt(a_13,a_14,~M_3,1,md(1),0,cs(0,0,0),h(dt(1-proj-dt(getmess(~M_5)),anchor_uri,~M_2,0,md(4),0,cs(0,0,0),nopar))))))),~M_4),a_19,a_20,a_21)) with ~M_5 = sign(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar),skA), ~M_1 = pk(sk_9), sign(dt(a_13,a_14,~M_3,1,md(1),0,cs(0,0,0),h(dt(1-proj-dt(getmess(~M_5)),anchor_uri,~M_2,0,md(4),0,cs(0,0,0),nopar))),~M_4) = sign(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(0,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar))),sk_9), ~M_3 = pk(sk_11), ~M_6 = sign(dt(cj_9,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(0,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(0,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar))))),sk_11), ~M_1 = pk(sk_9), sign(dt(a_16,a_17,a_18,3,md(1),0,cs(0,0,0),h(dt(1-proj-dt(getmess(~M_6)),thumb(~M_3),~M,2,md(1),0,cs(0,0,0),h(dt(a_13,a_14,~M_3,1,md(1),0,cs(0,0,0),h(dt(1-proj-dt(getmess(~M_5)),anchor_uri,~M_2,0,md(4),0,cs(0,0,0),nopar))))))),~M_4) = sign(dt(a_16,a_17,a_18,3,md(1),0,cs(0,0,0),h(dt(cj_9,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(0,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(0,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar))))))),sk_9) at {282} in copy a_22
+
+get keys(pk(sk_9),sk_9) at {444} in copy a_22
+
+get keys(pk(sk_11),sk_11) at {443} in copy a_22
+
+get keys(pk(sk_9),sk_9) at {442} in copy a_22
+
+event AcceptedRoot(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar)) at {410} in copy a_22
+
+event AcceptedLink(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar),dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(0,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar)))) at {411} in copy a_22
+
+event AcceptedLink(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(0,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar))),dt(cj_9,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(0,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(0,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar)))))) at {412} in copy a_22
+
+event AcceptedLink(dt(cj_9,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(0,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(0,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar))))),dt(a_16,a_17,a_18,3,md(1),0,cs(0,0,0),h(dt(cj_9,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(0,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(0,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar)))))))) at {413} in copy a_22 (goal)
+
+The event AcceptedLink(dt(cj_9,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(0,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(0,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar))))),dt(a_16,a_17,a_18,3,md(1),0,cs(0,0,0),h(dt(cj_9,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(0,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(0,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar)))))))) is executed at {413} in copy a_22.
+The event HonestKey(pk(sk_8)) is executed at {4} in copy a_6.
+A trace has been found.
+RESULT event(AcceptedLink(dt(pj_15,pi_7,pk__6,pd_7,pm_1,pe_7,pt,pp),ch)) && event(HonestKey(pk__6)) ==> event(Derived(dt(pj_15,pi_7,pk__6,pd_7,pm_1,pe_7,pt,pp),ch)) || event(Corrupt(pk__6)) is false.
+
+Starting query event(Accept(r_9,dt(lj_4,li_4,lk_4,ld_4,lm,le_4,lt_4,lp_4),x_5,a_5,pj_15)) && event(HonestKey(lk_4)) ==> event(Invoked(lk_4,lj_4,x_5,a_5,pj_15)) || event(Corrupt(lk_4))
+200 rules inserted. Base: 101 rules (0 with conclusion selected). Queue: 366 rules.
+400 rules inserted. Base: 170 rules (19 with conclusion selected). Queue: 347 rules.
+600 rules inserted. Base: 284 rules (133 with conclusion selected). Queue: 233 rules.
+800 rules inserted. Base: 434 rules (283 with conclusion selected). Queue: 83 rules.
+goal reachable: b_2 ≥ cm_7 && m_11 ≥ b_2 && 4 ≥ m_11 && p3_7 ≥ n3_4 && p3_8 ≥ p3_7 && 1 ≥ p3_8 && pe_7 ≥ le_4 && pe_8 ≥ pe_7 && 3 ≥ pe_8 && p2_7 ≥ n2_4 && p2_8 ≥ p2_7 && 1 ≥ p2_8 && cm_7 ≥ 1 && m_11 ≥ 3 && attacker(cm_7) && attacker(le_4) && attacker(n2_4) && attacker(n3_4) && attacker(b_2) && attacker(pe_7) && attacker(p2_7) && attacker(p3_7) && attacker(m_11) && attacker(pe_8) && attacker(p2_8) && attacker(p3_8) && attacker(a_5) -> event(Accept(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_8,cs(1,p2_8,p3_8),nopar),dt(cj_7,thumb(pk(sk_5)),pk(sk_6),2,md(cm_7),le_4,cs(1,n2_4,n3_4),h(dt(cj_8,thumb(pk(sk_4)),pk(sk_5),1,md(b_2),pe_7,cs(1,p2_7,p3_7),h(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_8,cs(1,p2_8,p3_8),nopar))))),ta,a_5,nodpop)) && event(HonestKey(pk(sk_6)))
+Abbreviations:
+sk_4 = sk[!1 = @sid]
+j_8 = j[t3 = p3_8,t2 = p2_8,t1 = 1,e = pe_8,m = m_11,sk_2 = sk_4,k_1 = pk(sk_4),!1 = @sid_1]
+sk_6 = sk[!1 = @sid_2]
+sk_5 = sk[!1 = @sid_3]
+cj_8 = cj[sk2 = sk_5,c3 = p3_7,c2 = p2_7,c1 = 1,ce = pe_7,cmx = md(b_2),k2 = pk(sk_5),s = sign(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_8,cs(1,p2_8,p3_8),nopar),skA[]),sk_3 = sk_4,k_2 = pk(sk_4),!1 = @sid_4]
+cj_7 = cj[sk2 = sk_6,c3 = n3_4,c2 = n2_4,c1 = 1,ce = le_4,cmx = md(cm_7),k2 = pk(sk_6),s = sign(dt(cj_8,thumb(pk(sk_4)),pk(sk_5),1,md(b_2),pe_7,cs(1,p2_7,p3_7),h(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_8,cs(1,p2_8,p3_8),nopar))),sk_4),sk_3 = sk_5,k_2 = pk(sk_5),!1 = @sid_5]
+
+Derivation:
+Abbreviations:
+sk_4 = sk[!1 = @sid]
+j_8 = j[t3 = p3_7,t2 = p2_7,t1 = 1,e = pe_7,m = m_11,sk_2 = sk_4,k_1 = pk(sk_4),!1 = @sid_1]
+sk_5 = sk[!1 = @sid_2]
+sk_6 = sk[!1 = @sid_3]
+cj_7 = cj[sk2 = sk_6,c3 = p3_8,c2 = p2_8,c1 = 1,ce = pe_8,cmx = md(b_2),k2 = pk(sk_6),s = sign(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar),skA[]),sk_3 = sk_4,k_2 = pk(sk_4),!1 = @sid_4]
+cj_8 = cj[sk2 = sk_5,c3 = n3_4,c2 = n2_4,c1 = 1,ce = le_4,cmx = md(cm_7),k2 = pk(sk_5),s = sign(dt(cj_7,thumb(pk(sk_4)),pk(sk_6),1,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar))),sk_4),sk_3 = sk_6,k_2 = pk(sk_6),!1 = @sid_5]
+
+1. Event HonestKey(pk(sk_5)) may be executed at {4}.
+event(HonestKey(pk(sk_5))).
+
+2. The attacker has some term pop_4.
+attacker(pop_4).
+
+3. We assume as hypothesis that
+attacker(a_5).
+
+4. Using the function ta the attacker may obtain ta.
+attacker(ta).
+
+5. The entry keys(pk(sk_6),sk_6) may be inserted in a table at insert {5}.
+table(keys(pk(sk_6),sk_6)).
+
+6. The entry keys(pk(sk_4),sk_4) may be inserted in a table at insert {5}.
+table(keys(pk(sk_4),sk_4)).
+
+7. We assume as hypothesis that
+attacker(p3_7).
+
+8. We assume as hypothesis that
+attacker(p2_7).
+
+9. Using the function 0 the attacker may obtain 0.
+attacker(0).
+
+10. By 9, the attacker may know 0.
+Using the function + the attacker may obtain 1.
+attacker(1).
+
+11. We assume as hypothesis that
+attacker(pe_7).
+
+12. We assume as hypothesis that
+attacker(m_11).
+
+13. By 12, the attacker may know m_11.
+By 11, the attacker may know pe_7.
+By 10, the attacker may know 1.
+By 8, the attacker may know p2_7.
+By 7, the attacker may know p3_7.
+Using the function 5-tuple the attacker may obtain (m_11,pe_7,1,p2_7,p3_7).
+attacker((m_11,pe_7,1,p2_7,p3_7)).
+
+14. The entry keys(pk(sk_4),sk_4) that may be in a table by 6 may be read at get {20}.
+The message (m_11,pe_7,1,p2_7,p3_7) that the attacker may have by 13 may be received at input {12}.
+We have 1 ≥ p3_7 && 1 ≥ 1 && 4 ≥ m_11 && 3 ≥ pe_7 && 1 ≥ p2_7 && m_11 ≥ 1.
+So the message sign(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar),skA[]) may be sent to the attacker at output {19}.
+attacker(sign(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar),skA[])).
+
+15. We assume as hypothesis that
+attacker(p3_8).
+
+16. We assume as hypothesis that
+attacker(p2_8).
+
+17. We assume as hypothesis that
+attacker(pe_8).
+
+18. We assume as hypothesis that
+attacker(b_2).
+
+19. By 18, the attacker may know b_2.
+Using the function md the attacker may obtain md(b_2).
+attacker(md(b_2)).
+
+20. The message pk(sk_6) may be sent to the attacker at output {6}.
+attacker(pk(sk_6)).
+
+21. By 20, the attacker may know pk(sk_6).
+By 19, the attacker may know md(b_2).
+By 17, the attacker may know pe_8.
+By 10, the attacker may know 1.
+By 16, the attacker may know p2_8.
+By 15, the attacker may know p3_8.
+Using the function 6-tuple the attacker may obtain (pk(sk_6),md(b_2),pe_8,1,p2_8,p3_8).
+attacker((pk(sk_6),md(b_2),pe_8,1,p2_8,p3_8)).
+
+22. The entry keys(pk(sk_4),sk_4) that may be in a table by 6 may be read at get {43}.
+The message sign(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar),skA[]) that the attacker may have by 14 may be received at input {22}.
+The message (pk(sk_6),md(b_2),pe_8,1,p2_8,p3_8) that the attacker may have by 21 may be received at input {25}.
+The entry keys(pk(sk_6),sk_6) that may be in a table by 5 may be read at get {38}.
+We have m_11 ≥ b_2 && p3_7 ≥ p3_8 && 1 ≥ 1 && pe_7 ≥ pe_8 && p2_7 ≥ p2_8 && b_2 ≥ 1.
+So the message sign(dt(cj_7,thumb(pk(sk_4)),pk(sk_6),1,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar))),sk_4) may be sent to the attacker at output {37}.
+attacker(sign(dt(cj_7,thumb(pk(sk_4)),pk(sk_6),1,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar))),sk_4)).
+
+23. We assume as hypothesis that
+attacker(n3_4).
+
+24. We assume as hypothesis that
+attacker(n2_4).
+
+25. We assume as hypothesis that
+attacker(le_4).
+
+26. We assume as hypothesis that
+attacker(cm_7).
+
+27. By 26, the attacker may know cm_7.
+Using the function md the attacker may obtain md(cm_7).
+attacker(md(cm_7)).
+
+28. The message pk(sk_5) may be sent to the attacker at output {6}.
+attacker(pk(sk_5)).
+
+29. By 28, the attacker may know pk(sk_5).
+By 27, the attacker may know md(cm_7).
+By 25, the attacker may know le_4.
+By 10, the attacker may know 1.
+By 24, the attacker may know n2_4.
+By 23, the attacker may know n3_4.
+Using the function 6-tuple the attacker may obtain (pk(sk_5),md(cm_7),le_4,1,n2_4,n3_4).
+attacker((pk(sk_5),md(cm_7),le_4,1,n2_4,n3_4)).
+
+30. The entry keys(pk(sk_5),sk_5) may be inserted in a table at insert {5}.
+table(keys(pk(sk_5),sk_5)).
+
+31. The entry keys(pk(sk_6),sk_6) that may be in a table by 5 may be read at get {43}.
+The message sign(dt(cj_7,thumb(pk(sk_4)),pk(sk_6),1,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar))),sk_4) that the attacker may have by 22 may be received at input {22}.
+The message (pk(sk_5),md(cm_7),le_4,1,n2_4,n3_4) that the attacker may have by 29 may be received at input {25}.
+The entry keys(pk(sk_5),sk_5) that may be in a table by 30 may be read at get {38}.
+We have b_2 ≥ cm_7 && p3_8 ≥ n3_4 && 1 ≥ 1 && pe_8 ≥ le_4 && p2_8 ≥ n2_4 && cm_7 ≥ 1.
+So the message sign(dt(cj_8,thumb(pk(sk_6)),pk(sk_5),2,md(cm_7),le_4,cs(1,n2_4,n3_4),h(dt(cj_7,thumb(pk(sk_4)),pk(sk_6),1,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar))))),sk_6) may be sent to the attacker at output {37}.
+attacker(sign(dt(cj_8,thumb(pk(sk_6)),pk(sk_5),2,md(cm_7),le_4,cs(1,n2_4,n3_4),h(dt(cj_7,thumb(pk(sk_4)),pk(sk_6),1,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar))))),sk_6)).
+
+32. The message pk(sk_4) may be sent to the attacker at output {6}.
+attacker(pk(sk_4)).
+
+33. By 14, the attacker may know sign(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar),skA[]).
+By 32, the attacker may know pk(sk_4).
+By 22, the attacker may know sign(dt(cj_7,thumb(pk(sk_4)),pk(sk_6),1,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar))),sk_4).
+By 20, the attacker may know pk(sk_6).
+By 31, the attacker may know sign(dt(cj_8,thumb(pk(sk_6)),pk(sk_5),2,md(cm_7),le_4,cs(1,n2_4,n3_4),h(dt(cj_7,thumb(pk(sk_4)),pk(sk_6),1,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar))))),sk_6).
+By 4, the attacker may know ta.
+By 3, the attacker may know a_5.
+By 2, the attacker may know pop_4.
+Using the function 8-tuple the attacker may obtain (sign(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar),skA[]),pk(sk_4),sign(dt(cj_7,thumb(pk(sk_4)),pk(sk_6),1,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar))),sk_4),pk(sk_6),sign(dt(cj_8,thumb(pk(sk_6)),pk(sk_5),2,md(cm_7),le_4,cs(1,n2_4,n3_4),h(dt(cj_7,thumb(pk(sk_4)),pk(sk_6),1,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar))))),sk_6),ta,a_5,pop_4).
+attacker((sign(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar),skA[]),pk(sk_4),sign(dt(cj_7,thumb(pk(sk_4)),pk(sk_6),1,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar))),sk_4),pk(sk_6),sign(dt(cj_8,thumb(pk(sk_6)),pk(sk_5),2,md(cm_7),le_4,cs(1,n2_4,n3_4),h(dt(cj_7,thumb(pk(sk_4)),pk(sk_6),1,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar))))),sk_6),ta,a_5,pop_4)).
+
+34. The message (sign(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar),skA[]),pk(sk_4),sign(dt(cj_7,thumb(pk(sk_4)),pk(sk_6),1,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar))),sk_4),pk(sk_6),sign(dt(cj_8,thumb(pk(sk_6)),pk(sk_5),2,md(cm_7),le_4,cs(1,n2_4,n3_4),h(dt(cj_7,thumb(pk(sk_4)),pk(sk_6),1,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar))))),sk_6),ta,a_5,pop_4) that the attacker may have by 33 may be received at input {162}.
+The entry keys(pk(sk_4),sk_4) that may be in a table by 6 may be read at get {280}.
+The entry keys(pk(sk_6),sk_6) that may be in a table by 5 may be read at get {279}.
+We have pe_8 ≥ le_4 && pe_7 ≥ pe_8 && p2_8 ≥ n2_4 && p2_7 ≥ p2_8 && p3_8 ≥ n3_4 && p3_7 ≥ p3_8 && b_2 ≥ cm_7 && m_11 ≥ b_2 && 1 ≥ 1 && 1 ≥ 1 && 1 ≥ 1 && cm_7 ≥ 1 && m_11 ≥ 3.
+So event Accept(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar),dt(cj_8,thumb(pk(sk_6)),pk(sk_5),2,md(cm_7),le_4,cs(1,n2_4,n3_4),h(dt(cj_7,thumb(pk(sk_4)),pk(sk_6),1,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar))))),ta,a_5,nodpop) may be executed at {278}.
+event(Accept(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar),dt(cj_8,thumb(pk(sk_6)),pk(sk_5),2,md(cm_7),le_4,cs(1,n2_4,n3_4),h(dt(cj_7,thumb(pk(sk_4)),pk(sk_6),1,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar))))),ta,a_5,nodpop)).
+
+35. By 34, event(Accept(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar),dt(cj_8,thumb(pk(sk_6)),pk(sk_5),2,md(cm_7),le_4,cs(1,n2_4,n3_4),h(dt(cj_7,thumb(pk(sk_4)),pk(sk_6),1,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar))))),ta,a_5,nodpop)).
+By 1, event(HonestKey(pk(sk_5))).
+The goals are reached, combined in the following fact:
+event(Accept(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar),dt(cj_8,thumb(pk(sk_6)),pk(sk_5),2,md(cm_7),le_4,cs(1,n2_4,n3_4),h(dt(cj_7,thumb(pk(sk_4)),pk(sk_6),1,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar))))),ta,a_5,nodpop)) && event(HonestKey(pk(sk_5))).
+
+
+A more detailed output of the traces is available with
+  set traceDisplay = long.
+
+new sk: skey creating sk_7 at {3} in copy a_6
+
+event HonestKey(pk(sk_7)) at {4} in copy a_6 (goal)
+
+insert keys(pk(sk_7),sk_7) at {5} in copy a_6
+
+out(c, ~M) with ~M = pk(sk_7) at {6} in copy a_6
+
+new sk: skey creating sk_8 at {3} in copy a_7
+
+event HonestKey(pk(sk_8)) at {4} in copy a_7
+
+insert keys(pk(sk_8),sk_8) at {5} in copy a_7
+
+out(c, ~M_1) with ~M_1 = pk(sk_8) at {6} in copy a_7
+
+new sk: skey creating sk_9 at {3} in copy a_8
+
+event HonestKey(pk(sk_9)) at {4} in copy a_8
+
+insert keys(pk(sk_9),sk_9) at {5} in copy a_8
+
+out(c, ~M_2) with ~M_2 = pk(sk_9) at {6} in copy a_8
+
+get keys(pk(sk_9),sk_9) at {20} in copy a_9
+
+in(c, (3,0,1,0,0)) at {12} in copy a_9
+
+new j: bitstring creating j_9 at {15} in copy a_9
+
+event Minted(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar)) at {17} in copy a_9
+
+event Granted(j_9,cs(1,0,0)) at {18} in copy a_9
+
+out(c, ~M_3) with ~M_3 = sign(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar),skA) at {19} in copy a_9
+
+get keys(pk(sk_9),sk_9) at {43} in copy a_10
+
+in(c, ~M_3) with ~M_3 = sign(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar),skA) at {22} in copy a_10
+
+in(c, (~M_1,md(1),0,1,0,0)) with ~M_1 = pk(sk_8) at {25} in copy a_10
+
+get keys(pk(sk_8),sk_8) at {38} in copy a_10
+
+new cj: bitstring creating cj_9 at {34} in copy a_10
+
+event Derived(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar),dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar)))) at {36} in copy a_10
+
+out(c, ~M_4) with ~M_4 = sign(dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar))),sk_9) at {37} in copy a_10
+
+get keys(pk(sk_8),sk_8) at {43} in copy a_11
+
+in(c, ~M_4) with ~M_4 = sign(dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar))),sk_9) at {22} in copy a_11
+
+in(c, (~M,md(1),0,1,0,0)) with ~M = pk(sk_7) at {25} in copy a_11
+
+get keys(pk(sk_7),sk_7) at {38} in copy a_11
+
+new cj: bitstring creating cj_10 at {34} in copy a_11
+
+event Derived(dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar))),dt(cj_10,thumb(pk(sk_8)),pk(sk_7),2,md(1),0,cs(1,0,0),h(dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar)))))) at {36} in copy a_11
+
+out(c, ~M_5) with ~M_5 = sign(dt(cj_10,thumb(pk(sk_8)),pk(sk_7),2,md(1),0,cs(1,0,0),h(dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar))))),sk_8) at {37} in copy a_11
+
+in(c, (~M_3,~M_2,~M_4,~M_1,~M_5,ta,a_12,a_13)) with ~M_3 = sign(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar),skA), ~M_2 = pk(sk_9), ~M_4 = sign(dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar))),sk_9), ~M_1 = pk(sk_8), ~M_5 = sign(dt(cj_10,thumb(pk(sk_8)),pk(sk_7),2,md(1),0,cs(1,0,0),h(dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar))))),sk_8) at {162} in copy a_14
+
+get keys(pk(sk_9),sk_9) at {280} in copy a_14
+
+get keys(pk(sk_8),sk_8) at {279} in copy a_14
+
+event AcceptedRoot(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar)) at {249} in copy a_14
+
+event AcceptedLink(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar),dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar)))) at {250} in copy a_14
+
+event AcceptedLink(dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar))),dt(cj_10,thumb(pk(sk_8)),pk(sk_7),2,md(1),0,cs(1,0,0),h(dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar)))))) at {251} in copy a_14
+
+event AcceptedLinkBy(pk(sk_9),dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar),dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar)))) at {252} in copy a_14
+
+event AcceptedLinkBy(pk(sk_8),dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar))),dt(cj_10,thumb(pk(sk_8)),pk(sk_7),2,md(1),0,cs(1,0,0),h(dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar)))))) at {253} in copy a_14
+
+event Accept(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar),dt(cj_10,thumb(pk(sk_8)),pk(sk_7),2,md(1),0,cs(1,0,0),h(dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar))))),ta,a_12,nodpop) at {278} in copy a_14 (goal)
+
+The event Accept(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar),dt(cj_10,thumb(pk(sk_8)),pk(sk_7),2,md(1),0,cs(1,0,0),h(dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar))))),ta,a_12,nodpop) is executed at {278} in copy a_14.
+The event HonestKey(pk(sk_7)) is executed at {4} in copy a_6.
+A trace has been found.
+RESULT event(Accept(r_9,dt(lj_4,li_4,lk_4,ld_4,lm,le_4,lt_4,lp_4),x_5,a_5,pj_15)) && event(HonestKey(lk_4)) ==> event(Invoked(lk_4,lj_4,x_5,a_5,pj_15)) || event(Corrupt(lk_4)) is false.
+

@@ -1,0 +1,176 @@
+(* asor02.pvl — asor-02 roles and Verifier
+   (draft-asor-wimse-agent-delegation-chain-02).  Section and step numbers
+   are those of -02; "step n" is a step of its §6.
+
+   Shared by asor02.pv and its variants, which differ only in the dpop flag
+   and the queries.  Requires common.pvl (keys, KeyGen, Compromise, events,
+   signatures, h, capability sets).
+
+   What the draft states and the model encodes as stated:
+   - Step 1 verifies every DT_i, and DT_0 under a trusted root key.  For
+     i > 0 the draft names no key (A1).  The Verifier therefore accepts
+     DT_i under any key it is configured with, selected by kid: here any
+     honest holder key (the keys table).  It does not compare that key
+     with DT_{i-1}.cnf; nothing in §6 asks for it.
+   - Step 2: par_hash = h(parent payload) (the JWS signing input).
+   - Step 3: DT_i.del_depth = i and n < DT_0.del_max_depth.
+   - Step 4: tool sets narrow (rule 1, tool level only); rule 5
+     (del_max_depth) against the nearest ancestor that states one (A2, as
+     the TypeScript verifier reads it); del_max_depth is optional for i > 0.
+   - Step 5: only exp monotonicity (rule 4).
+   - Step 6 (DPoP, §7) under the flag dpop: a proof signed with DT_n.cnf
+     over (proof jti, ath = h(DT_n as presented), tool, args).  Step 6 is a
+     MUST of §6, but §6.1 describes verifiers that do not perform it; the
+     flag models both.
+   - Step 8: the tool is in DT_n's tool set.  Audience, sub, client_id,
+     status lists (step 7) and constraint types are not modelled. *)
+
+(* del_max_depth: present (md(n)) or absent (nomd); required in DT_0. *)
+type maxd.
+fun md(nat): maxd [data].
+const nomd: maxd.
+
+(* dt(jti, iss, cnf, del_depth, del_max_depth, exp, tools, par_hash) *)
+fun dt(bitstring, ident, pkey, nat, maxd, nat, caps, bitstring): bitstring [data].
+
+(* DPoP without step 6: the Accept event carries this constant. *)
+const nodpop: bitstring.
+
+(* Link accepted, with the key the verifier used for the child (P1b'). *)
+event AcceptedLinkBy(pkey, bitstring, bitstring).
+
+(* Anchor: mints DT_0 for an honest holder; the attacker chooses the grant.
+   del_max_depth is a positive integer; the bound 4 (n < 4) keeps chains
+   at four tokens, as for AAT-01. *)
+let AnchorAsor =
+  ! get keys(k, sk) in
+    in(c, (m: nat, e: nat, t1: nat, t2: nat, t3: nat));
+    if 1 <= m && m <= 4 && e <= 3 && t1 <= 1 && t2 <= 1 && t3 <= 1 then
+    let t = cs(t1, t2, t3) in
+    new j: bitstring;
+    let r = dt(j, anchor_uri, k, 0, md(m), e, t, nopar) in
+    event Minted(r);
+    event Granted(j, t);
+    out(c, sign(r, skA)).
+
+(* Holder: takes any signed token naming its key in cnf (it does not verify
+   the chain above it) and either derives a child for another honest holder,
+   signed with its own key, or presents the token with a DPoP proof.  The
+   child states del_max_depth only if the parent does (an honest holder
+   cannot see the ancestors' bounds). *)
+let HolderAsor =
+  ! get keys(k, sk) in
+    in(c, s: bitstring);
+    let p = getmess(s) in
+    let dt(pj, pi, =k, pd, pmx, pe, cs(p1, p2, p3), ppar) = p in
+    (
+      in(c, (k2: pkey, cmx: maxd, ce: nat, c1: nat, c2: nat, c3: nat));
+      get keys(=k2, sk2) in
+      if ce <= pe && c1 <= p1 && c2 <= p2 && c3 <= p3 then
+      if cmx = nomd || (let md(pm) = pmx in (let md(cm) = cmx in 1 <= cm && cm <= pm else false) else false) then
+      new cj: bitstring;
+      let child = dt(cj, thumb(k), k2, pd + 1, cmx, ce, cs(c1, c2, c3), h(p)) in
+      event Derived(p, child);
+      out(c, sign(child, sk))
+    ) | (
+      in(c, (x: tool, a: bitstring));
+      new popj: bitstring;
+      event Invoked(k, pj, x, a, popj);
+      out(c, sign(popm(popj, h(s), x, a), sk))
+    ).
+
+(* Step 1 (DT_0), 3 (del_depth 0, del_max_depth present), par_hash absent. *)
+letfun check_root_asor(s: bitstring) =
+  let r = checksign(s, pk(skA)) in
+  let dt(j, i, k, d, md(m), e, t, p) = r in
+  if d = 0 && p = nopar && 1 <= m then r.
+
+(* Steps 1, 2, 3 (depth), 4 (rule 1 at tool level, rule 5), 5 (rule 4) for
+   one pair.  k is the key the verifier selected by kid; b is the nearest
+   stated del_max_depth above the child. *)
+letfun check_link_asor(pp: bitstring, b: nat, k: pkey, s: bitstring) =
+  let dt(pj, pi, pk_, pd, pmx, pe, cs(p1, p2, p3), ppar) = pp in
+  let cp = checksign(s, k) in                                    (* step 1 *)
+  let dt(cj, ci, ck, cd, cmx, ce, cs(c1, c2, c3), cpar) = cp in
+  if cpar = h(pp)                                                (* step 2 *)
+     && cd = pd + 1                                              (* step 3 *)
+     && c1 <= p1 && c2 <= p2 && c3 <= p3                         (* step 4, rule 1 *)
+     && ce <= pe                                                 (* step 5, rule 4 *)
+     && (cmx = nomd || (let md(cm) = cmx in 1 <= cm && cm <= b else false))
+                                                                 (* §3 positive; step 4, rule 5 *)
+  then cp.
+
+(* The bound rule 5 applies below this token (A2). *)
+letfun next_bound(b: nat, t: bitstring) =
+  let dt(j, i, k, d, md(m), e, tt, p) = t in m else b.
+
+(* Steps 6 and 8 for the leaf DT_n, presented as sl. *)
+letfun leaf_asor(dpop: bool, sl: bitstring, l: bitstring, x: tool, a: bitstring, pop: bitstring) =
+  let dt(lj, li, lk, ld, lmx, le, lt, lp) = l in
+  if has_tool(x, lt) then                                        (* step 8 *)
+  if dpop then
+    (let popm(pj, ath, ptool, pargs) = checksign(pop, lk) in     (* step 6 *)
+     if ath = h(sl) && ptool = x && pargs = a then pj)
+  else nodpop.
+
+(* One process per chain length 1..4.  Step 3's n < DT_0.del_max_depth is
+   the "n < m" test.  AcceptedRoot/AcceptedLink(By) are emitted once steps
+   1-5 pass, before steps 6 and 8. *)
+let VerifierAsor(dpop: bool) =
+  (! in(c, (s0: bitstring, x: tool, a: bitstring, pop: bitstring));
+     let r = check_root_asor(s0) in
+     event AcceptedRoot(r);
+     let pj = leaf_asor(dpop, s0, r, x, a, pop) in
+     event Accept(r, r, x, a, pj))
+  |
+  (! in(c, (s0: bitstring, k1: pkey, s1: bitstring, x: tool, a: bitstring, pop: bitstring));
+     let r = check_root_asor(s0) in
+     let dt(rj, ri, rk, rd, md(m), re, rt, rp) = r in
+     get keys(=k1, z1) in
+     let t1 = check_link_asor(r, m, k1, s1) in
+     if 1 < m then
+     event AcceptedRoot(r);
+     event AcceptedLink(r, t1);
+     event AcceptedLinkBy(k1, r, t1);
+     let pj = leaf_asor(dpop, s1, t1, x, a, pop) in
+     event Accept(r, t1, x, a, pj))
+  |
+  (! in(c, (s0: bitstring, k1: pkey, s1: bitstring, k2: pkey, s2: bitstring, x: tool, a: bitstring, pop: bitstring));
+     let r = check_root_asor(s0) in
+     let dt(rj, ri, rk, rd, md(m), re, rt, rp) = r in
+     get keys(=k1, z1) in
+     get keys(=k2, z2) in
+     let t1 = check_link_asor(r, m, k1, s1) in
+     let t2 = check_link_asor(t1, next_bound(m, t1), k2, s2) in
+     if 2 < m then
+     event AcceptedRoot(r);
+     event AcceptedLink(r, t1);
+     event AcceptedLink(t1, t2);
+     event AcceptedLinkBy(k1, r, t1);
+     event AcceptedLinkBy(k2, t1, t2);
+     let pj = leaf_asor(dpop, s2, t2, x, a, pop) in
+     event Accept(r, t2, x, a, pj))
+  |
+  (! in(c, (s0: bitstring, k1: pkey, s1: bitstring, k2: pkey, s2: bitstring, k3: pkey, s3: bitstring, x: tool, a: bitstring, pop: bitstring));
+     let r = check_root_asor(s0) in
+     let dt(rj, ri, rk, rd, md(m), re, rt, rp) = r in
+     get keys(=k1, z1) in
+     get keys(=k2, z2) in
+     get keys(=k3, z3) in
+     let t1 = check_link_asor(r, m, k1, s1) in
+     let b2 = next_bound(m, t1) in
+     let t2 = check_link_asor(t1, b2, k2, s2) in
+     let t3 = check_link_asor(t2, next_bound(b2, t2), k3, s3) in
+     if 3 < m then
+     event AcceptedRoot(r);
+     event AcceptedLink(r, t1);
+     event AcceptedLink(t1, t2);
+     event AcceptedLink(t2, t3);
+     event AcceptedLinkBy(k1, r, t1);
+     event AcceptedLinkBy(k2, t1, t2);
+     event AcceptedLinkBy(k3, t2, t3);
+     let pj = leaf_asor(dpop, s3, t3, x, a, pop) in
+     event Accept(r, t3, x, a, pj)).
+
+let ASOR02(dpop: bool) =
+  KeyGen | Compromise | AnchorAsor | HolderAsor | VerifierAsor(dpop).
