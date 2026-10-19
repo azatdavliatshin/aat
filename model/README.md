@@ -196,9 +196,17 @@ events). Step numbers are those of asor-02 §6.
   `del_max_depth` in 1..4 (so chains of at most 4 tokens, as for AAT-01).
   `HolderAsor` takes any token naming its key in `cnf` and either signs a
   child for another honest holder with its own key, or sends a DPoP proof
-  for a tool and arguments the attacker chooses. The draft does not say
-  who signs a child; the holder of the parent is the reading under which
-  P1b is meaningful, and it is the role AAT-01 gives the same party.
+  for a tool and arguments the attacker chooses. **Who mints DT_i (A7).**
+  A DT is an RFC 9068 access token with `iss` (§2); §6.1 speaks of "an
+  issuer validating a parent before minting a child" and §9.4 of "two
+  issuers". The model reads asor-02 as *issuer-minted*: DT_i (i > 0) is
+  signed by an issuer holding one of the verifier's configured keys, and
+  the holder of DT_{i-1} is bound by `cnf` but takes no part in signing
+  DT_i. The `keys` table is the set of issuer keys, and "an honest holder
+  signs the child with its own key" in `asor02.pvl` is read as "an honest
+  issuer signs the child with its key". P1b′ is the property asor-02
+  intends; P1b (the parent's holder made the link) is one it does not
+  claim.
 - **Not modelled:** `sub` invariance and `client_id` (strings compared for
   equality; no query depends on them), `aud`, `nbf`/`now`, status lists
   (step 7), constraint types and cumulative constraints (step 8),
@@ -213,10 +221,11 @@ is stated twice:
 
 - **P1b** (as for AAT-01) `AcceptedLink(p, c) && HonestKey(cnf(p)) ==>
   Derived(p, c) || Corrupt(cnf(p))`: the link was made by the holder of
-  the parent.
+  the parent. asor-02 does not claim it (A7); it is stated to compare with
+  AAT-01.
 - **P1b′** `AcceptedLinkBy(k, p, c) && HonestKey(k) ==> Derived(p, c) ||
   Corrupt(k)`, where `k` is the key the verifier used for `c`: the link was
-  made, from exactly that parent, by the holder of *some* configured key
+  made, from exactly that parent, by an issuer holding *some* configured key
   that is not compromised.
 
 | Draft (asor-02) | Model construct | Query |
@@ -269,9 +278,9 @@ below.
 The AAT-01 model is sensitive to the invariants it is supposed to depend
 on: removing I5 breaks P1, removing I6 breaks P4. For asor-02, P1b is
 false with and without DPoP, and P1b′ is true with and without it: the
-draft's step 1 guarantees that each link was made by the holder of *a*
-configured key, not by the holder of the parent (A1). DPoP decides only
-P4.
+draft's step 1 guarantees that each link was signed by *a* configured
+(issuer) key, not by the holder of the parent (A1, A7). P1b's failure is a
+difference from AAT-01, not a defect of asor-02. DPoP decides only P4.
 
 ### Attack traces
 
@@ -304,11 +313,11 @@ leaf `jti` (B23), the replay need not even reuse the chain.
 anchor mints DT_0 for an honest holder H0; the attacker compromises an
 unrelated honest holder X. With X's key it signs a DT_1 that commits to
 DT_0 (`par_hash`), names an honest holder H1 and narrows correctly; the
-verifier, given X's `kid`, accepts the link although H0 never derived it.
-H1, an honest holder, then derives DT_2 for H2 from that DT_1, and the
-attacker again signs DT_3 below DT_2 with X's key. Both traces are the
-same chain: the link checks are passed by any configured key, and H0 and
-H2 are never compromised.
+verifier, given X's `kid`, accepts the link although H0, the holder of
+DT_0, took no part in it. An honest issuer then signs DT_2 for H2 from
+that DT_1, and the attacker again signs DT_3 below DT_2 with X's key. Both
+traces are the same chain: the link checks are passed by any configured
+key, and H0 and H2 are never compromised.
 
 **asor-02 P4, DPoP off (`asor02-nodpop`).** Honest holders build a
 three-token chain for tool `ta` (H0 → H1 → H2). The attacker reads it off
@@ -319,7 +328,8 @@ H2's.
 The `asor02-p1b` trace also shows a rule-5 effect: DT_1 states
 `del_max_depth` 1, yet DT_2 and DT_3 below it are accepted, because step 3
 compares the chain length with DT_0's `del_max_depth` only; rule 5 only
-forbids a child from raising the value.
+forbids a child from raising the value (A6: a child's `del_max_depth` has
+no effect on chain length; in AAT-01 I3 the value binds).
 
 ## Madden properties
 
@@ -380,7 +390,10 @@ Trace summaries (`out/*.trace.txt`):
   honest chain names in `cnf` a key the attacker made itself, and the
   attacker presents it with a DPoP proof under that key. Step 6 checks
   exactly that key, so the request is accepted under a chain whose upper
-  links are honest. The prediction that DPoP stops (b) does not hold.
+  links are honest. DPoP binds the presenter of the leaf, not the deriver of each link;
+  with any one configured key compromised — it need not belong to the
+  chain — the attacker extends an honest chain to a leaf bound to its own
+  key and is accepted. The prediction that DPoP stops (b) does not hold.
 - **M2 (b), asor-02, DPoP off.** The same forged chain, presented without
   a proof.
 - **M2 (c), asor-02, DPoP off.** As the P4 trace above: an honest chain
@@ -390,16 +403,18 @@ Trace summaries (`out/*.trace.txt`):
 
 The queries show the following and nothing more. Both profiles bound the
 leaf by the root on tools, depth and expiry (P2, P3), and both accept a
-parent after its holder has derived from it (M1). In AAT-01 every accepted
-link below an honest, uncompromised holder's token was made by that holder
-(P1b), and no request is accepted under a link it did not make (M2 b). In
-asor-02 an accepted link was made by the holder of *some* configured,
-uncompromised key (P1b′) but not necessarily by the holder of the parent
-(P1b false), so one compromised configured key lets the attacker extend
-any chain, and with its own key in the leaf `cnf` have the request
-accepted even with DPoP (M2 b). DPoP in asor-02 gives exactly P4: a leaf
-naming an honest key is used only by that key's holder. It binds the
-presenter of the leaf, not the deriver of each link.
+parent after its holder has derived from it (M1). AAT-01 is
+holder-derived (I1): every accepted link below an honest, uncompromised
+holder's token was made by that holder (P1b), and no request is accepted
+under a link it did not make (M2 b). asor-02 is issuer-minted (A7): an
+accepted link was signed by an issuer holding *some* configured,
+uncompromised key (P1b′), not necessarily by the holder of the parent
+(P1b false; a difference, not a defect). The security of an asor-02 chain
+is that of its weakest configured issuer key: one compromised configured
+key lets the attacker extend any chain, and with its own key in the leaf
+`cnf` have the request accepted even with DPoP (M2 b). DPoP in asor-02
+gives exactly P4: a leaf naming an honest key is used only by that key's
+holder. It binds the presenter of the leaf, not the deriver of each link.
 
 ## What the model does not say
 

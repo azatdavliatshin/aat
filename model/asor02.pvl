@@ -54,8 +54,10 @@ let AnchorAsor =
     out(c, sign(r, skA)).
 
 (* Holder: takes any signed token naming its key in cnf (it does not verify
-   the chain above it) and either derives a child for another honest holder,
-   signed with its own key, or presents the token with a DPoP proof.  The
+   the chain above it) and either has a child minted for another honest
+   holder (read as an honest issuer signing the child with its key; the
+   keys table is the set of issuer keys, A7), or presents the token with a
+   DPoP proof.  The
    child states del_max_depth only if the parent does (an honest holder
    cannot see the ancestors' bounds). *)
 let HolderAsor =
