@@ -291,8 +291,12 @@ holder H, and H derives a child from the second one. The attacker presents
 that child under the *first* root: the child is signed by H's key and names
 H's thumbprint as issuer, so every remaining check passes, and the verifier
 accepts a link that H never made (grant-context substitution, §4.6). (The
-trace ends at a later link of the same chain built the same way; the first
-link already violates P1b.)
+trace ends at a later link of the same chain, which is built differently:
+an honest holder H' derives a child from a token naming H' that the
+attacker made up (honest holders do not verify the chain above them), and
+the attacker presents that child under a second token for H', signed with
+a compromised key. The first link, between two roots of the uncompromised
+H, already violates P1b.)
 
 **No I6 (`aat01-no-i6`).** Honest holders build a correct three-token
 chain for tool `ta`: a root held by H1, a child H1 derived for H2, and a
@@ -338,7 +342,13 @@ queries on both profiles. Setting for M2: every token an honest party
 creates is sent on the public channel (the Anchor and Holder `out` each
 signed token, as tokens travel with requests), so the attacker "learns a
 mid-chain token T" for every T. It does not get T's holder key; it may
-compromise any *other* holder (`Compromise`).
+compromise any *other* holder (`Compromise`). In the asor-02 files the
+`keys` table is both the set of holder keys and the set of keys step 1
+accepts for DT_i, i > 0 (A7), so there a compromised holder is a
+compromised configured verification key. Where a deployment keeps issuer
+keys and holder keys apart, the asor-02 "yes" results for (a) and (b)
+need a compromised issuer key; a compromised holder key alone gives the
+attacker no signature that step 1 accepts.
 
 **M1, parent validity after derivation** (`*-m1.reachable.pv`). Event
 `AcceptParentAfterDerive(P, C)` is emitted after `Accept` with leaf P if
@@ -397,7 +407,11 @@ Trace summaries (`out/*.trace.txt`):
 - **M2 (b), asor-02, DPoP off.** The same forged chain, presented without
   a proof.
 - **M2 (c), asor-02, DPoP off.** As the P4 trace above: an honest chain
-  presented by the attacker without a proof.
+  presented by the attacker without a proof. This follows from the
+  construction (the flag removes step 6, the only check on the
+  presenter): it models a verifier that skips a MUST of §6 and still
+  reports the chain as authorizing, which §6.1 forbids. A sanity check,
+  not a finding.
 
 ## AAT-01 vs asor-02
 
