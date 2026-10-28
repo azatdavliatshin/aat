@@ -15,7 +15,8 @@ import { isObject, jcs, type JsonObject, type JsonValue } from "../json.js";
 export type Scalar = string | number | boolean;
 
 export type Constraint =
-  | { type: "exact"; value: Scalar }
+  // `null` only in aat-02 (-02 §3.4 "string, number, boolean, or null"); the -01 parser below never produces it.
+  | { type: "exact"; value: Scalar | null }
   | { type: "range"; min?: number; max?: number; minInclusive: boolean; maxInclusive: boolean }
   | { type: "one_of"; values: readonly JsonValue[] }
   | { type: "not_one_of"; excluded: readonly JsonValue[] }
@@ -161,6 +162,9 @@ function boundNarrows(d: number | undefined, dInc: boolean, p: number | undefine
   return side === "min" ? d > p : d < p;
 }
 
+/** How a derived `all` is matched to a parent `all` (the one rule -01 and -02 decide differently). */
+export type AllRule = (parents: readonly Constraint[], derived: readonly Constraint[], sub: (c: Constraint, p: Constraint) => boolean) => boolean;
+
 /** One-to-one clause assignment with backtracking, as in the §4.5 pseudocode. */
 function matchAll(parents: readonly Constraint[], derived: readonly Constraint[]): boolean {
   const used = new Set<number>();
@@ -183,6 +187,12 @@ function matchAll(parents: readonly Constraint[], derived: readonly Constraint[]
  * are rejected.
  */
 export function subsumes(child: Constraint, parent: Constraint): boolean {
+  return subsumesWith(child, parent, (p, d) => matchAll(p, d));
+}
+
+/** `subsumes` with the `all` matching rule as a parameter; every other pair as -01 §4.5 names it. */
+export function subsumesWith(child: Constraint, parent: Constraint, allRule: AllRule): boolean {
+  const sub = (c: Constraint, p: Constraint): boolean => subsumesWith(c, p, allRule);
   // §4.5 wildcard: "Any other constraint type subsumes a parent wildcard"; a derived wildcard needs a wildcard parent.
   if (parent.type === "wildcard") return true;
   switch (child.type) {
@@ -215,10 +225,10 @@ export function subsumes(child: Constraint, parent: Constraint): boolean {
       return false; // parent is not a wildcard here
     case "all":
       // draft unspecified: a derived `all` against a non-`all` parent (other than wildcard) is not named, so rejected.
-      return parent.type === "all" && matchAll(parent.clauses, child.clauses);
+      return parent.type === "all" && allRule(parent.clauses, child.clauses, sub);
     case "any":
       // §4.5 any: every derived clause is subsumed by at least one parent clause (cross-type clauses allowed).
-      return parent.type === "any" && child.clauses.every((d) => parent.clauses.some((p) => subsumes(d, p)));
+      return parent.type === "any" && child.clauses.every((d) => parent.clauses.some((p) => sub(d, p)));
   }
 }
 

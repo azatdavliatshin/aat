@@ -38,8 +38,20 @@ export interface AatOptions {
   popSkew?: number;
   /** Deployment policy "PoP audience binding" (§5.3 item 3, step 7d): the identifier of this enforcement point. */
   popAudience?: string;
-  /** Reject a token that carries `sub` (§3.2 "intentionally omits"). Default true; see draft-observations. */
+  /** Reject a token that carries `sub` (§3.2 "intentionally omits"). Default true; see draft-observations. aat-02: default false. */
   rejectSub?: boolean;
+
+  // aat-02 only (draft -02 §4.3.1, §7.3, §8 steps 6c, 7d, 7h, 7i). `popSkew` is the -02 PoP window (step 7g).
+  /** MAX_CHAIN_SIZE, bytes (-02 §4.3.1; -01 called it MAX_STACK_SIZE). Default 262144. */
+  maxChainSize?: number;
+  /** Policy "requires chain audience restriction" (-02 step 6c): deny when no token carries aud. */
+  requireChainAudience?: boolean;
+  /** Policy "requires PoP audience binding" (-02 step 7d): deny a PoP without aat_aud. */
+  requirePopAudience?: boolean;
+  /** Nonces this enforcement point issued and still accepts (-02 step 7h). Set = a nonce is required. */
+  popNonces?: readonly string[];
+  /** Accepted PoP jti values still inside the window (-02 §7.3, step 7i). Set = jti tracking is on; a PERMIT records into it. */
+  popJtiCache?: Set<string>;
 }
 
 export const AAT_DEFAULTS = {

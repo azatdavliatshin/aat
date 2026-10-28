@@ -3,6 +3,7 @@ import { parentHash } from "./hash.js";
 import { fail, type Failure, type Outcome } from "./result.js";
 import { timingSafeEqual } from "node:crypto";
 import type { AatOptions } from "./profiles/aat01.js";
+import type { TrustAnchor } from "./profiles/aat02.js";
 
 /**
  * Generic chain walk. A profile supplies claim parsing and its own named
@@ -40,13 +41,15 @@ export interface VerifyOptions {
   keys?: Readonly<Record<string, TrustedKey>>;
   /** Trust anchors, a set of root issuer keys without identifiers (AAT-01 §7 inputs). */
   trustAnchors?: readonly TrustedKey[];
-  /** AAT-01 limits and policy; defaults are the draft's recommendations where it gives one. */
+  /** Trust anchors as (issuer, public key) pairs (AAT-02 §8 inputs; step 3k binds root iss to the verifying anchor). */
+  anchors?: readonly TrustAnchor[];
+  /** AAT-01 / AAT-02 limits and policy; defaults are the draft's recommendations where it gives one. */
   aat?: AatOptions;
-  /** Local list of accepted algorithms (asor-02 §6 step 1). Default: EdDSA only. */
+  /** Local list of accepted algorithms (asor-02 §6 step 1). Default: EdDSA only; aat-02: Ed25519 only. */
   acceptedAlgs?: readonly string[];
   /** Verification time, NumericDate. */
   now: number;
-  /** The Enforcement Point's own identifier, for the audience check. Omit to verify the chain alone. */
+  /** The Enforcement Point's own identifier, for the audience check (aat-02: aud and aat_aud). Omit to verify the chain alone. */
   audience?: string;
   /** Request-bound inputs (steps 6 and 8). Omit to verify the chain alone. */
   request?: RequestContext;
@@ -57,6 +60,12 @@ export interface RequestContext {
   action?: { scope: string; params?: Readonly<Record<string, unknown>> };
   /** AAT-01 §7 inputs `tool`, `args`, `pop_jwt` (steps 6 and 7). */
   aat?: { tool: string; args: Readonly<Record<string, unknown>>; pop: string };
+  /**
+   * AAT-02 §8 inputs `tool`, `args`, `pop_jwt` (steps 6b, 7). `args` as a JSON
+   * text is read as written (exact numbers, duplicate members rejected);
+   * `pop` may be omitted when the chain is given as a §7.4 presentation.
+   */
+  aat02?: { tool: string; args: string | Readonly<Record<string, unknown>>; pop?: string };
   /** Running totals for cumulative constraints, supplied out of band. */
   totals?: Readonly<Record<string, number>>;
 }

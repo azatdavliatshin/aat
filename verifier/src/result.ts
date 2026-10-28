@@ -11,13 +11,15 @@ export interface Failure {
   /** Position of the offending token in the chain, where one applies. */
   token?: number;
   check?: string;
+  /** Step of the draft's verification algorithm that failed, where the profile numbers them (aat-02: "3a", "4p2", ...). */
+  step?: string;
 }
 
 export function fail(
   code: string,
   section: string,
   message: string,
-  extra: { token?: number; check?: string } = {},
+  extra: { token?: number; check?: string; step?: string } = {},
 ): Failure {
   return { ok: false, code, section, message, ...extra };
 }

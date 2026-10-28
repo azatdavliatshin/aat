@@ -6,7 +6,9 @@ against published test vectors. It is not a product. It is an independent
 implementation of a proposed standard, not the standard's own code.
 
 Profiles implemented: `draft-asor-wimse-agent-delegation-chain-02`
-(asor-02) and `draft-niyikiza-oauth-attenuating-agent-tokens-01` (AAT-01).
+(asor-02), `draft-niyikiza-oauth-attenuating-agent-tokens-01` (AAT-01) and
+`draft-niyikiza-oauth-attenuating-agent-tokens-02` (AAT-02). The AAT-01
+profile is kept unchanged next to AAT-02: -02 changes verdicts.
 
 ## Run
 
@@ -22,8 +24,8 @@ Node 22 or later. No runtime dependencies: `node:crypto` only.
 
 | Path | Role |
 |---|---|
-| `src/jws.ts` | strict compact JWS parse; EdDSA and HS256 verification |
-| `src/json.ts` | strict JSON (duplicates, non-finite, lone surrogates, > 2^53-1) and RFC 8785 JCS |
+| `src/jws.ts` | strict compact JWS parse; EdDSA / Ed25519 and HS256 verification |
+| `src/json.ts` | strict JSON (duplicates, non-finite, lone surrogates, > 2^53-1) and RFC 8785 JCS; an exact-number mode for AAT-02 (§3.4 admissibility, integer syntax) |
 | `src/hash.ts` | SHA-256 → base64url, JWS signing input, `par_hash` |
 | `src/chain.ts` | generic chain walk: shared signature and parent-commitment checks, profile checks run in step order |
 | `src/profiles/asor02.ts` | the asor-02 checks, each named and tagged with its draft section |
@@ -31,6 +33,9 @@ Node 22 or later. No runtime dependencies: `node:crypto` only.
 | `src/profiles/aat01.ts` | the AAT-01 checks (root, links I1 I2 I3 I4 I5, leaf), each named and tagged with its §7 step |
 | `src/profiles/aat01-constraints.ts` | the nine constraint types: value model, check predicate, subsumption (§3.4, §4.5) |
 | `src/profiles/aat01-pop.ts` | leaf argument check (step 6b) and PoP JWT (I6, step 7) |
+| `src/profiles/aat02.ts` | the AAT-02 §8 algorithm, step by step; every failure carries its step (`3a`, `4p2`, …) |
+| `src/profiles/aat02-constraints.ts` | AAT-02 well-formedness, `optional` and `"*"`, map normalization, key rules, `all` with clause reuse |
+| `src/profiles/aat02-pop.ts` | AAT-02 invocation reading (step 6b) and PoP JWT (step 7) |
 | `src/testing/aat-mint.ts`, `aat-vectors.ts` | test-only minting of chains and PoP; generator of `vectors/aat/` |
 | `src/holder.ts` | DPoP holder binding (§6 step 6), EdDSA proofs |
 | `src/testing/sign.ts` | signing helpers, test only |
@@ -101,6 +106,36 @@ rejected). Anything is ⊑ a parent `wildcard`; a derived `wildcard` needs a
 
 Unknown `constraint_type`: denied (`unknown_constraint`). Extra members on a
 core type: `malformed`. MAX_CONSTRAINT_DEPTH (32) bounds `all`/`any` nesting.
+
+## AAT-02
+
+```ts
+const result = verifyChain(presentation /* {aat_chain, aat_pop} or a token array */, "aat-02", {
+  anchors: [{ iss: "https://auth.example.com", jwk }], // (issuer, key) pairs; root iss must match the anchor that verified it (step 3k)
+  now,
+  audience: "https://tools.example.com",            // this enforcement point: aud (6c) and aat_aud (7d)
+  aat: { requirePopAudience: false, popNonces: undefined, popJtiCache: new Set() },
+  request: { aat02: { tool: "read_file", args: '{"path":"/data/a"}' } }, // args as written; pop from the presentation
+});
+if (!result.ok) console.log(result.step, result.code, result.message);
+```
+
+The steps run in the order of -02 §8, one by one; each token's claims are
+parsed only after its signature verifies (3b, 4b, 7b), with duplicate member
+names rejected. Only step 2c reads the `jti` of every payload first. Numbers
+are read as written: NumericDates and depths must have no fraction or
+exponent part, and arguments, `hta` and constraint values must be admissible
+(§3.4). Pass `args` as the invocation's JSON text so that this can be
+checked. An already-parsed object is accepted, but by then it can no longer
+carry either fault.
+
+Defaults (`AAT02_DEFAULTS`): the draft's recommended limits,
+`maxDelegationDepth` 8 (the -02 floor; a smaller value throws), PoP window
+±30 s, `rejectSub` false (-02 keeps "intentionally omits" and requires
+unrecognized claims to be ignored). Only `Ed25519` is on the allowlist: `EdDSA`
+is denied (§9.11), and `crit` is denied whenever it is present, because no
+extension parameter is understood. Keys are OKP Ed25519 only: any other
+`cnf.jwk` is denied at 3l / 4b2.
 
 ## Profile interface
 

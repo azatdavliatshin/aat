@@ -1,10 +1,11 @@
 /**
  * Claim shapes of the two profiles under study. Section references are to
  * draft-niyikiza-oauth-attenuating-agent-tokens-01 ("AAT-01") and
- * draft-asor-wimse-agent-delegation-chain-02 ("asor-02").
+ * draft-asor-wimse-agent-delegation-chain-02 ("asor-02"). The aat-02 profile
+ * (draft -02) keeps its own token shape in profiles/aat02.ts.
  */
 
-export type Profile = "aat-01" | "asor-02";
+export type Profile = "aat-01" | "aat-02" | "asor-02";
 
 /** RFC 7519 NumericDate. */
 export type NumericDate = number;

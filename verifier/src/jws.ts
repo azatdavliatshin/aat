@@ -3,8 +3,13 @@ import { b64urlDecodeStrict } from "./encoding.js";
 import { isObject, parseJson, type JsonObject } from "./json.js";
 import { fail, type Outcome } from "./result.js";
 
-/** Compact JWS (RFC 7515 §7.1). Only the two algorithms below are known. */
-export type JwsAlg = "EdDSA" | "HS256"; // HS256: test-vector support
+/**
+ * Compact JWS (RFC 7515 §7.1). Only the algorithms below are known.
+ * "Ed25519" is the fully-specified name (RFC 9864) that aat-02 requires;
+ * "EdDSA" stays for asor-02 and aat-01. `parseJws` admits EdDSA and HS256
+ * only; the aat-02 profile reads its headers itself (-02 §8 steps 3a, 4a, 7a).
+ */
+export type JwsAlg = "EdDSA" | "Ed25519" | "HS256"; // HS256: test-vector support
 
 export interface ParsedJws {
   compact: string;
@@ -19,7 +24,7 @@ export interface ParsedJws {
 
 /** A key the verifier holds, with the algorithm it is configured for (asor-02 §6 step 1). */
 export type TrustedKey =
-  | { alg: "EdDSA"; publicKey: KeyObject }
+  | { alg: "EdDSA" | "Ed25519"; publicKey: KeyObject }
   // test-vector support: the asor-02 vectors are signed with a shared HS256 secret.
   | { alg: "HS256"; secret: Uint8Array };
 
@@ -68,7 +73,7 @@ export function parseJws(compact: string): Outcome<ParsedJws> {
 /** True iff the signature verifies under `key` and the header alg is the one configured for it. */
 export function verifyJws(jws: ParsedJws, key: TrustedKey): boolean {
   if (jws.alg !== key.alg) return false;
-  if (key.alg === "EdDSA") {
+  if (key.alg !== "HS256") {
     if (jws.signature.length !== 64) return false;
     try {
       return cryptoVerify(null, jws.signingInput, key.publicKey, jws.signature);
