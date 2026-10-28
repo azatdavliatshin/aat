@@ -1,0 +1,9 @@
+AAT JWS test vectors for draft-niyikiza-oauth-attenuating-agent-tokens-02
+
+aat-jws-vectors.json is copied byte for byte from the Tenuo repository,
+https://github.com/tenuo-ai/tenuo, commit
+99fb00994d8d66b213cd12967d6e8eef45025672, file tests/vectors/aat-jws-vectors.json
+(generated there by ietf/vectors/gen_vectors.py).
+
+Licensed under the Apache License, Version 2.0; see LICENSE in this directory.
+It is not modified here.

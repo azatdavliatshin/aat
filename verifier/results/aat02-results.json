@@ -1,0 +1,931 @@
+{
+  "J.1": "PERMIT",
+  "J.2": {
+    "verdict": "DENY",
+    "step": "2c",
+    "reason": "jti \"019471f8-0000-7000-8000-000000000010\" appears more than once"
+  },
+  "J.3": "PERMIT",
+  "J.4": {
+    "verdict": "DENY",
+    "step": "4b",
+    "reason": "signature does not verify under the parent's cnf.jwk (I1)"
+  },
+  "J.4.b": {
+    "verdict": "DENY",
+    "step": "4b",
+    "reason": "signature does not verify under the parent's cnf.jwk (I1)"
+  },
+  "J.4.c": {
+    "verdict": "DENY",
+    "step": "4c",
+    "reason": "iss is not the JWK Thumbprint URI of the parent's cnf.jwk"
+  },
+  "J.5": {
+    "verdict": "DENY",
+    "step": "3e",
+    "reason": "root has expired"
+  },
+  "J.6.1": {
+    "verdict": "DENY",
+    "step": "7d",
+    "reason": "aat_aud is required by this enforcement point"
+  },
+  "J.6.2": {
+    "verdict": "DENY",
+    "step": "7d",
+    "reason": "aat_aud does not identify this enforcement point"
+  },
+  "J.6.3": "PERMIT",
+  "J.6.4": {
+    "verdict": "DENY",
+    "step": "7d",
+    "reason": "aat_aud does not identify this enforcement point"
+  },
+  "J.6.5": {
+    "verdict": "DENY",
+    "step": "7h",
+    "reason": "PoP nonce is absent or not one this enforcement point issued and still accepts"
+  },
+  "J.6.6": "PERMIT",
+  "J.6.7": {
+    "verdict": "DENY",
+    "step": "7h",
+    "reason": "PoP nonce is absent or not one this enforcement point issued and still accepts"
+  },
+  "J.6.8": "PERMIT",
+  "J.6.9": {
+    "verdict": "DENY",
+    "step": "6c",
+    "reason": "aud does not identify this enforcement point"
+  },
+  "J.6.10": {
+    "verdict": "DENY",
+    "step": "6c",
+    "reason": "chain audience restriction is required and no token carries aud"
+  },
+  "J.6.11": {
+    "verdict": "DENY",
+    "step": "6c",
+    "reason": "aud must be a string or an array of strings"
+  },
+  "J.7.1": {
+    "verdict": "DENY",
+    "step": "7a",
+    "reason": "PoP JWT: typ must be \"aat-pop+jwt\", found null"
+  },
+  "J.7.2": {
+    "verdict": "DENY",
+    "step": "7a",
+    "reason": "PoP JWT: typ must be \"aat-pop+jwt\", found \"aat+jwt\""
+  },
+  "J.7.3": {
+    "verdict": "DENY",
+    "step": "3a",
+    "reason": "typ must be \"aat+jwt\", found \"aat-pop+jwt\""
+  },
+  "J.7.4": {
+    "verdict": "DENY",
+    "step": "3a",
+    "reason": "typ must be \"aat+jwt\", found null"
+  },
+  "J.7.5": {
+    "verdict": "DENY",
+    "step": "3a",
+    "reason": "alg \"EdDSA\" is not on the allowlist"
+  },
+  "J.7.6": {
+    "verdict": "DENY",
+    "step": "3a",
+    "reason": "crit lists \"urn:example:unknown\", which this enforcement point does not understand"
+  },
+  "J.7.7": {
+    "verdict": "DENY",
+    "step": "4a",
+    "reason": "typ must be \"aat+jwt\", found null"
+  },
+  "J.7.8": {
+    "verdict": "DENY",
+    "step": "4a",
+    "reason": "alg \"EdDSA\" is not on the allowlist"
+  },
+  "J.7.9": {
+    "verdict": "DENY",
+    "step": "4a",
+    "reason": "crit lists \"urn:example:unknown\", which this enforcement point does not understand"
+  },
+  "J.7.10": {
+    "verdict": "DENY",
+    "step": "7a",
+    "reason": "PoP JWT: alg \"EdDSA\" is not on the allowlist"
+  },
+  "J.7.11": {
+    "verdict": "DENY",
+    "step": "7a",
+    "reason": "PoP JWT: crit lists \"urn:example:unknown\", which this enforcement point does not understand"
+  },
+  "J.7.12": "PERMIT",
+  "J.7.13": "PERMIT",
+  "J.7.14": "PERMIT",
+  "J.7.15": {
+    "verdict": "DENY",
+    "step": "3a",
+    "reason": "crit must be a non-empty array of strings"
+  },
+  "J.8.1": "PERMIT",
+  "J.8.2": "PERMIT",
+  "J.8.3": {
+    "verdict": "DENY",
+    "step": "3n",
+    "reason": "read_file: \"path\": unrecognized constraint_type \"no_such_type\""
+  },
+  "J.8.4": {
+    "verdict": "DENY",
+    "step": "4p4",
+    "reason": "export: \"limit\": range is not subsumed by parent all"
+  },
+  "J.8.5": {
+    "verdict": "DENY",
+    "step": "3n",
+    "reason": "export: \"format\": unrecognized constraint_type \"no_such_type\""
+  },
+  "J.8.6": {
+    "verdict": "DENY",
+    "step": "3n",
+    "reason": "export: \"limit\": range: min is greater than max"
+  },
+  "J.8.7": {
+    "verdict": "DENY",
+    "step": "6b",
+    "reason": "invocation arguments contain a number that is not admissible (§3.4)"
+  },
+  "J.8.8": "PERMIT",
+  "J.8.9": {
+    "verdict": "DENY",
+    "step": "3n",
+    "reason": "get_account: \"id\": range: contains a number that is not admissible (§3.4)"
+  },
+  "J.8.10": {
+    "verdict": "DENY",
+    "step": "6b",
+    "reason": "invocation arguments contain a number that is not admissible (§3.4)"
+  },
+  "J.8.11": "PERMIT",
+  "J.8.12": "PERMIT",
+  "J.8.13": "PERMIT",
+  "J.8.14": {
+    "verdict": "DENY",
+    "step": "6b",
+    "reason": "invocation arguments contain a number that is not admissible (§3.4)"
+  },
+  "J.8.15": "PERMIT",
+  "J.8.16": {
+    "verdict": "DENY",
+    "step": "3n",
+    "reason": "set_level: \"level\": constraint tree deeper than MAX_CONSTRAINT_DEPTH 32"
+  },
+  "J.8.17": {
+    "verdict": "DENY",
+    "step": "3n",
+    "reason": "export: \"format\": one_of: values must be a non-empty array"
+  },
+  "J.8.18": {
+    "verdict": "DENY",
+    "step": "3n",
+    "reason": "export: \"format\": exact: value must be a string, number, boolean or null"
+  },
+  "J.8.19": {
+    "verdict": "DENY",
+    "step": "3n",
+    "reason": "export: \"format\": not_one_of: excluded must be an array"
+  },
+  "J.8.20": {
+    "verdict": "DENY",
+    "step": "3n",
+    "reason": "export: \"format\": range: max must be a number"
+  },
+  "J.8.21": {
+    "verdict": "DENY",
+    "step": "3n",
+    "reason": "export: \"format\": range: min_inclusive may appear only with min"
+  },
+  "J.8.22": {
+    "verdict": "DENY",
+    "step": "3n",
+    "reason": "set_level: \"level\": range: min_inclusive must be a boolean"
+  },
+  "J.8.23": {
+    "verdict": "DENY",
+    "step": "3n",
+    "reason": "read_text_file: \"path\": optional must be a boolean"
+  },
+  "J.8.24": {
+    "verdict": "DENY",
+    "step": "4o",
+    "reason": "search_index: \"limit\": range: min is greater than max"
+  },
+  "J.9.1": {
+    "verdict": "DENY",
+    "step": "6b",
+    "reason": "argument \"mode\" is not named and the map has no \"*\" (closed world)"
+  },
+  "J.9.2": {
+    "verdict": "DENY",
+    "step": "6b",
+    "reason": "required argument \"path\" is absent"
+  },
+  "J.9.3": {
+    "verdict": "DENY",
+    "step": "6b",
+    "reason": "tool \"search_index\" is not in the leaf's attenuating_agent_token entry"
+  },
+  "J.9.4": "PERMIT",
+  "J.9.5": {
+    "verdict": "DENY",
+    "step": "6b",
+    "reason": "invocation arguments: duplicate member \"path\""
+  },
+  "J.9.6": {
+    "verdict": "DENY",
+    "step": "6b",
+    "reason": "tool \"delete_file\" is not in the leaf's attenuating_agent_token entry"
+  },
+  "J.10": {
+    "verdict": "DENY",
+    "step": "4d",
+    "reason": "del_depth is not the parent's plus one"
+  },
+  "J.10.b": {
+    "verdict": "DENY",
+    "step": "4g",
+    "reason": "del_max_depth exceeds the parent's"
+  },
+  "J.10.c": {
+    "verdict": "DENY",
+    "step": "4e",
+    "reason": "del_depth exceeds the parent's del_max_depth"
+  },
+  "J.10.d": {
+    "verdict": "DENY",
+    "step": "4m",
+    "reason": "del_depth exceeds the token's own del_max_depth"
+  },
+  "J.10.e": {
+    "verdict": "DENY",
+    "step": "4d",
+    "reason": "del_depth is not the parent's plus one"
+  },
+  "J.10.f": "PERMIT",
+  "J.11": {
+    "verdict": "DENY",
+    "step": "4p4",
+    "reason": "read_file: \"path\": one_of is not subsumed by parent one_of"
+  },
+  "J.11.b": {
+    "verdict": "DENY",
+    "step": "4p1",
+    "reason": "tool \"delete_file\" is not authorized by the parent"
+  },
+  "J.11.c": {
+    "verdict": "DENY",
+    "step": "4p2",
+    "reason": "search_index: argument \"limit\" is required by the parent and omitted"
+  },
+  "J.11.d": {
+    "verdict": "DENY",
+    "step": "4p4",
+    "reason": "read_file: \"path\": wildcard is not subsumed by parent one_of"
+  },
+  "J.12": {
+    "verdict": "DENY",
+    "step": "4q",
+    "reason": "par_hash does not equal SHA-256 of the parent signing input"
+  },
+  "J.12.b": {
+    "verdict": "DENY",
+    "step": "4q",
+    "reason": "par_hash does not equal SHA-256 of the parent signing input"
+  },
+  "J.13": {
+    "verdict": "DENY",
+    "step": "4h",
+    "reason": "exp exceeds the parent's exp"
+  },
+  "J.13.b": {
+    "verdict": "DENY",
+    "step": "4j",
+    "reason": "iat precedes the parent's iat"
+  },
+  "J.13.c": {
+    "verdict": "DENY",
+    "step": "4i",
+    "reason": "token has expired"
+  },
+  "J.13.d": {
+    "verdict": "DENY",
+    "step": "4k",
+    "reason": "iat is more than MAX_IAT_SKEW in the future"
+  },
+  "J.13.e": {
+    "verdict": "DENY",
+    "step": "4l",
+    "reason": "exp is not after iat"
+  },
+  "J.13.f": "PERMIT",
+  "J.14": {
+    "verdict": "DENY",
+    "step": "3b",
+    "reason": "root signature does not verify under any trust anchor"
+  },
+  "J.14.b": {
+    "verdict": "DENY",
+    "step": "3a",
+    "reason": "alg \"none\" is never acceptable"
+  },
+  "J.14.c": {
+    "verdict": "DENY",
+    "step": "3b",
+    "reason": "root signature does not verify under any trust anchor"
+  },
+  "J.15.1": "PERMIT",
+  "J.15.2": {
+    "verdict": "DENY",
+    "step": "4p4",
+    "reason": "export: \"limit\": all is not subsumed by parent all"
+  },
+  "J.15.3": "PERMIT",
+  "J.15.4": "PERMIT",
+  "J.15.5": {
+    "verdict": "DENY",
+    "step": "4p4",
+    "reason": "export: \"limit\": all is not subsumed by parent all"
+  },
+  "J.15.6": {
+    "verdict": "DENY",
+    "step": "6b",
+    "reason": "argument \"limit\" violates its all constraint"
+  },
+  "J.16.1": "PERMIT",
+  "J.16.2": {
+    "verdict": "DENY",
+    "step": "4p4",
+    "reason": "export: \"format\": any is not subsumed by parent any"
+  },
+  "J.16.3": {
+    "verdict": "DENY",
+    "step": "4o",
+    "reason": "export: \"format\": any: constraints must not be empty"
+  },
+  "J.16.4": "PERMIT",
+  "J.16.5": {
+    "verdict": "DENY",
+    "step": "6b",
+    "reason": "argument \"format\" violates its any constraint"
+  },
+  "J.16.6": "PERMIT",
+  "J.16.7": "PERMIT",
+  "J.16.8": {
+    "verdict": "DENY",
+    "step": "4p4",
+    "reason": "export: \"limit\": any is not subsumed by parent any"
+  },
+  "J.17.1": "PERMIT",
+  "J.17.2": {
+    "verdict": "DENY",
+    "step": "4p4",
+    "reason": "publish: \"label\": not_one_of is not subsumed by parent not_one_of"
+  },
+  "J.17.3": "PERMIT",
+  "J.17.4": {
+    "verdict": "DENY",
+    "step": "4p4",
+    "reason": "publish: \"tags\": contains is not subsumed by parent contains"
+  },
+  "J.17.5": "PERMIT",
+  "J.17.6": {
+    "verdict": "DENY",
+    "step": "4p4",
+    "reason": "publish: \"roles\": subset is not subsumed by parent subset"
+  },
+  "J.17.7": "PERMIT",
+  "J.17.8": {
+    "verdict": "DENY",
+    "step": "4p4",
+    "reason": "publish: \"limit\": range is not subsumed by parent range"
+  },
+  "J.18.1": {
+    "verdict": "DENY",
+    "step": "4p4",
+    "reason": "export: \"format\": all is not subsumed by parent any"
+  },
+  "J.18.2": "PERMIT",
+  "J.19.1": {
+    "verdict": "DENY",
+    "step": "4p4",
+    "reason": "pick: \"v\": exact is not subsumed by parent any"
+  },
+  "J.19.2": {
+    "verdict": "DENY",
+    "step": "4p4",
+    "reason": "pick: \"v\": not_one_of is not subsumed by parent one_of"
+  },
+  "J.19.3": {
+    "verdict": "DENY",
+    "step": "4p4",
+    "reason": "pick: \"v\": exact is not subsumed by parent one_of"
+  },
+  "J.19.4": {
+    "verdict": "DENY",
+    "step": "4p4",
+    "reason": "pick: \"v\": exact is not subsumed by parent not_one_of"
+  },
+  "J.19.5": {
+    "verdict": "DENY",
+    "step": "4p4",
+    "reason": "pick: \"v\": one_of is not subsumed by parent not_one_of"
+  },
+  "J.19.6": {
+    "verdict": "DENY",
+    "step": "4p4",
+    "reason": "pick: \"v\": one_of is not subsumed by parent exact"
+  },
+  "J.19.7": {
+    "verdict": "DENY",
+    "step": "4p4",
+    "reason": "pick: \"v\": one_of is not subsumed by parent range"
+  },
+  "J.19.8": "PERMIT",
+  "J.19.9": {
+    "verdict": "DENY",
+    "step": "4p4",
+    "reason": "pick: \"v\": exact is not subsumed by parent range"
+  },
+  "J.19.10": {
+    "verdict": "DENY",
+    "step": "4p4",
+    "reason": "pick: \"v\": exact is not subsumed by parent exact"
+  },
+  "J.19.11": {
+    "verdict": "DENY",
+    "step": "4p4",
+    "reason": "pick: \"v\": range is not subsumed by parent range"
+  },
+  "J.19.12": {
+    "verdict": "DENY",
+    "step": "4p4",
+    "reason": "pick: \"v\": range is not subsumed by parent range"
+  },
+  "J.19.13": {
+    "verdict": "DENY",
+    "step": "4p4",
+    "reason": "pick: \"v\": range is not subsumed by parent range"
+  },
+  "J.19.14": "PERMIT",
+  "J.19.15": {
+    "verdict": "DENY",
+    "step": "4p2",
+    "reason": "read_text_file: the derived map contains \"*\" but the parent map does not"
+  },
+  "J.20.1": {
+    "verdict": "DENY",
+    "step": "7b",
+    "reason": "PoP signature does not verify under leaf.cnf.jwk"
+  },
+  "J.20.2": {
+    "verdict": "DENY",
+    "step": "7c",
+    "reason": "aat_id does not equal the leaf jti"
+  },
+  "J.20.3": {
+    "verdict": "DENY",
+    "step": "6b",
+    "reason": "argument \"path\" violates its exact constraint"
+  },
+  "J.20.4": {
+    "verdict": "DENY",
+    "step": "7g",
+    "reason": "PoP iat is outside the clock tolerance window"
+  },
+  "J.20.5": {
+    "verdict": "DENY",
+    "step": "7f",
+    "reason": "hta does not equal the invocation arguments under JCS"
+  },
+  "J.20.6": {
+    "verdict": "DENY",
+    "step": "7e",
+    "reason": "aat_tool does not equal the invoked tool (§3.3.1)"
+  },
+  "J.20.7": {
+    "verdict": "DENY",
+    "step": "7c",
+    "reason": "aat_hash does not bind the presented leaf"
+  },
+  "J.20.8": {
+    "verdict": "DENY",
+    "step": "7c",
+    "reason": "PoP hta must be present and a JSON object"
+  },
+  "J.20.9": "PERMIT",
+  "J.20.10": {
+    "verdict": "DENY",
+    "step": "7i",
+    "reason": "PoP jti has already been accepted inside the window"
+  },
+  "J.20.11": {
+    "verdict": "DENY",
+    "step": "7f",
+    "reason": "hta does not equal the invocation arguments under JCS"
+  },
+  "J.20.12": {
+    "verdict": "DENY",
+    "step": "7b",
+    "reason": "PoP JWT claims: duplicate member \"path\""
+  },
+  "J.20.13": {
+    "verdict": "DENY",
+    "step": "7c",
+    "reason": "PoP jti must be a non-empty string"
+  },
+  "J.20.14": {
+    "verdict": "DENY",
+    "step": "7c",
+    "reason": "PoP iat must be a NumericDate with no fraction or exponent (§3.2)"
+  },
+  "J.20.15": {
+    "verdict": "DENY",
+    "step": "7g",
+    "reason": "PoP iat is outside the clock tolerance window"
+  },
+  "J.20.16": "PERMIT",
+  "J.20.17": {
+    "verdict": "DENY",
+    "step": "7f",
+    "reason": "hta contains a number that is not admissible (§3.4)"
+  },
+  "J.21.1": {
+    "verdict": "DENY",
+    "step": "3d",
+    "reason": "par_hash MUST be absent in the root"
+  },
+  "J.21.2": {
+    "verdict": "DENY",
+    "step": "3c",
+    "reason": "root del_depth must be the integer 0"
+  },
+  "J.21.3": {
+    "verdict": "DENY",
+    "step": "3l",
+    "reason": "jwk carries the private key parameter d"
+  },
+  "J.21.4": {
+    "verdict": "DENY",
+    "step": "3f",
+    "reason": "root iat is more than MAX_IAT_SKEW in the future"
+  },
+  "J.21.5": {
+    "verdict": "DENY",
+    "step": "3h",
+    "reason": "root lifetime exceeds MAX_TOKEN_LIFETIME"
+  },
+  "J.21.6": {
+    "verdict": "DENY",
+    "step": "3k",
+    "reason": "root iss is not the issuer of the trust anchor that verified it"
+  },
+  "J.21.7": {
+    "verdict": "DENY",
+    "step": "3n",
+    "reason": "read_file: \"path\": all: constraints must not be empty"
+  },
+  "J.21.8": {
+    "verdict": "DENY",
+    "step": "3m",
+    "reason": "the entry's tools member is absent or not an object"
+  },
+  "J.21.9": {
+    "verdict": "DENY",
+    "step": "3c",
+    "reason": "root del_depth must be the integer 0"
+  },
+  "J.21.10": {
+    "verdict": "DENY",
+    "step": "3m",
+    "reason": "tools[\"read_file\"] is not an object"
+  },
+  "J.21.11": {
+    "verdict": "DENY",
+    "step": "3n",
+    "reason": "read_file: \"path\": all: constraints must be an array"
+  },
+  "J.21.12": {
+    "verdict": "DENY",
+    "step": "3n",
+    "reason": "read_file: \"limit\": range: member \"maximum\" is not defined for this type"
+  },
+  "J.21.13": {
+    "verdict": "DENY",
+    "step": "3b",
+    "reason": "iat and exp must be NumericDates with no fraction or exponent (§3.2)"
+  },
+  "J.21.14": {
+    "verdict": "DENY",
+    "step": "3g",
+    "reason": "root exp is not after its iat"
+  },
+  "J.21.15": {
+    "verdict": "DENY",
+    "step": "3i",
+    "reason": "del_max_depth exceeds MAX_DELEGATION_DEPTH"
+  },
+  "J.21.16": {
+    "verdict": "DENY",
+    "step": "3i",
+    "reason": "del_max_depth must be a non-negative integer"
+  },
+  "J.21.17": {
+    "verdict": "DENY",
+    "step": "3i",
+    "reason": "del_max_depth must be a non-negative integer"
+  },
+  "J.21.18": {
+    "verdict": "DENY",
+    "step": "3i",
+    "reason": "del_max_depth must be a non-negative integer"
+  },
+  "J.21.19": "PERMIT",
+  "J.21.20": {
+    "verdict": "DENY",
+    "step": "3j",
+    "reason": "jti must be a non-empty string"
+  },
+  "J.21.21": {
+    "verdict": "DENY",
+    "step": "3l",
+    "reason": "jwk is not an OKP Ed25519 key"
+  },
+  "J.21.22": {
+    "verdict": "DENY",
+    "step": "3k",
+    "reason": "root iss is not the issuer of the trust anchor that verified it"
+  },
+  "J.21.23": "PERMIT",
+  "J.22.1": "PERMIT",
+  "J.22.2": "PERMIT",
+  "J.22.3": {
+    "verdict": "DENY",
+    "step": "6b",
+    "reason": "argument \"head\" violates its range constraint"
+  },
+  "J.22.4": "PERMIT",
+  "J.22.5": {
+    "verdict": "DENY",
+    "step": "6b",
+    "reason": "required argument \"path\" is absent"
+  },
+  "J.22.6": {
+    "verdict": "DENY",
+    "step": "6b",
+    "reason": "argument \"encoding\" is not named and the map has no \"*\" (closed world)"
+  },
+  "J.22.7": "PERMIT",
+  "J.22.8": {
+    "verdict": "DENY",
+    "step": "4p3",
+    "reason": "read_text_file: argument \"path\" is required by the parent and optional here"
+  },
+  "J.22.9": {
+    "verdict": "DENY",
+    "step": "6b",
+    "reason": "argument \"head\" is not named and the map has no \"*\" (closed world)"
+  },
+  "J.22.10": "PERMIT",
+  "J.22.11": {
+    "verdict": "DENY",
+    "step": "4p2",
+    "reason": "read_text_file: argument \"path\" is required by the parent and omitted"
+  },
+  "J.22.12": {
+    "verdict": "DENY",
+    "step": "6b",
+    "reason": "argument \"encoding\" violates its exact constraint"
+  },
+  "J.22.13": "PERMIT",
+  "J.22.14": {
+    "verdict": "DENY",
+    "step": "4p2",
+    "reason": "read_text_file: the derived map contains \"*\" but the parent map does not"
+  },
+  "J.22.15": {
+    "verdict": "DENY",
+    "step": "4p2",
+    "reason": "read_text_file: argument \"encoding\" is neither named nor admitted by \"*\" in the parent"
+  },
+  "J.22.16": {
+    "verdict": "DENY",
+    "step": "4p2",
+    "reason": "read_text_file: argument \"head\" is omitted while \"*\" is kept, so it returns under \"*\""
+  },
+  "J.22.17": "PERMIT",
+  "J.22.18": {
+    "verdict": "DENY",
+    "step": "3n",
+    "reason": "read_text_file: \"path\": exact: optional may appear only on a top-level constraint-map entry"
+  },
+  "J.22.19": {
+    "verdict": "DENY",
+    "step": "3n",
+    "reason": "read_text_file: \"*\" must be a wildcard constraint without optional"
+  },
+  "J.22.20": "PERMIT",
+  "J.22.21": "PERMIT",
+  "J.22.22": {
+    "verdict": "DENY",
+    "step": "6b",
+    "reason": "argument \"encoding\" is not named and the map has no \"*\" (closed world)"
+  },
+  "J.22.23": {
+    "verdict": "DENY",
+    "step": "3n",
+    "reason": "read_text_file: \"*\" must be a wildcard constraint without optional"
+  },
+  "J.23.1": {
+    "verdict": "DENY",
+    "step": "1",
+    "reason": "the chain is empty"
+  },
+  "J.23.2": {
+    "verdict": "DENY",
+    "step": "2a",
+    "reason": "token exceeds MAX_TOKEN_SIZE 2048"
+  },
+  "J.23.3": {
+    "verdict": "DENY",
+    "step": "2b",
+    "reason": "chain exceeds MAX_CHAIN_SIZE 2048"
+  },
+  "J.23.4": {
+    "verdict": "DENY",
+    "step": "3b",
+    "reason": "duplicate member \"jti\""
+  },
+  "J.24.1": {
+    "verdict": "DENY",
+    "step": "2c",
+    "reason": "no string-valued jti can be extracted"
+  },
+  "J.24.2": {
+    "verdict": "DENY",
+    "step": "4b1",
+    "reason": "jti must be a non-empty string"
+  },
+  "J.24.3": {
+    "verdict": "DENY",
+    "step": "4b2",
+    "reason": "jwk carries the private key parameter d"
+  },
+  "J.24.4": {
+    "verdict": "DENY",
+    "step": "4b4",
+    "reason": "del_depth and del_max_depth must be non-negative integers"
+  },
+  "J.24.5": {
+    "verdict": "DENY",
+    "step": "4b4",
+    "reason": "del_depth and del_max_depth must be non-negative integers"
+  },
+  "J.24.6": {
+    "verdict": "DENY",
+    "step": "4b5",
+    "reason": "iss and par_hash must be strings, iat and exp NumericDates"
+  },
+  "J.24.7": {
+    "verdict": "DENY",
+    "step": "4b5",
+    "reason": "iss and par_hash must be strings, iat and exp NumericDates"
+  },
+  "J.24.8": {
+    "verdict": "DENY",
+    "step": "4b5",
+    "reason": "iss and par_hash must be strings, iat and exp NumericDates"
+  },
+  "J.24.9": {
+    "verdict": "DENY",
+    "step": "4b",
+    "reason": "duplicate member \"read_file\""
+  },
+  "J.24.10": {
+    "verdict": "DENY",
+    "step": "4b2",
+    "reason": "jwk is not an OKP Ed25519 key"
+  },
+  "J.24.11": {
+    "verdict": "DENY",
+    "step": "4b2",
+    "reason": "jwk x is not a 32-byte base64url value"
+  },
+  "J.25.1": "PERMIT",
+  "J.25.2": {
+    "verdict": "DENY",
+    "step": "6b",
+    "reason": "tool \"delete_file\" is not in the leaf's attenuating_agent_token entry"
+  },
+  "J.25.3": {
+    "verdict": "DENY",
+    "step": "4n",
+    "reason": "exactly one attenuating_agent_token entry is required, found 0"
+  },
+  "J.25.4": {
+    "verdict": "DENY",
+    "step": "4n",
+    "reason": "exactly one attenuating_agent_token entry is required, found 0"
+  },
+  "J.25.5": {
+    "verdict": "DENY",
+    "step": "4n",
+    "reason": "exactly one attenuating_agent_token entry is required, found 0"
+  },
+  "J.25.6": {
+    "verdict": "DENY",
+    "step": "4n",
+    "reason": "exactly one attenuating_agent_token entry is required, found 2"
+  },
+  "J.25.7": {
+    "verdict": "DENY",
+    "step": "3m",
+    "reason": "exactly one attenuating_agent_token entry is required, found 2"
+  },
+  "J.25.8": {
+    "verdict": "DENY",
+    "step": "4n",
+    "reason": "tools[\"read_file\"] is not an object"
+  },
+  "J.25.9": {
+    "verdict": "DENY",
+    "step": "3m",
+    "reason": "tools[\"read_file\"] is not an object"
+  },
+  "J.25.10": {
+    "verdict": "DENY",
+    "step": "4b3",
+    "reason": "authorization_details must be an array"
+  },
+  "J.26.1": {
+    "verdict": "DENY",
+    "step": "6b",
+    "reason": "argument \"format\" violates its one_of constraint"
+  },
+  "J.26.2": {
+    "verdict": "DENY",
+    "step": "6b",
+    "reason": "argument \"label\" violates its not_one_of constraint"
+  },
+  "J.26.3": {
+    "verdict": "DENY",
+    "step": "6b",
+    "reason": "argument \"tags\" violates its contains constraint"
+  },
+  "J.26.4": {
+    "verdict": "DENY",
+    "step": "6b",
+    "reason": "argument \"tags\" violates its contains constraint"
+  },
+  "J.26.5": {
+    "verdict": "DENY",
+    "step": "6b",
+    "reason": "argument \"roles\" violates its subset constraint"
+  },
+  "J.26.6": {
+    "verdict": "DENY",
+    "step": "6b",
+    "reason": "argument \"roles\" violates its subset constraint"
+  },
+  "J.26.7": {
+    "verdict": "DENY",
+    "step": "6b",
+    "reason": "argument \"limit\" violates its range constraint"
+  },
+  "J.26.8": {
+    "verdict": "DENY",
+    "step": "6b",
+    "reason": "argument \"limit\" violates its range constraint"
+  },
+  "J.26.9": {
+    "verdict": "DENY",
+    "step": "6b",
+    "reason": "argument \"size\" violates its range constraint"
+  },
+  "J.26.10": "PERMIT",
+  "J.26.11": "PERMIT",
+  "J.26.12": "PERMIT",
+  "J.27.1": "PERMIT",
+  "J.27.2": "PERMIT",
+  "J.27.3": "PERMIT",
+  "J.27.4": "PERMIT",
+  "J.27.5": {
+    "verdict": "DENY",
+    "step": "6c",
+    "reason": "aud does not identify this enforcement point"
+  },
+  "J.27.6": "PERMIT"
+}
