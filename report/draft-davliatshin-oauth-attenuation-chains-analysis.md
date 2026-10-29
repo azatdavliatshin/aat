@@ -7,7 +7,7 @@ submissiontype: IETF
 ipr: trust200902
 area: Security
 workgroup: Web Authorization Protocol
-keyword: [OAuth, delegation, attenuation, agents, formal verification]
+keyword: [OAuth, delegation, attenuation, agents, formal verification, interoperability]
 venue:
   group: Web Authorization Protocol
   type: Working Group
@@ -24,21 +24,32 @@ normative:
   RFC7942:
 informative:
   RFC7800:
+  RFC8259:
   RFC8785:
   RFC9278:
   RFC9396:
   RFC9449:
   RFC9068:
+  RFC9421:
+  RFC9864:
   AAT-01:
-    title: "Attenuating Agent Tokens"
+    title: "Attenuating Authorization Tokens for Agentic Delegation Chains"
     target: https://datatracker.ietf.org/doc/draft-niyikiza-oauth-attenuating-agent-tokens/01/
     seriesinfo:
       Internet-Draft: draft-niyikiza-oauth-attenuating-agent-tokens-01
     author:
     - name: Niki Niyikiza
     date: 2026
+  AAT-02:
+    title: "Attenuating Authorization Tokens for Agentic Delegation Chains"
+    target: https://datatracker.ietf.org/doc/draft-niyikiza-oauth-attenuating-agent-tokens/02/
+    seriesinfo:
+      Internet-Draft: draft-niyikiza-oauth-attenuating-agent-tokens-02
+    author:
+    - name: Niki Niyikiza
+    date: 2026
   ASOR-02:
-    title: "Agent Delegation Chain"
+    title: "Verifiable Attenuated Delegation for AI Agent Chains"
     target: https://datatracker.ietf.org/doc/draft-asor-wimse-agent-delegation-chain/02/
     seriesinfo:
       Internet-Draft: draft-asor-wimse-agent-delegation-chain-02
@@ -46,19 +57,23 @@ informative:
     - name: Rafael Asor
     date: 2026
   HAMR-02:
-    title: "OAuth Agent Delegation"
+    title: "An Attenuated Delegation Profile for Automated Agents"
     target: https://datatracker.ietf.org/doc/draft-hamr-oauth-agent-delegation/02/
     seriesinfo:
       Internet-Draft: draft-hamr-oauth-agent-delegation-02
+    author:
+    - name: Amr Hassan
     date: 2026
   COETZEE-03:
-    title: "Transaction Tokens with Secure Provenance Tokens"
+    title: "Transaction-Bound Authorization Tokens for Software and AI Agents (SPT-Txn)"
     target: https://datatracker.ietf.org/doc/draft-coetzee-oauth-spt-txn-tokens/03/
     seriesinfo:
       Internet-Draft: draft-coetzee-oauth-spt-txn-tokens-03
+    author:
+    - name: Rudolf J. Coetzee
     date: 2026
   AGNIHOTRI-02:
-    title: "Implementation Status of OAuth Agent Drafts"
+    title: "Implementation Status of OAuth Identity Chaining and Transaction Tokens"
     target: https://datatracker.ietf.org/doc/draft-agnihotri-oauth-agent-impl-status/02/
     seriesinfo:
       Internet-Draft: draft-agnihotri-oauth-agent-impl-status-02
@@ -80,14 +95,20 @@ informative:
 
 This document reports an independent implementation and formal analysis of
 two individual Internet-Drafts that propose offline-verifiable, attenuating
-delegation chains for AI agents. It describes a minimal verifier written
-from each draft's text, a symbolic model of the shared chain structure
-checked with ProVerif, the questions the draft texts leave open, and the
-results of the model on both drafts, including two properties raised in
-public review. The author of this report is not an author of either draft.
-The report specifies nothing; it follows the shape of RFC 7942.
-
-<!-- TODO(abstract): rewrite after sections 6 to 8 are argued. -->
+delegation chains for AI agents: Attenuating Authorization Tokens (AATs),
+in revisions -01 and -02, and the Agent Delegation Chain of
+draft-asor-wimse-agent-delegation-chain-02. It describes a minimal verifier
+written from each draft's text, with profiles for AAT -01, AAT -02 and
+asor-02, and a ProVerif model of the chain structures of AAT -01 and
+asor-02. The AAT -02 profile, written from the text and then run against
+the author's 229-vector test suite, agrees with it on all 229 vectors. Of
+25 observations recorded on AAT -01, the -02 text resolves 18 (16 closed,
+2 closed as intended design); one is partly resolved, one no longer arises,
+and five remain open. The report lists ten points where -02 leaves an
+implementer more than one conforming behaviour. Two properties raised in
+public review are checked on both chain structures. The author of this
+report is not an author of either draft. The report specifies nothing; it
+follows the shape of RFC 7942.
 
 --- middle
 
@@ -98,28 +119,40 @@ The report specifies nothing; it follows the shape of RFC 7942.
 Several individual Internet-Drafts propose chains of signed tokens in which
 each link can only narrow the authority of the one before it, so that a
 verifier can check an agent's authority offline. This report covers two of
-them, {{AAT-01}} and {{ASOR-02}}, and mentions two more, {{HAMR-02}} and
-{{COETZEE-03}}.
+them, {{AAT-01}} with its revision {{AAT-02}}, and {{ASOR-02}}, and
+mentions two more, {{HAMR-02}} and {{COETZEE-03}}.
+
+The work began against AAT-01. AAT-02 appeared on 26 October 2026, with
+changes that its Appendix F describes as breaking -01 implementations, and
+with a byte-exact test-vector suite and a procedure for comparing results.
+The verifier gained a separate profile for -02. This report covers both
+versions and says which of its observations on -01 the -02 text resolves
+({{findings-aat}}).
 
 What was done:
 
 - A minimal TypeScript verifier for the chain checks of both drafts,
   written as an executable specification (see {{verifier}}).
+- A separate verifier profile for AAT-02, written from the -02 text and
+  then run against the author's 229-vector suite: 229 of 229 verdicts
+  agree, with the expected -02 Section 8 step on every denial.
 - A ProVerif model {{PROVERIF}} of the shared chain structure (parent-hash
   linkage, depth, lifetime and capability monotonicity, holder binding and
   proof of possession), instantiated for both drafts (see {{model}}).
 - This report.
 
 What was not done: no minting or issuing service, no CBOR encoding, no
-revocation or status-list handling, no interoperability testing against
-another implementation.
+revocation or status-list handling. The AAT-02 profile was run against the
+author's published vectors; it has not exchanged tokens with another running
+implementation.
 
 Who did it: an individual, not an author of either draft. The shape and
 tone of this report follow {{AGNIHOTRI-02}}. The drafts are
 the object of study; the mechanisms described here are theirs.
 
-Source code, model and vectors: TODO(url: public repository tree, `verifier/`
-and `model/`).
+Source code, model and vectors: [](https://github.com/azatdavliatshin/aat)
+(verifier: [](https://github.com/azatdavliatshin/aat/tree/main/verifier);
+model: [](https://github.com/azatdavliatshin/aat/tree/main/model)).
 
 # Conventions and Terminology {#conventions}
 
@@ -151,15 +184,16 @@ PoP:
 : Proof of possession of the key a token is bound to, for example a DPoP
   proof {{RFC9449}}.
 
-"AAT-01" is {{AAT-01}}; "asor-02" is {{ASOR-02}}.
+"AAT-01" is {{AAT-01}}; "AAT-02" is {{AAT-02}}; "asor-02" is {{ASOR-02}}.
 
 Related documents used below: {{RFC8785}} (canonical JSON, used by both
 drafts for hashing and comparison), {{RFC9278}} (JWK thumbprint URI) and
 {{RFC9396}} (rich authorization requests, the model for structured
 authority). TODO(check each against the drafts' own use)
 
-Finding labels A1 to A7 (asor-02), B1 to B25 (AAT-01) and M1, M2 (the two
-properties of {{model-properties}}) are this document's own numbering. They
+Finding labels A1 to A7 (asor-02), B1 to B25 (AAT-01), C1 to C10 (AAT-02)
+and M1, M2 (the two properties of {{model-properties}}) are this document's
+own numbering. They
 are not used by the drafts or by the reviews cited here.
 
 # Reported Drafts {#drafts}
@@ -167,23 +201,79 @@ are not used by the drafts or by the reviews cited here.
 <!-- What goes here: one subsection per draft; what it proposes, at the
 level needed to read sections 4 to 8. No evaluation. -->
 
-## AAT-01
+## AAT-01 and AAT-02 {#drafts-aat}
 
-{{AAT-01}} (Niyikiza): TODO(description: holder-derived chain; each link
-signed by the key in the parent's `cnf`; `par_hash` commitment; proof of
-possession at invocation). Modelled and implemented.
+{{AAT-01}} (Niyikiza) defines Attenuating Authorization Tokens: JWTs whose
+`authorization_details` ({{RFC9396}}) list the tools a holder may invoke and
+typed constraints on each argument. A root token is issued by a root issuer
+and verified under a configured trust anchor key. Each later token is
+derived offline by the holder of its parent: it is signed by the key the
+parent names in `cnf.jwk`, its `iss` is that key's JWK thumbprint URI
+({{RFC9278}}), and its `par_hash` is the SHA-256 hash of the parent's JWS
+signing input (Section 4.6). The invariants I1 to I6 (Section 4) let a
+derived token only narrow tools, argument constraints (by a per-type
+subsumption relation, Section 4.5), delegation depth and lifetime. At each
+tool invocation the leaf holder presents a proof-of-possession (PoP) JWT
+over the tool and its arguments (Section 5); an enforcement point checks
+the chain and the proof in one algorithm (Section 7).
+
+{{AAT-02}} (26 October 2026) keeps this structure and makes normative
+changes that, by its Appendix F, break -01 implementations. The JWS
+algorithm is the fully-specified `Ed25519` ({{RFC9864}}) in place of
+`EdDSA`, and `typ` is required and explicit (`aat+jwt` for tokens,
+`aat-pop+jwt` for the PoP JWT). The PoP JWT carries `aat_hash`, the hash of
+the leaf's signing input. Trust anchors are (issuer, public key) pairs, and
+the root's `iss` must equal the issuer of the anchor whose key verified it.
+Parsing rules are strict: duplicate member names are rejected ({{RFC8259}}),
+NumericDates and depths have no fraction or exponent part, `crit` is
+processed, and numbers in arguments and constraints must be admissible
+(-02 Section 3.4). Constraint maps gain `optional` arguments and a `"*"`
+entry for arguments they do not name (-02 Section 3.3). The subsumption
+relation is written as a table of valid (parent, derived) pairs, every
+other pair invalid (-02 Section 4.5). MAX_DELEGATION_DEPTH is at least 8.
+A presentation object with members `aat_chain` and `aat_pop` is defined
+(-02 Section 7.4). The verification algorithm is -02 Section 8; this report
+names its steps by number and letter (for example, step 3k). -02 publishes
+a byte-exact JWS test-vector suite and lists implementations in its
+Appendix E. Both versions are implemented; the model is of -01 (see
+{{model}}).
 
 ## asor-02
 
-{{ASOR-02}} (Asor): TODO(description: delegation tokens as access tokens
-({{RFC9068}}) with `par_hash` and monotonic `del_depth`; verification
-under configured keys; DPoP-bound leaf). Modelled and implemented.
+{{ASOR-02}} (Asor) defines the Agent Delegation Chain, a profile of OAuth
+2.0 JWT access tokens ({{RFC9068}}). Each Delegation Token carries its
+authority as `authorization_details` ({{RFC9396}}), the principal in `sub`
+(the same value in every token of the chain), the acting agent in
+`client_id`, a `del_depth` that grows by one per hop and is bounded by
+`del_max_depth`, and, below the root, a `par_hash`: the SHA-256 hash of
+the parent's JWS signing input. Tokens are verified under keys configured
+at the verifier (Section 6, step 1). The leaf is bound to its holder by
+`cnf` ({{RFC7800}}) and a DPoP proof ({{RFC9449}}). The offline
+verification algorithm (Section 6) enforces monotonic attenuation, bounded
+depth, monotonic expiry and the same principal throughout. Modelled and
+implemented.
 
 ## hamr-02 and coetzee-03
 
-{{HAMR-02}}: TODO(one paragraph). Described here, not implemented.
+{{HAMR-02}} (Hassan) builds on HTTP Message Signatures ({{RFC9421}}). An
+HTTP header field, `Agent-Delegation`, carries a chain of delegation links,
+each of which can only narrow the scope, floors and expiry of the link
+before it. Floors cover the person or account behind the agent, answered
+by an Attestation Issuer with a signed yes or no, and the class of call the
+agent may make (r, w or x, with an optional count per class). The document
+defines no credential format: the encoding of each link is that of the
+credential format in use (hamr-02 Section 4). Described here, not
+implemented or modelled.
 
-{{COETZEE-03}}: TODO(one paragraph). Described here, not implemented.
+{{COETZEE-03}} (Coetzee) defines SPT-Txn, a family of transaction-bound
+authorization tokens: a root (CAT), zero or more delegation tokens (CT) and
+a per-transaction leaf (TXN), each a signed JWT verified offline under its
+issuer's key from a cached trust registry. Each hop narrows scope,
+decrements a remaining depth by one and commits to the exact bytes of its
+parent by a hash; the leaf is bound to one declared intent, and each
+authorization decision emits a signed receipt. The document also specifies
+attested issuance through OAuth 2.0 Token Exchange, status-list revocation
+and algorithm agility. Described here, not implemented or modelled.
 
 # The Verifier {#verifier}
 
@@ -191,25 +281,55 @@ under configured keys; DPoP-bound leaf). Modelled and implemented.
 live in verifier/README.md; point at it, do not restate. -->
 
 The verifier is a minimal TypeScript implementation, not a product. It
-verifies a chain under either profile with a shared chain walk and a
-profile that supplies the named, section-tagged checks of the draft. Layout,
-inputs, failure codes and options are documented in `verifier/README.md`
-(TODO(url)).
+verifies a chain under one of three profiles, `aat-01`, `aat-02` and
+`asor-02`, with a shared chain walk and a profile that supplies the named,
+section-tagged checks of the draft. Layout, inputs, failure codes and
+options are documented in `verifier/README.md`
+([](https://github.com/azatdavliatshin/aat/blob/main/verifier/README.md)).
+
+The `aat-02` profile is a separate set of files that follows -02 Section 8
+step by step; every failure carries the step at which it occurs (for
+example, `3a` or `4p2`). The `aat-01` profile is kept unchanged next to it,
+as the implementation the AAT-01 findings of {{findings-aat}} refer to.
 
 It checks, for asor-02, the steps of its verification procedure up to the
 action check; for AAT-01, the root, link and leaf checks of its verification
-algorithm and the proof of possession. It does not implement status-list
-handling (a token carrying a status claim is denied), mTLS-bound
-confirmation, ES256 proofs, replay caches, or any key type other than
-Ed25519. The complete list is in `verifier/README.md`.
+algorithm and the proof of possession; for AAT-02, every step of -02
+Section 8, including the PoP JWT, with PoP `jti` tracking and nonces taken
+from state the caller supplies. It does not implement:
+
+- asor-02: status lists (a token carrying a `status` claim is denied with
+  the distinct code `not_implemented`), holder binding for `x5t#S256`
+  (mTLS) confirmation and for ES256 proofs, or a DPoP `jti` replay cache;
+  cumulative running totals are taken from the caller.
+- AAT-01: keys other than Ed25519 (OKP), HS256 (never accepted), a PoP
+  `jti` replay cache, or extension constraint types (denied); and it parses
+  every token before verifying any signature, which is not the order of
+  Section 7.
+- AAT-02: algorithms other than `Ed25519` (`EdDSA` is denied, -02
+  Section 9.11), `cnf.jwk` keys other than OKP Ed25519 (denied at steps 3l
+  and 4b2), any `crit` parameter (denied whenever present, since no
+  extension parameter is understood), or extension constraint types
+  (denied).
+
+The complete list is in `verifier/README.md`.
 
 Vectors:
 
 - asor-02: the 35 offline-verification vectors published with the
   `attenu-guard` 0.20.0 source distribution, Apache License 2.0, copied
   unchanged; all 35 produce the outcome they name.
-- AAT-01: 41 vectors written for this work from our reading of the draft.
-  The draft publishes none; these are not the author's vectors.
+- AAT-01: 41 vectors of this work's own, written from its reading of -01,
+  which publishes none. They are not the author's vectors.
+- AAT-02: the author's JWS test-vector suite, 229 vectors (54 permit,
+  175 deny), copied byte for byte from [](https://github.com/tenuo-ai/tenuo),
+  commit 99fb00994d8d66b213cd12967d6e8eef45025672, file
+  `tests/vectors/aat-jws-vectors.json` (SHA-256
+  b7a42e9dfdce7fbc1f623670bf060f90e6d6b25f64384cbab1bd79363e82209b),
+  Apache License 2.0. Result: 229 of 229 verdicts agree on the first run,
+  0 skipped, and the expected -02 Section 8 step on all 175 denials. No
+  check was adjusted to a vector. Results were compared with the suite's
+  own `compare_results.py`, following its `INTEROP.md`.
 
 # The Model {#model}
 
@@ -220,7 +340,8 @@ The model is a symbolic (Dolev-Yao) model in ProVerif's typed applied
 pi-calculus. Its roles, abstractions, bound (chains of at most four tokens,
 depth and expiry bounded by 3, tool sets over a three-tool alphabet) and
 attacker (controls the network, may compromise any holder key, never the
-trust anchor's key) are described in `model/README.md` (TODO(url)).
+trust anchor's key) are described in `model/README.md`
+([](https://github.com/azatdavliatshin/aat/blob/main/model/README.md)).
 
 ## Properties {#model-properties}
 
@@ -397,6 +518,10 @@ This section records the status of known implementations at the time of
 posting, following {{RFC7942}}. The inclusion of an implementation here
 does not imply endorsement by the IETF.
 
+{{AAT-02}} Appendix E lists further implementations of AATs, and the
+`INTEROP.md` file of the author's vector suite keeps a table of results
+against it; this report does not restate them.
+
 ## aat {#impl-aat}
 
 Organization:
@@ -406,25 +531,41 @@ Name:
 : aat (verifier and model).
 
 Description:
-: A minimal TypeScript verifier for AAT-01 and asor-02 chains, and a
-  ProVerif model of both; see {{verifier}} and {{model}}.
+: A minimal TypeScript verifier for AAT-01, AAT-02 and asor-02 chains, and
+  a ProVerif model of AAT-01 and asor-02; see {{verifier}} and {{model}}.
 
 Level of maturity:
 : Research prototype; an executable specification, not a product.
 
 Coverage:
-: Chain verification for both profiles as listed in {{verifier}}; no
-  minting service, no CBOR, no revocation. TODO(coverage per draft section)
+: Chain verification only; no minting service, no CBOR, no revocation.
+  asor-02: the token format (Section 3), authority and subsumption
+  (Section 4), chain linkage (Section 5) and the offline verification
+  algorithm (Section 6) through the action check (step 8), with DPoP
+  holder binding (Section 7) for EdDSA proofs; not status lists (step 7,
+  Section 8), mTLS confirmation or ES256 proofs. AAT-01: the root, link
+  and leaf checks of Section 7 (invariants I1 to I6 of Section 4), the nine
+  constraint types and their subsumption (Sections 3.4 and 4.5) and the
+  PoP JWT (Section 5); not root issuance (Section 3.7) or derivation
+  (Section 6) beyond test-only minting, keys other than Ed25519, or a PoP
+  replay cache. AAT-02: every step of -02 Section 8, with the constraint
+  map, well-formedness and subsumption rules of -02 Sections 3.3, 3.4 and
+  4.5 and the PoP JWT of -02 Section 7; not issuance or derivation (-02
+  Section 6), algorithms other than Ed25519, or extension constraint types
+  (-02 Section 5).
 
 Version compatibility:
-: draft-niyikiza-oauth-attenuating-agent-tokens-01 and
+: draft-niyikiza-oauth-attenuating-agent-tokens-01,
+  draft-niyikiza-oauth-attenuating-agent-tokens-02 and
   draft-asor-wimse-agent-delegation-chain-02.
 
 Licensing:
 : Apache License 2.0.
 
 Implementation experience:
-: TODO(argument: summary of sections 6 and 7)
+: The AAT-02 profile was written from the -02 text and then run against the
+  author's vector suite; it agreed on all 229 vectors on the first run.
+  TODO(argument: summary of sections 6 and 7)
 
 Contact:
 : Azat Davliatshin, ardavlyatshin@gmail.com
@@ -449,14 +590,23 @@ This document has no IANA actions.
 
 <!-- What goes here: commands and versions. -->
 
-From the repository root (TODO(url)):
+From the root of [](https://github.com/azatdavliatshin/aat):
 
 - `npm --prefix verifier install`
-- `npm --prefix verifier test`
-- `make -C model summary`
+- `npm --prefix verifier test`: property and unit tests, the 35 asor-02
+  vectors, the 41 AAT-01 vectors and the 229-vector AAT-02 suite.
+- `npm --prefix verifier run suite:aat02`: runs the AAT-02 suite alone and
+  writes `verifier/results/aat02-results.json` in the format of the
+  suite's `compare_results.py`.
+- In a checkout of the suite's repository:
+  `python3 ietf/vectors/compare_results.py results.json`, with
+  `results.json` the file written by the previous command. It prints the
+  suite's SHA-256 and the count of agreements.
+- `make -C model summary`: every ProVerif model, and `model/out/SUMMARY.md`.
 
-Versions: Node 22 or later; ProVerif 2.05. TODO(exact versions used for
-the reported run)
+Versions: Node 22 or later and ProVerif 2.05 are required. The verifier run
+reported here used Node v26.12.0 and npm 11.20.0 (146 tests, 146 passed).
+The model results of {{tbl-results}} are from ProVerif 2.05.
 
 # Change Log {#changelog}
 
@@ -464,7 +614,9 @@ the reported run)
 
 ## -00
 
-Initial skeleton.
+Written against AAT-01 and asor-02; extended for AAT-02 after 26 October
+2026 with the `aat-02` verifier profile and the result of the author's
+vector suite.
 
 # Acknowledgements
 {:numbered="false"}
