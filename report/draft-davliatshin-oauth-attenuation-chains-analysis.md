@@ -791,12 +791,22 @@ From the root of [](https://github.com/azatdavliatshin/aat):
 - In a checkout of the suite's repository:
   `python3 ietf/vectors/compare_results.py results.json`, with
   `results.json` the file written by the previous command. It prints the
-  suite's SHA-256 and the count of agreements.
+  suite's SHA-256 and the count of agreements; `--steps` also lists the DENY
+  vectors whose failing step differs. The script is not part of this
+  repository, and outside the suite's directory layout it needs
+  `--suite path/to/aat-jws-vectors.json`.
 - `make -C model summary`: every ProVerif model, and `model/out/SUMMARY.md`.
+  The `proverif` executable must be on `PATH` (or passed as
+  `PROVERIF=/path/to/proverif`); it can be installed with `opam install
+  proverif`.
+- `make -C report` and `make -C report idnits`: build this document and
+  check it. They need kramdown-rfc, xml2rfc and idnits on `PATH`.
 
-Versions: Node 22 or later and ProVerif 2.05 are required. The verifier run
-reported here used Node v26.12.0 and npm 11.20.0 (146 tests, 146 passed).
-The model results of {{tbl-results}} are from ProVerif 2.05.
+Versions: Node 22 or later, Python 3 and ProVerif 2.05 are required. The
+verifier run reported here used Node v26.12.0, npm 11.20.0 and Python 3.14.4
+(146 tests, 146 passed). The model results of {{tbl-results}} are from
+ProVerif 2.05. The report was built with kramdown-rfc 1.7.43, xml2rfc 3.34.1
+and idnits 3.2.0.
 
 # Change Log {#changelog}
 
