@@ -36,7 +36,6 @@ informative:
   RFC9396:
   RFC9449:
   RFC9068:
-  RFC9421:
   RFC9864:
   AAT-01:
     title: "Attenuating Authorization Tokens for Agentic Delegation Chains"
@@ -61,22 +60,6 @@ informative:
       Internet-Draft: draft-asor-wimse-agent-delegation-chain-02
     author:
     - name: Rafael Asor
-    date: 2026
-  HAMR-02:
-    title: "An Attenuated Delegation Profile for Automated Agents"
-    target: https://datatracker.ietf.org/doc/draft-hamr-oauth-agent-delegation/02/
-    seriesinfo:
-      Internet-Draft: draft-hamr-oauth-agent-delegation-02
-    author:
-    - name: Amr Hassan
-    date: 2026
-  COETZEE-03:
-    title: "Transaction-Bound Authorization Tokens for Software and AI Agents (SPT-Txn)"
-    target: https://datatracker.ietf.org/doc/draft-coetzee-oauth-spt-txn-tokens/03/
-    seriesinfo:
-      Internet-Draft: draft-coetzee-oauth-spt-txn-tokens-03
-    author:
-    - name: Rudolf J. Coetzee
     date: 2026
   AGNIHOTRI-02:
     title: "Implementation Status of OAuth Identity Chaining and Transaction Tokens"
@@ -125,8 +108,10 @@ follows the shape of RFC 7942.
 Several individual Internet-Drafts propose chains of signed tokens in which
 each link can only narrow the authority of the one before it, so that a
 verifier can check an agent's authority offline. This report covers two of
-them, {{AAT-01}} with its revision {{AAT-02}}, and {{ASOR-02}}, and
-mentions two more, {{HAMR-02}} and {{COETZEE-03}}.
+them, {{AAT-01}} with its revision {{AAT-02}}, and {{ASOR-02}}. Other
+individual drafts propose related mechanisms (a delegation header over HTTP
+message signatures; an issuer-per-hop chain anchored in a trust registry);
+they are outside this report.
 
 The work began against AAT-01. AAT-02 appeared on 26 October 2026, with
 changes that its Appendix F describes as breaking -01 implementations, and
@@ -258,28 +243,6 @@ at the verifier (Section 6, step 1). The leaf is bound to its holder by
 verification algorithm (Section 6) enforces monotonic attenuation, bounded
 depth, monotonic expiry and the same principal throughout. Modelled and
 implemented.
-
-## hamr-02 and coetzee-03
-
-{{HAMR-02}} (Hassan) builds on HTTP Message Signatures ({{RFC9421}}). An
-HTTP header field, `Agent-Delegation`, carries a chain of delegation links,
-each of which can only narrow the scope, floors and expiry of the link
-before it. Floors cover the person or account behind the agent, answered
-by an Attestation Issuer with a signed yes or no, and the class of call the
-agent may make (r, w or x, with an optional count per class). The document
-defines no credential format: the encoding of each link is that of the
-credential format in use (hamr-02 Section 4). Described here, not
-implemented or modelled.
-
-{{COETZEE-03}} (Coetzee) defines SPT-Txn, a family of transaction-bound
-authorization tokens: a root (CAT), zero or more delegation tokens (CT) and
-a per-transaction leaf (TXN), each a signed JWT verified offline under its
-issuer's key from a cached trust registry. Each hop narrows scope,
-decrements a remaining depth by one and commits to the exact bytes of its
-parent by a hash; the leaf is bound to one declared intent, and each
-authorization decision emits a signed receipt. The document also specifies
-attested issuance through OAuth 2.0 Token Exchange, status-list revocation
-and algorithm agility. Described here, not implemented or modelled.
 
 # The Verifier {#verifier}
 
