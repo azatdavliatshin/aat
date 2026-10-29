@@ -23,7 +23,13 @@ author:
 normative:
   RFC7942:
 informative:
+  RFC3986:
+  RFC7515:
+  RFC7517:
+  RFC7519:
   RFC7800:
+  RFC8037:
+  RFC8141:
   RFC8259:
   RFC8785:
   RFC9278:
@@ -435,48 +441,269 @@ size and algorithm checks, or chains longer than four tokens. A "true" is
 a ProVerif proof for unbounded sessions of the bounded model, not for the
 draft text.
 
-# Findings on AAT-01 {#findings-aat}
+# Findings on AAT-01 and Their Status in -02 {#findings-aat}
 
 <!-- What goes here: one entry per finding, label, section of AAT-01,
 argument. Section numbers are those of -01. Kinds: gap, inconsistency,
 redundancy, implementation choice. -->
 
+Section numbers in this section are those of AAT-01 unless marked "-02
+Section". Each finding B1 to B25 has a status line, starting "-02:", that
+gives how the -02 text relates to it:
+
+closed:
+: The -02 text decides the point.
+
+closed as design:
+: -02 keeps the behaviour and says it is intended.
+
+partly:
+: -02 decides part of the point.
+
+moot:
+: The question no longer arises in -02.
+
+open:
+: Unchanged in -02.
+
+Where a vector of the author's suite pins the point, the status line names
+it by its identifier (J.x.y). Step numbers such as 3k are those of -02
+Section 8.
+
 ## Constraints (B1 to B8) {#aat-constraints}
 
 - B1 (Section 4.5): cross-type subsumption is an allow-list. TODO(argument)
+
+  -02: closed as design -- -02 Section 4.5 lists every valid (parent,
+  derived) pair and says "Every other pair is invalid"; J.19.1 to J.19.7
+  and J.8.4 deny semantically narrower pairs, and their notes call this
+  conservative by design.
+
 - B2 (Section 4.5): non-composite child under a composite parent. TODO(argument)
+
+  -02: closed as design -- J.8.4 (range under all) and J.19.1 (exact under
+  any) are denied; J.18.1 denies all under any.
+
 - B3 (Section 4.5): empty composite constraints. TODO(argument)
+
+  -02: closed -- -02 Section 4.5 makes an empty all or any invalid in both
+  the parent and the derived position; it is denied at steps 3n and 4o
+  (J.21.7, J.16.3).
+
 - B4 (Section 4.5): range corner cases. TODO(argument)
+
+  -02: partly -- -02 Section 3.4 well-formedness requires min not greater
+  than max and inclusivity flags only with their bound (J.8.6, J.8.21,
+  J.8.24). An empty range with equal bounds and an exclusive side (min
+  equal to max, min_inclusive false) is still well-formed.
+
 - B5 (Section 3.4): value model and equality. TODO(argument)
+
+  -02: closed -- `exact.value` may be a string, number, boolean or null,
+  equality is by JCS, and the admissibility rule of -02 Section 3.4
+  replaces this implementation's refusal of integers above 2^53-1 (J.8.8
+  permit; J.8.7, J.8.10, J.8.14 deny).
+
 - B6 (Section 3.4): arrays as sets. TODO(argument)
+
+  -02: closed -- -02 Section 3.4: contains and subset "treat their arrays
+  as sets" (J.26.11, J.26.12).
+
 - B7 (Section 3.4): unknown members of a core constraint type. TODO(argument)
+
+  -02: closed -- well-formedness allows "no members other than" those of
+  the type (J.21.12, `maximum`). The strict reading of -01 taken by this
+  implementation is now the text.
+
 - B8 (Sections 3.6.2, 4.5): key-set rule and tool omission. TODO(argument)
+
+  -02: moot -- `optional` and `"*"` (-02 Section 3.3, the key rules of -02
+  Section 4.5, steps 4p2 and 4p3) give the means the closed-world key rule
+  lacked (J.22.*).
 
 ## Chain (B9 to B19) {#aat-chain}
 
 - B9 (Section 4, Section 7): redundant checks (I2e, step 5). TODO(argument)
+
+  -02: open -- unchanged in -02 Section 8. The suite's README names "steps
+  4e, 4f and 5" among the checks that can never be the only fault. J.10.c
+  reaches 4e only as the first of two faults (4m also fails).
+
 - B10 (Section 4.4): MAX_TOKEN_LIFETIME is redundant by construction. TODO(argument)
+
+  -02: closed -- the notes to -02 Section 8 say the bound holds by
+  induction (steps 3h, 4h and 4j); -02 has no per-child lifetime step.
+
 - B11 (Section 7): which anchor key verifies the root and what `iss` means. TODO(argument)
+
+  -02: closed -- trust anchors are (issuer, key) pairs; step 3k compares
+  the root's `iss` with the issuer of the anchor that verified the
+  signature (J.21.6, J.21.22, J.21.23).
+
 - B12 (Section 4.2): I1 comparison of a URN as a string. TODO(argument)
+
+  -02: open -- step 4c still says "equals"; -02 says nothing about
+  case-insensitive comparison of the URN ({{RFC8141}}). J.27.6 pins only
+  the thumbprint members.
+
 - B13 (Sections 3.2, 7, 8.13): algorithms and thumbprints. TODO(argument)
+
+  -02: closed -- the fully-specified `Ed25519` ({{RFC9864}}); -02 forbids
+  accepting `EdDSA` and requires `alg` to be consistent with the key's
+  `kty` and `crv` (J.7.5, J.7.8, J.7.10, J.14.b).
+
 - B14 (Section 7): parse before verify. TODO(argument)
+
+  -02: closed -- steps 3b, 4b and 7b fix the order per token. With pairs
+  walked in order, the parent's `cnf.jwk` is parsed before the child's
+  signature is needed. The `aat-02` profile follows the order literally;
+  `aat-01` keeps parse-first.
+
 - B15 (Sections 3.2, 3.4): `sub`. TODO(argument)
+
+  -02: open -- -02 still "intentionally omits the sub claim" and requires
+  unrecognized top-level claims to be ignored. The `aat-02` profile does
+  not reject `sub` by default (`rejectSub` false). No vector carries `sub`
+  (J.27.1 covers other unrecognized claims).
+
 - B16 (Section 3.2): `jti` format. TODO(argument)
+
+  -02: closed -- the notes to -02 Section 8 say the lowercase UUID form
+  "binds producers and has no verification step". The `aat-02` profile
+  checks only for a non-empty string (`aat-01` still rejects upper-case
+  UUIDs).
+
 - B17 (Section 7): limits without defaults. TODO(argument)
+
+  -02: closed -- MAX_DELEGATION_DEPTH is at least 8 (J.10.f, J.21.15,
+  J.21.19); the suite states every parameter.
+
 - B18 (Section 4.6): `par_hash` covers the signing input, not the signature. TODO(argument)
+
+  -02: open -- unchanged design; `aat_hash` is computed the same way.
+
 - B19 (Sections 4.2, 8.9): the review's points as AAT-01 answers them. TODO(argument)
+
+  -02: open -- same mechanism; the author answers the review in -02
+  Sections 1.3, 9.1.1 and 9.4. M1 and M2 ({{model-properties}}) are this
+  report's independent check of it; the vectors do not bear on it.
 
 ## Proof of Possession (B20 to B23) {#aat-pop}
 
 - B20 (Section 5.2): PoP header and `typ`. TODO(argument)
+
+  -02: closed -- `typ` is `aat-pop+jwt` (J.7.1, J.7.2); a `jwk` header
+  parameter is ignored as a key source (J.7.14).
+
 - B21 (Sections 5.2, 7): JCS of the whole PoP payload. TODO(argument)
+
+  -02: closed (requirement dropped) -- -02 Appendix F: "PoP payloads no longer
+  need to be JCS-canonical". Only `hta` is compared (step 7f).
+
 - B22 (Section 7): clock tolerance. TODO(argument)
+
+  -02: closed -- -02 Section 9.9 separates the one-sided MAX_IAT_SKEW from
+  the bilateral PoP window (J.20.4, J.20.15, J.20.16).
+
 - B23 (Section 5): PoP binds the leaf only. TODO(argument)
+
+  -02: closed -- `aat_hash` binds the PoP JWT to the exact leaf instance
+  (J.20.7), and through `par_hash` to the whole chain above it. A present
+  `aat_aud` always applies (J.6.4). -02 Section 9.5 covers replay across
+  enforcement points.
 
 ## Coverage (B24, B25) {#aat-coverage}
 
 - B24 (Section 3.3): empty constraint map and absent arguments. TODO(argument)
+
+  -02: closed -- `{}` is equivalent to `{"*": {"constraint_type":
+  "wildcard"}}`, normalized at steps 4p and 6b (J.8.1, J.8.2, J.19.15,
+  J.22.17).
+
 - B25: no published test vectors; the 41 vectors are ours. TODO(argument)
+
+  -02: closed -- 229 author vectors; 229 of 229 agree here.
+
+## Underdetermined in -02 (C1 to C10) {#aat02-open}
+
+These are points where the -02 text, as read by this implementer, admits
+more than one conforming behaviour. None is a claim of a defect. Each ends
+with what this implementation does.
+
+- C1 (-02 Section 3.5; steps 3a, 4a, 7a): duplicate members in the
+  protected header. Steps 3b, 4b and 7b reject duplicate member names in
+  claims, and the notes to -02 Section 8 give parser divergence
+  ({{RFC8259}}, Section 4) as the reason. The JOSE header is not covered.
+  {{RFC7515}}, Section 4 lets a parser either reject such a header or keep
+  the last member. With `{"typ":"aat-pop+jwt",...,"typ":"aat+jwt"}`,
+  explicit typing then depends on the parser. This implementation: rejects
+  at steps 3a, 4a and 7a.
+
+- C2 (-02 Sections 3.4, 4.3.1): JSON nesting needed for
+  MAX_CONSTRAINT_DEPTH. A constraint tree of the depth -02 recommends (32)
+  nests about 2 x 32 JSON levels inside the payload. J.8.15 (permit) is 68
+  levels deep and J.8.16 is 70. A verifier whose JSON parser has a common
+  default nesting limit of 64 denies J.8.15 at step 3b. -02 says nothing
+  about parser nesting limits or how they relate to MAX_CONSTRAINT_DEPTH.
+  This implementation: the `aat-02` parser allows
+  max(64, 2 * MAX_CONSTRAINT_DEPTH + 32) levels.
+
+- C3 (step 2c): "minimal JSON parsing". -02 does not say which `jti` is
+  extracted when the payload repeats `jti` with different values, nor
+  whether a payload that is not valid JSON fails at step 2c. J.23.4 uses
+  equal values and so avoids the question. This implementation: a tolerant
+  parse that takes the first occurrence; the duplicate is then rejected at
+  step 3b or 4b.
+
+- C4 (-02 Section 3.5; step 3a): `typ` comparison. The text says `typ`
+  "equals" `aat+jwt`. {{RFC7515}}, Section 4.1.9 makes `typ` values
+  case-insensitive and allows the `application/` prefix to be omitted, so
+  `application/aat+jwt` names the same type. -02 does not say whether
+  `application/aat+jwt` or `AAT+JWT` is to be accepted. This
+  implementation: exact string comparison, so both are denied.
+
+- C5 (-02 Section 7.2; step 7d): `aat_aud` type and semantics. Table 5 of
+  -02 types `aat_aud` as a string, but gives it "the semantics of the JWT
+  aud claim" ({{RFC7519}}, Section 4.1.3), which allows an array. Whether
+  an array `aat_aud` naming the enforcement point is accepted is not
+  stated; step 6c, by contrast, explicitly allows `aud` to be an array.
+  This implementation: anything other than a matching string is denied.
+
+- C6 (steps 3b, 3k): "the trust anchor whose key verified the signature".
+  When two anchors share one key under different issuers (rotation,
+  aliasing), "the" anchor is ambiguous: the text can be read as any of
+  them or as exactly one. This implementation: accepts when the issuer of
+  any anchor whose key verifies the signature equals `iss`. The suite's
+  anchors have distinct keys, so no vector decides it.
+
+- C7 (-02 Section 3.2): magnitude of NumericDates and depths. Integer
+  syntax is required, but admissibility (-02 Section 3.4) applies only to
+  arguments and constraint values. An `exp` such as 9007199254740993 is
+  well-formed; comparing it as a double or exactly gives the same verdict
+  only because of the other bounds (lifetime, skew). Minor. This
+  implementation: compares as a double.
+
+- C8 (steps 3l, 4b2): what makes `cnf.jwk` invalid. "Encodes a public
+  key" is followed only by examples of private members. The suite expects
+  a denial at 3l or 4b2 for an RSA `kty` carrying Ed25519 members
+  (J.21.21), an X25519 curve (J.24.10) and a 31-byte `x` (J.24.11); the
+  description of J.24.10 itself allows the denial to come at step 7a
+  instead. -02 does not refer to the member validation of {{RFC7517}} or
+  {{RFC8037}}. This implementation: requires `kty` OKP, `crv` Ed25519, a
+  32-byte `x` and no private members (`d`, `p`, `q`, `dp`, `dq`, `qi`,
+  `oth`, `k`).
+
+- C9 (step 6b): `args` "as written" when the binding has already parsed
+  them. The duplicate-member check is possible only on the invocation's
+  JSON text. -02 Section 3.4 obliges a binding to preserve exact numbers
+  but says nothing about duplicates. This implementation: accepts `args`
+  as JSON text (checked) or as an already-parsed object (documented as
+  unable to carry either fault).
+
+- C10 (step 3k): the root's `iss` "is a URI". No grammar is referenced
+  (for example, absolute-URI of {{RFC3986}}). This implementation:
+  `scheme ":"` followed by non-space characters. Minor; no vector tests a
+  borderline form.
 
 # Findings on asor-02 {#findings-asor}
 
