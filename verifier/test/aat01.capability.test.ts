@@ -13,6 +13,14 @@ const C = (raw: JsonValue): Constraint => {
   return c as Constraint;
 };
 
+// Flip one bit of the signature's first byte: always a different, still well-formed signature.
+const corruptSignature = (compact: string): string => {
+  const [h, p, s] = compact.split(".");
+  const sig = Buffer.from(s!, "base64url");
+  sig[0]! ^= 0x01;
+  return `${h}.${p}.${sig.toString("base64url")}`;
+};
+
 // ----------------------------------------------------------------- generators
 
 const scalar = fc.constantFrom<JsonValue>(1, 2, 3, "a", "b", true);
@@ -328,7 +336,7 @@ test("PoP is only evaluated after the chain verified", () => {
   const c = mintChain({ depth: 1, tools: leafTools });
   const args = { path: "/a", mode: "r" };
   const pop = mintPop({ holder: c.leaf.holder, aatId: c.leaf.claims.jti as string, tool: "read", args, iat: c.now });
-  const r = verifyChain([c.compact[0]!, c.compact[1]!.slice(0, -2) + "AA"], "aat-01", opts(c, { request: { aat: { tool: "read", args, pop } } }));
+  const r = verifyChain([c.compact[0]!, corruptSignature(c.compact[1]!)], "aat-01", opts(c, { request: { aat: { tool: "read", args, pop } } }));
   assert.ok(!r.ok);
   assert.equal(r.code, "signature_invalid");
 });
