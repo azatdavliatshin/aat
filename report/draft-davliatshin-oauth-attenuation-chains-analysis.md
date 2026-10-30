@@ -862,13 +862,54 @@ with what this implementation does.
 
 <!-- What goes here: A1 to A7, section of asor-02, argument. -->
 
-- A1 (Section 6, step 1): which key verifies a link below the root. TODO(argument)
+- A1 (Section 6, step 1): which key verifies a link below the root. Step
+  1 of asor-02 Section 6 verifies the signature of every DT_i, takes the
+  algorithm from the verifier's "own configuration for the key", and
+  requires DT_0 to verify under a trusted root key. Which key verifies
+  DT_i for i > 0 it does not say, and no other rule relates the signer of
+  a link to its parent: not to the parent's `cnf`, as I1 of AAT-01 does,
+  nor to its `iss`, nor to the root key. Section 7 puts `cnf` in every
+  token, but `cnf` binds the party that presents the leaf (step 6), not
+  the party that signs the next link. Table 1 of Section 6.1 is
+  consistent with this: below the root it claims only that each child
+  commits to the parent instance, nothing about who signed it. A
+  verifier can therefore only apply a configured key set, selected by
+  `kid`, at every position. The author's implementations run "under a
+  single-signer trust model" (Section 11) and the 35 vectors sign every
+  hop with one key, so neither decides the point. With one configured key
+  the question does not arise. With several, the link checks accept a
+  child signed by any of them: the model states this as P1b false and
+  P1b' true (`asor02-p1b`, {{model-results}}), and M2 (a) and (b) follow
+  from it ({{cross}}): one compromised configured key extends any chain,
+  and with the attacker's own key in the leaf `cnf` the request is
+  accepted even with DPoP. This implementation selects the key by `kid`
+  from one configured set for every DT_i, which is all the text allows.
 - A2 (Section 3, Section 4.3): `del_max_depth` inheritance. TODO(argument)
 - A3 (Section 3, Section 6): root without principal, `malformed` or step 3. TODO(argument)
 - A4 (Section 6, step 3): chain length bound by convention. TODO(argument)
 - A5: coverage of the 35 vectors. TODO(argument)
 - A6 (Sections 4.3, 6): a child's `del_max_depth` has no effect. TODO(argument)
-- A7 (Sections 6.1, 9.4): who mints a link below the root. TODO(argument)
+- A7 (Sections 6.1, 9.4): who mints a link below the root. asor-02 does
+  not name the signer of a child, and its verbs differ: Section 6.1 has
+  "an issuer validating a parent before minting a child", Section 9.4 a
+  parent that "can mint any number of children" and "two issuers
+  allocating offline" from one budget, Section 11 "a single-signer trust
+  model". A Delegation Token is an OAuth JWT access token ({{RFC9068}})
+  with its own `iss` (Sections 2 and 3), and nothing requires the holder
+  of DT_{i-1} to take part in signing DT_i. This report therefore reads
+  asor-02 as issuer-minted attenuation verified offline: the holder of a
+  parent is bound by `cnf` and named by `client_id`, and a link is signed
+  by a key the verifier is configured to accept. Under that reading P1b,
+  a link made by the holder of its parent, is not a property asor-02
+  claims, and its failure (A1) is a different trust model rather than a
+  defect: what a chain establishes is P1b', and its security is that of
+  the weakest configured key. In the model the asor-02 holder signs the
+  child with its own key, so holder keys and configured keys are one
+  population, each agent its own issuer; this is one admissible
+  deployment, and the queries and verdicts are the same under either
+  reading. Where a deployment keeps issuer keys apart from agent keys,
+  the M2 (a) and (b) results need a compromised issuer key, not an agent
+  key.
 
 # Cross-Draft Observations {#cross}
 
