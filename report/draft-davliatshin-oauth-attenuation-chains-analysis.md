@@ -884,11 +884,54 @@ with what this implementation does.
   and with the attacker's own key in the leaf `cnf` the request is
   accepted even with DPoP. This implementation selects the key by `kid`
   from one configured set for every DT_i, which is all the text allows.
-- A2 (Section 3, Section 4.3): `del_max_depth` inheritance. TODO(argument)
-- A3 (Section 3, Section 6): root without principal, `malformed` or step 3. TODO(argument)
-- A4 (Section 6, step 3): chain length bound by convention. TODO(argument)
-- A5: coverage of the 35 vectors. TODO(argument)
-- A6 (Sections 4.3, 6): a child's `del_max_depth` has no effect. TODO(argument)
+- A2 (Section 3, Section 4.3): `del_max_depth` inheritance. Section 3
+  requires `del_max_depth` in DT_0 only, and rule 5 of Section 4.3
+  compares `C.del_max_depth <= P.del_max_depth` for every link. When the
+  parent carries none, the rule has nothing to compare against; when the
+  child carries none, rule 3's "absence means unbounded" is written for
+  constraints, not for this claim. The vectors' children normally omit
+  it, and `reject_child_raises_del_max_depth` raises it directly under
+  the root. This implementation compares a child's value with the
+  nearest ancestor that states one, and lets a child without the claim
+  pass rule 5.
+- A3 (Section 3, Section 6): root without principal, `malformed` or step
+  3. Section 3 says that a chain whose DT_0 carries no `sub`, or an empty
+  one, is malformed; step 3 of Section 6 checks the same condition again
+  ("DT_0.sub is a non-empty string") and says deny, and Table 2 has no
+  step-3 name for it (`principal_altered` is for a `sub` that differs
+  from DT_0's). The vector `reject_root_without_principal` expects
+  `malformed`. This implementation follows the vector and reports it at
+  parse time.
+- A4 (Section 6, step 3): chain length bound by convention. Step 3
+  requires `n < DT_0.del_max_depth`, where Section 6 writes the chain as
+  DT_0 ... DT_n, so n is the index of the last token and the chain has
+  n + 1 tokens; Section 3 calls `del_max_depth` "the maximum permitted
+  chain length". The two agree only if n is read as that index: a chain
+  of exactly `del_max_depth` tokens is then accepted and one token more
+  is denied. Read as a count, the same test denies the chain of
+  `del_max_depth` tokens. No vector reaches the boundary (A5). This
+  implementation reads n as the index.
+- A5: coverage of the 35 vectors. The vectors are signed with one public
+  HS256 test key, so step 1 is exercised only for an algorithm off the
+  accepted list, not for a wrong key or an unknown `kid`; `cnf` carries a
+  stand-in thumbprint with no key, so step 6 is not exercised; `now` is
+  0, so step 5 is exercised for monotonic expiry only; no vector reaches
+  `depth_invalid` (step 3), the JCS parse names (`non_canonical`,
+  `duplicate_member`, `non_finite`), step 7, or step 8 beyond
+  `audience_mismatch` (`scope_not_granted`, `ceiling_exceeded`,
+  `unknown_constraint`, cumulative totals); rule 5 is exercised only
+  directly under the root (A2). The verifier covers these in its own
+  tests, with generated Ed25519 keys for step 6; those tests are this
+  work's reading, not the author's.
+- A6 (Sections 4.3, 6): a child's `del_max_depth` has no effect. Step 3
+  bounds the chain by `DT_0.del_max_depth` alone, and rule 5 only
+  forbids a child from raising the value. A DT_1 carrying `del_max_depth`
+  1 therefore still admits DT_2 and DT_3 below it: the claim is checked
+  for monotonicity and never used as a limit. The model's `asor02-p1b`
+  trace shows exactly this chain ({{model-results}}). In AAT-01, I2
+  requires `derived.del_depth <= parent.del_max_depth` at every link,
+  so there the value binds. This implementation follows the asor-02
+  text.
 - A7 (Sections 6.1, 9.4): who mints a link below the root. asor-02 does
   not name the signer of a child, and its verbs differ: Section 6.1 has
   "an issuer validating a parent before minting a child", Section 9.4 a
