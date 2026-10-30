@@ -31,6 +31,7 @@ informative:
   RFC7515:
   RFC7517:
   RFC7519:
+  RFC7638:
   RFC7800:
   RFC8037:
   RFC8141:
@@ -552,13 +553,23 @@ Section 8.
 
 ## Chain (B9 to B19) {#aat-chain}
 
-- B9 (Section 4, Section 7): redundant checks (I2e, step 5). TODO(argument)
+- B9 (Section 4, Section 7): redundant checks (I2e, step 5). Some checks
+  of -01 Section 7 follow from others. `child.del_depth <=
+  parent.del_max_depth` (4e) follows from 4g and 4m, `child.del_depth <=
+  MAX_DELEGATION_DEPTH` (4f) from 3i, 4g and 4m, and the "defense in depth"
+  step 5 from 3c and 4d. No input fails one of them alone; this
+  implementation keeps all of them, and its property tests reach 4e only
+  together with 4g or 4m. Redundant checks are harmless, but a test suite
+  cannot cover them as single faults.
 
   -02: open -- unchanged in -02 Section 8. The suite's README names "steps
   4e, 4f and 5" among the checks that can never be the only fault. J.10.c
   reaches 4e only as the first of two faults (4m also fails).
 
-- B10 (Section 4.4): MAX_TOKEN_LIFETIME is redundant by construction. TODO(argument)
+- B10 (Section 4.4): MAX_TOKEN_LIFETIME is redundant by construction. A
+  child cannot outlive its parent, so a lifetime bound checked on the root
+  holds for every link; the note to step 4l of -01 says as much. This
+  implementation checks it on every token anyway.
 
   -02: closed -- the notes to -02 Section 8 say the bound holds by
   induction (steps 3h, 4h and 4j); -02 has no per-child lifetime step.
@@ -569,45 +580,80 @@ Section 8.
   the root's `iss` with the issuer of the anchor that verified the
   signature (J.21.6, J.21.22, J.21.23).
 
-- B12 (Section 4.2): I1 comparison of a URN as a string. TODO(argument)
+- B12 (Section 4.2): I1 comparison of a URN as a string. I1 requires
+  `child.iss` to equal `jwk_thumbprint_uri(parent.cnf.jwk)`, a URN.
+  {{RFC8141}} makes parts of a URN case-insensitive, so "equals" can be
+  read as a string or as a URN comparison. This implementation compares
+  strings exactly; it computes the thumbprint for OKP keys only, with the
+  member order of {{RFC7638}}. An exact comparison can only deny more, never
+  less.
 
   -02: open -- step 4c still says "equals"; -02 says nothing about
   case-insensitive comparison of the URN ({{RFC8141}}). J.27.6 pins only
   the thumbprint members.
 
-- B13 (Sections 3.2, 7, 8.13): algorithms and thumbprints. TODO(argument)
+- B13 (Sections 3.2, 7, 8.13): algorithms and thumbprints. -01 Section 3.2
+  requires support for Ed25519, while Sections 7 and 8.13 admit the DPoP
+  algorithm list, including ES256 and RS256, and mention Ed448; I1 would
+  then need thumbprints for those key types as well. This implementation
+  accepts only `EdDSA` with an OKP Ed25519 key and always refuses
+  symmetric algorithms (Section 8.13).
 
   -02: closed -- the fully-specified `Ed25519` ({{RFC9864}}); -02 forbids
   accepting `EdDSA` and requires `alg` to be consistent with the key's
   `kty` and `crv` (J.7.5, J.7.8, J.7.10, J.14.b).
 
-- B14 (Section 7): parse before verify. TODO(argument)
+- B14 (Section 7): parse before verify. -01 Section 7 forbids reading
+  claims before the signature is verified, but step 4b needs the parent's
+  parsed `cnf.jwk`, and step 2c lets `jti` be extracted first. This
+  implementation checks the size limits (2a, 2b), parses every token, and
+  then verifies. The verdict is the same either way; only the reported
+  code for a forged malformed token differs (`malformed` rather than
+  `signature_invalid`).
 
   -02: closed -- steps 3b, 4b and 7b fix the order per token. With pairs
   walked in order, the parent's `cnf.jwk` is parsed before the child's
   signature is needed. The `aat-02` profile follows the order literally;
   `aat-01` keeps parse-first.
 
-- B15 (Sections 3.2, 3.4): `sub`. TODO(argument)
+- B15 (Sections 3.2, 3.4): `sub`. -01 Section 3.2 "intentionally omits"
+  `sub`, and Section 3.4 says a token must not be rejected solely for
+  claims outside those defined. Rejecting a token with `sub` is therefore
+  not required, and arguably not allowed. This implementation rejects it
+  by default and has an option to accept it.
 
   -02: open -- -02 still "intentionally omits the sub claim" and requires
   unrecognized top-level claims to be ignored. The `aat-02` profile does
   not reject `sub` by default (`rejectSub` false). No vector carries `sub`
   (J.27.1 covers other unrecognized claims).
 
-- B16 (Section 3.2): `jti` format. TODO(argument)
+- B16 (Section 3.2): `jti` format. -01 says `jti` SHOULD be a UUIDv7 and,
+  when a UUID is used, MUST be lowercase and hyphenated, but steps 3j and
+  4b1 check only for a non-empty string. This implementation accepts any
+  non-empty string and rejects a UUID-shaped value with upper-case
+  letters.
 
   -02: closed -- the notes to -02 Section 8 say the lowercase UUID form
   "binds producers and has no verification step". The `aat-02` profile
   checks only for a non-empty string (`aat-01` still rejects upper-case
   UUIDs).
 
-- B17 (Section 7): limits without defaults. TODO(argument)
+- B17 (Section 7): limits without defaults. MAX_DELEGATION_DEPTH has no
+  recommended value in -01; the other limits (MAX_IAT_SKEW 30 s,
+  MAX_TOKEN_LIFETIME 90 days, MAX_CONSTRAINT_DEPTH 32, MAX_TOKEN_SIZE
+  64 KiB, MAX_STACK_SIZE 256 KiB) are RECOMMENDED. Whether a chain is
+  valid then depends on local configuration, and a test vector has to
+  state the limits it assumes. This implementation uses 16 for the depth.
 
   -02: closed -- MAX_DELEGATION_DEPTH is at least 8 (J.10.f, J.21.15,
   J.21.19); the suite states every parameter.
 
-- B18 (Section 4.6): `par_hash` covers the signing input, not the signature. TODO(argument)
+- B18 (Section 4.6): `par_hash` covers the signing input, not the
+  signature. Two JWS with the same signing input and different signature
+  bytes are therefore the same parent for I5. With Ed25519 and strict
+  verification this cannot be exploited; the choice is still worth stating
+  in the draft, since a profile with a malleable signature algorithm would
+  inherit it.
 
   -02: open -- unchanged design; `aat_hash` is computed the same way.
 
