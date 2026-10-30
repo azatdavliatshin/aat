@@ -675,17 +675,28 @@ Section 8.
 
 ## Proof of Possession (B20 to B23) {#aat-pop}
 
-- B20 (Section 5.2): PoP header and `typ`. TODO(argument)
+- B20 (Section 5.2): PoP header and `typ`. -01 specifies no `typ`, `kid`
+  or `jwk` header parameter for the PoP JWT, so nothing distinguishes it
+  from another JWT signed by the same key. This implementation looks only
+  at `alg`.
 
   -02: closed -- `typ` is `aat-pop+jwt` (J.7.1, J.7.2); a `jwk` header
   parameter is ignored as a key source (J.7.14).
 
-- B21 (Sections 5.2, 7): JCS of the whole PoP payload. TODO(argument)
+- B21 (Sections 5.2, 7): JCS of the whole PoP payload. -01 Section 5.2
+  requires the holder to serialize the whole PoP payload with JCS, but
+  step 7f compares only `hta`, and nothing says whether an enforcement
+  point must reject a payload that is not canonical. This implementation
+  rejects it: the payload bytes must equal their JCS re-serialization.
 
   -02: closed (requirement dropped) -- -02 Appendix F: "PoP payloads no longer
   need to be JCS-canonical". Only `hta` is compared (step 7f).
 
-- B22 (Section 7): clock tolerance. TODO(argument)
+- B22 (Section 7): clock tolerance. -01 recommends a PoP window of 30
+  seconds either side, and separately a one-sided MAX_IAT_SKEW of 30
+  seconds for tokens; it does not say whether the two are the same
+  parameter. This implementation keeps them apart: the PoP window is its
+  own option, symmetric, with inclusive bounds.
 
   -02: closed -- -02 Section 9.9 separates the one-sided MAX_IAT_SKEW from
   the bilateral PoP window (J.20.4, J.20.15, J.20.16).
@@ -699,13 +710,23 @@ Section 8.
 
 ## Coverage (B24, B25) {#aat-coverage}
 
-- B24 (Section 3.3): empty constraint map and absent arguments. TODO(argument)
+- B24 (Section 3.3): empty constraint map and absent arguments. A tool
+  with an empty constraint map accepts any arguments, while a tool with
+  even one constraint rejects an invocation that leaves out a constrained
+  argument, even one under `wildcard`. -01 Section 3.3 states both, but
+  the step from "no constraints" to "one constraint" changes the meaning
+  of every other argument, which is easy to misread. This implementation
+  follows the text.
 
   -02: closed -- `{}` is equivalent to `{"*": {"constraint_type":
   "wildcard"}}`, normalized at steps 4p and 6b (J.8.1, J.8.2, J.19.15,
   J.22.17).
 
-- B25: no published test vectors; the 41 vectors are ours. TODO(argument)
+- B25: no published test vectors; the 41 vectors are ours. -01 came with
+  no test vectors. The 41 vectors in `verifier/vectors/aat/` were written
+  for this report from its own reading of -01. They show that the
+  implementation matches that reading, not that the reading matches the
+  author's.
 
   -02: closed -- 229 author vectors; 229 of 229 agree here.
 
