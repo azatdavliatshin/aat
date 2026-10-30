@@ -11,7 +11,10 @@
      i > 0 the draft names no key (A1).  The Verifier therefore accepts
      DT_i under any key it is configured with, selected by kid: here any
      honest holder key (the keys table).  It does not compare that key
-     with DT_{i-1}.cnf; nothing in §6 asks for it.
+     with DT_{i-1}.cnf; nothing in §6 asks for it.  The flag hs selects the
+     reading: hs false is step 1 as written (any configured key, A1); hs
+     true is the holder-signs reading (DT_i verifies under DT_{i-1}.cnf,
+     AAT-01's I1).
    - Step 2: par_hash = h(parent payload) (the JWS signing input).
    - Step 3: DT_i.del_depth = i and n < DT_0.del_max_depth.
    - Step 4: tool sets narrow (rule 1, tool level only); rule 5
@@ -91,9 +94,10 @@ letfun check_root_asor(s: bitstring) =
 (* Steps 1, 2, 3 (depth), 4 (rule 1 at tool level, rule 5), 5 (rule 4) for
    one pair.  k is the key the verifier selected by kid; b is the nearest
    stated del_max_depth above the child. *)
-letfun check_link_asor(pp: bitstring, b: nat, k: pkey, s: bitstring) =
+letfun check_link_asor(pp: bitstring, b: nat, k: pkey, s: bitstring, hs: bool) =
   let dt(pj, pi, pk_, pd, pmx, pe, cs(p1, p2, p3), ppar) = pp in
-  let cp = checksign(s, k) in                                    (* step 1 *)
+  let vk = (if hs then pk_ else k) in
+  let cp = checksign(s, vk) in                                   (* step 1 *)
   let dt(cj, ci, ck, cd, cmx, ce, cs(c1, c2, c3), cpar) = cp in
   if cpar = h(pp)                                                (* step 2 *)
      && cd = pd + 1                                              (* step 3 *)
@@ -119,7 +123,7 @@ letfun leaf_asor(dpop: bool, sl: bitstring, l: bitstring, x: tool, a: bitstring,
 (* One process per chain length 1..4.  Step 3's n < DT_0.del_max_depth is
    the "n < m" test.  AcceptedRoot/AcceptedLink(By) are emitted once steps
    1-5 pass, before steps 6 and 8. *)
-let VerifierAsor(dpop: bool) =
+let VerifierAsor(dpop: bool, hs: bool) =
   (! in(c, (s0: bitstring, x: tool, a: bitstring, pop: bitstring));
      let r = check_root_asor(s0) in
      event AcceptedRoot(r);
@@ -131,7 +135,7 @@ let VerifierAsor(dpop: bool) =
      let r = check_root_asor(s0) in
      let dt(rj, ri, rk, rd, md(m), re, rt, rp) = r in
      get keys(=k1, z1) in
-     let t1 = check_link_asor(r, m, k1, s1) in
+     let t1 = check_link_asor(r, m, k1, s1, hs) in
      if 1 < m then
      event AcceptedRoot(r);
      event AcceptedLink(r, t1);
@@ -146,8 +150,8 @@ let VerifierAsor(dpop: bool) =
      let dt(rj, ri, rk, rd, md(m), re, rt, rp) = r in
      get keys(=k1, z1) in
      get keys(=k2, z2) in
-     let t1 = check_link_asor(r, m, k1, s1) in
-     let t2 = check_link_asor(t1, next_bound(m, t1), k2, s2) in
+     let t1 = check_link_asor(r, m, k1, s1, hs) in
+     let t2 = check_link_asor(t1, next_bound(m, t1), k2, s2, hs) in
      if 2 < m then
      event AcceptedRoot(r);
      event AcceptedLink(r, t1);
@@ -166,10 +170,10 @@ let VerifierAsor(dpop: bool) =
      get keys(=k1, z1) in
      get keys(=k2, z2) in
      get keys(=k3, z3) in
-     let t1 = check_link_asor(r, m, k1, s1) in
+     let t1 = check_link_asor(r, m, k1, s1, hs) in
      let b2 = next_bound(m, t1) in
-     let t2 = check_link_asor(t1, b2, k2, s2) in
-     let t3 = check_link_asor(t2, next_bound(b2, t2), k3, s3) in
+     let t2 = check_link_asor(t1, b2, k2, s2, hs) in
+     let t3 = check_link_asor(t2, next_bound(b2, t2), k3, s3, hs) in
      if 3 < m then
      event AcceptedRoot(r);
      event AcceptedLink(r, t1);
@@ -185,5 +189,5 @@ let VerifierAsor(dpop: bool) =
      event AcceptVia(t2, t3);
      AfterAccept(t3)).
 
-let ASOR02(dpop: bool) =
-  KeyGen | Compromise | AnchorAsor | HolderAsor | VerifierAsor(dpop).
+let ASOR02(dpop: bool, hs: bool) =
+  KeyGen | Compromise | AnchorAsor | HolderAsor | VerifierAsor(dpop, hs).

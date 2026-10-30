@@ -18,7 +18,7 @@ j_8 = j[t3 = p3_7,t2 = p2_7,t1 = p1_7,e = pe_7,m = 4,sk_2 = sk_6,k_1 = pk(sk_6),
 cj_7 = cj[sk2 = sk_4,c3 = p3_8,c2 = p2_8,c1 = p1_8,ce = pe_8,cmx = md(b_2),k2 = pk(sk_4),s = sign(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))),k_10),sk_3 = sk_5,k_2 = pk(sk_5),!1 = @sid_4]
 sk_7 = sk[!1 = @sid_5]
 
-1. Event HonestKey(pk(sk_4)) may be executed at {4}.
+1. Event HonestKey(pk(sk_4)) may be executed at {5}.
 event(HonestKey(pk(sk_4))).
 
 2. The attacker has some term pop_4.
@@ -30,12 +30,12 @@ attacker(a_5).
 4. The attacker has some term x_5.
 attacker(x_5).
 
-5. The entry keys(pk(sk_7),sk_7) may be inserted in a table at insert {5}.
+5. The entry keys(pk(sk_7),sk_7) may be inserted in a table at insert {6}.
 table(keys(pk(sk_7),sk_7)).
 
-6. The entry keys(pk(sk_7),sk_7) that may be in a table by 5 may be read at get {10}.
-The event Corrupt(pk(sk_7)) may be executed at {8}.
-So the message sk_7 may be sent to the attacker at output {9}.
+6. The entry keys(pk(sk_7),sk_7) that may be in a table by 5 may be read at get {11}.
+The event Corrupt(pk(sk_7)) may be executed at {9}.
+So the message sk_7 may be sent to the attacker at output {10}.
 attacker(sk_7).
 
 7. Using the function nopar the attacker may obtain nopar.
@@ -82,13 +82,13 @@ attacker(4).
 Using the function md the attacker may obtain md(4).
 attacker(md(4)).
 
-19. The message pk(sk_6) may be sent to the attacker at output {6}.
+19. The message pk(sk_6) may be sent to the attacker at output {7}.
 attacker(pk(sk_6)).
 
 20. Using the function anchor_uri the attacker may obtain anchor_uri.
 attacker(anchor_uri).
 
-21. The entry keys(pk(sk_6),sk_6) may be inserted in a table at insert {5}.
+21. The entry keys(pk(sk_6),sk_6) may be inserted in a table at insert {6}.
 table(keys(pk(sk_6),sk_6)).
 
 22. By 17, the attacker may know 4.
@@ -99,10 +99,10 @@ By 8, the attacker may know p3_7.
 Using the function 5-tuple the attacker may obtain (4,pe_7,p1_7,p2_7,p3_7).
 attacker((4,pe_7,p1_7,p2_7,p3_7)).
 
-23. The entry keys(pk(sk_6),sk_6) that may be in a table by 21 may be read at get {20}.
-The message (4,pe_7,p1_7,p2_7,p3_7) that the attacker may have by 22 may be received at input {12}.
+23. The entry keys(pk(sk_6),sk_6) that may be in a table by 21 may be read at get {21}.
+The message (4,pe_7,p1_7,p2_7,p3_7) that the attacker may have by 22 may be received at input {13}.
 We have 1 ≥ p3_7 && 1 ≥ p1_7 && 4 ≥ 4 && 3 ≥ pe_7 && 1 ≥ p2_7 && 4 ≥ 1.
-So the message sign(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar),skA[]) may be sent to the attacker at output {19}.
+So the message sign(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar),skA[]) may be sent to the attacker at output {20}.
 attacker(sign(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar),skA[])).
 
 24. By 23, the attacker may know sign(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar),skA[]).
@@ -153,7 +153,7 @@ attacker(b2_1).
 Using the function md the attacker may obtain md(b2_1).
 attacker(md(b2_1)).
 
-35. The message pk(sk_5) may be sent to the attacker at output {6}.
+35. The message pk(sk_5) may be sent to the attacker at output {7}.
 attacker(pk(sk_5)).
 
 36. We assume as hypothesis that
@@ -202,14 +202,14 @@ attacker(b_2).
 Using the function md the attacker may obtain md(b_2).
 attacker(md(b_2)).
 
-47. The message pk(sk_4) may be sent to the attacker at output {6}.
+47. The message pk(sk_4) may be sent to the attacker at output {7}.
 attacker(pk(sk_4)).
 
 48. By 35, the attacker may know pk(sk_5).
 Using the function thumb the attacker may obtain thumb(pk(sk_5)).
 attacker(thumb(pk(sk_5))).
 
-49. The entry keys(pk(sk_5),sk_5) may be inserted in a table at insert {5}.
+49. The entry keys(pk(sk_5),sk_5) may be inserted in a table at insert {6}.
 table(keys(pk(sk_5),sk_5)).
 
 50. We assume as hypothesis that
@@ -229,16 +229,16 @@ By 40, the attacker may know p3_8.
 Using the function 6-tuple the attacker may obtain (pk(sk_4),md(b_2),pe_8,p1_8,p2_8,p3_8).
 attacker((pk(sk_4),md(b_2),pe_8,p1_8,p2_8,p3_8)).
 
-53. The entry keys(pk(sk_4),sk_4) may be inserted in a table at insert {5}.
+53. The entry keys(pk(sk_4),sk_4) may be inserted in a table at insert {6}.
 table(keys(pk(sk_4),sk_4)).
 
-54. The entry keys(pk(sk_5),sk_5) that may be in a table by 49 may be read at get {44}.
-The message sign(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))),k_10) that the attacker may have by 51 may be received at input {22}.
-The message (pk(sk_4),md(b_2),pe_8,p1_8,p2_8,p3_8) that the attacker may have by 52 may be received at input {25}.
-The entry keys(pk(sk_4),sk_4) that may be in a table by 53 may be read at get {39}.
-The event Derived(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))),dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar)))))) may be executed at {36}.
+54. The entry keys(pk(sk_5),sk_5) that may be in a table by 49 may be read at get {45}.
+The message sign(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))),k_10) that the attacker may have by 51 may be received at input {23}.
+The message (pk(sk_4),md(b_2),pe_8,p1_8,p2_8,p3_8) that the attacker may have by 52 may be received at input {26}.
+The entry keys(pk(sk_4),sk_4) that may be in a table by 53 may be read at get {40}.
+The event Derived(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))),dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar)))))) may be executed at {37}.
 We have p2_9 ≥ p2_8 && pe_9 ≥ pe_8 && p1_9 ≥ p1_8 && p3_9 ≥ p3_8 && b2_1 ≥ b_2 && b_2 ≥ 1.
-So the message sign(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))))),sk_5) may be sent to the attacker at output {38}.
+So the message sign(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))))),sk_5) may be sent to the attacker at output {39}.
 attacker(sign(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))))),sk_5)).
 
 55. By 54, the attacker may know sign(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))))),sk_5).
@@ -314,7 +314,7 @@ By 6, the attacker may know sk_7.
 Using the function sign the attacker may obtain sign(dt(cj_8,ci_6,ck_6,3,md(cm_7),ce_7,cs(c1_7,c2_7,c3_7),h(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))))))),sk_7).
 attacker(sign(dt(cj_8,ci_6,ck_6,3,md(cm_7),ce_7,cs(c1_7,c2_7,c3_7),h(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))))))),sk_7)).
 
-71. The message pk(sk_7) may be sent to the attacker at output {6}.
+71. The message pk(sk_7) may be sent to the attacker at output {7}.
 attacker(pk(sk_7)).
 
 72. By 38, the attacker may know dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))).
@@ -335,12 +335,12 @@ By 2, the attacker may know pop_4.
 Using the function 10-tuple the attacker may obtain (sign(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar),skA[]),pk(sk_7),sign(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))),sk_7),pk(sk_5),sign(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))))),sk_5),pk(sk_7),sign(dt(cj_8,ci_6,ck_6,3,md(cm_7),ce_7,cs(c1_7,c2_7,c3_7),h(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))))))),sk_7),x_5,a_5,pop_4).
 attacker((sign(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar),skA[]),pk(sk_7),sign(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))),sk_7),pk(sk_5),sign(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))))),sk_5),pk(sk_7),sign(dt(cj_8,ci_6,ck_6,3,md(cm_7),ce_7,cs(c1_7,c2_7,c3_7),h(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))))))),sk_7),x_5,a_5,pop_4)).
 
-74. The message (sign(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar),skA[]),pk(sk_7),sign(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))),sk_7),pk(sk_5),sign(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))))),sk_5),pk(sk_7),sign(dt(cj_8,ci_6,ck_6,3,md(cm_7),ce_7,cs(c1_7,c2_7,c3_7),h(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))))))),sk_7),x_5,a_5,pop_4) that the attacker may have by 73 may be received at input {292}.
-The entry keys(pk(sk_7),sk_7) that may be in a table by 5 may be read at get {459}.
-The entry keys(pk(sk_5),sk_5) that may be in a table by 49 may be read at get {458}.
-The entry keys(pk(sk_7),sk_7) that may be in a table by 5 may be read at get {457}.
+74. The message (sign(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar),skA[]),pk(sk_7),sign(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))),sk_7),pk(sk_5),sign(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))))),sk_5),pk(sk_7),sign(dt(cj_8,ci_6,ck_6,3,md(cm_7),ce_7,cs(c1_7,c2_7,c3_7),h(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))))))),sk_7),x_5,a_5,pop_4) that the attacker may have by 73 may be received at input {296}.
+The entry keys(pk(sk_7),sk_7) that may be in a table by 5 may be read at get {466}.
+The entry keys(pk(sk_5),sk_5) that may be in a table by 49 may be read at get {465}.
+The entry keys(pk(sk_7),sk_7) that may be in a table by 5 may be read at get {464}.
 We have pe_8 ≥ ce_7 && pe_9 ≥ pe_8 && pe_7 ≥ pe_9 && p2_8 ≥ c2_7 && p2_9 ≥ p2_8 && p2_7 ≥ p2_9 && p1_7 ≥ p1_9 && p1_8 ≥ c1_7 && p1_9 ≥ p1_8 && p3_7 ≥ p3_9 && p3_8 ≥ c3_7 && p3_9 ≥ p3_8 && 4 ≥ b2_1 && b_2 ≥ cm_7 && b2_1 ≥ b_2 && cm_7 ≥ 1 && 4 ≥ 4.
-So event AcceptedLink(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))))),dt(cj_8,ci_6,ck_6,3,md(cm_7),ce_7,cs(c1_7,c2_7,c3_7),h(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar)))))))) may be executed at {423}.
+So event AcceptedLink(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))))),dt(cj_8,ci_6,ck_6,3,md(cm_7),ce_7,cs(c1_7,c2_7,c3_7),h(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar)))))))) may be executed at {430}.
 event(AcceptedLink(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))))),dt(cj_8,ci_6,ck_6,3,md(cm_7),ce_7,cs(c1_7,c2_7,c3_7),h(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))))))))).
 
 75. By 74, event(AcceptedLink(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))))),dt(cj_8,ci_6,ck_6,3,md(cm_7),ce_7,cs(c1_7,c2_7,c3_7),h(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(p1_9,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(p1_7,p2_7,p3_7),nopar))))))))).
@@ -352,90 +352,90 @@ event(AcceptedLink(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(p1_8,p2_8,
 A more detailed output of the traces is available with
   set traceDisplay = long.
 
-new sk: skey creating sk_8 at {3} in copy a_6
+new sk: skey creating sk_8 at {4} in copy a_6
 
-event HonestKey(pk(sk_8)) at {4} in copy a_6 (goal)
+event HonestKey(pk(sk_8)) at {5} in copy a_6 (goal)
 
-insert keys(pk(sk_8),sk_8) at {5} in copy a_6
+insert keys(pk(sk_8),sk_8) at {6} in copy a_6
 
-out(c, ~M) with ~M = pk(sk_8) at {6} in copy a_6
+out(c, ~M) with ~M = pk(sk_8) at {7} in copy a_6
 
-new sk: skey creating sk_9 at {3} in copy a_7
+new sk: skey creating sk_9 at {4} in copy a_7
 
-event HonestKey(pk(sk_9)) at {4} in copy a_7
+event HonestKey(pk(sk_9)) at {5} in copy a_7
 
-insert keys(pk(sk_9),sk_9) at {5} in copy a_7
+insert keys(pk(sk_9),sk_9) at {6} in copy a_7
 
-out(c, ~M_1) with ~M_1 = pk(sk_9) at {6} in copy a_7
+out(c, ~M_1) with ~M_1 = pk(sk_9) at {7} in copy a_7
 
-new sk: skey creating sk_10 at {3} in copy a_8
+new sk: skey creating sk_10 at {4} in copy a_8
 
-event HonestKey(pk(sk_10)) at {4} in copy a_8
+event HonestKey(pk(sk_10)) at {5} in copy a_8
 
-insert keys(pk(sk_10),sk_10) at {5} in copy a_8
+insert keys(pk(sk_10),sk_10) at {6} in copy a_8
 
-out(c, ~M_2) with ~M_2 = pk(sk_10) at {6} in copy a_8
+out(c, ~M_2) with ~M_2 = pk(sk_10) at {7} in copy a_8
 
-new sk: skey creating sk_11 at {3} in copy a_9
+new sk: skey creating sk_11 at {4} in copy a_9
 
-event HonestKey(pk(sk_11)) at {4} in copy a_9
+event HonestKey(pk(sk_11)) at {5} in copy a_9
 
-insert keys(pk(sk_11),sk_11) at {5} in copy a_9
+insert keys(pk(sk_11),sk_11) at {6} in copy a_9
 
-out(c, ~M_3) with ~M_3 = pk(sk_11) at {6} in copy a_9
+out(c, ~M_3) with ~M_3 = pk(sk_11) at {7} in copy a_9
 
-get keys(pk(sk_9),sk_9) at {10} in copy a_10
+get keys(pk(sk_9),sk_9) at {11} in copy a_10
 
-event Corrupt(pk(sk_9)) at {8} in copy a_10
+event Corrupt(pk(sk_9)) at {9} in copy a_10
 
-out(c, ~M_4) with ~M_4 = sk_9 at {9} in copy a_10
+out(c, ~M_4) with ~M_4 = sk_9 at {10} in copy a_10
 
-get keys(pk(sk_10),sk_10) at {20} in copy a_11
+get keys(pk(sk_10),sk_10) at {21} in copy a_11
 
-in(c, (4,0,0,0,0)) at {12} in copy a_11
+in(c, (4,0,0,0,0)) at {13} in copy a_11
 
-new j: bitstring creating j_9 at {15} in copy a_11
+new j: bitstring creating j_9 at {16} in copy a_11
 
-event Minted(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar)) at {17} in copy a_11
+event Minted(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar)) at {18} in copy a_11
 
-event Granted(j_9,cs(0,0,0)) at {18} in copy a_11
+event Granted(j_9,cs(0,0,0)) at {19} in copy a_11
 
-out(c, ~M_5) with ~M_5 = sign(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar),skA) at {19} in copy a_11
+out(c, ~M_5) with ~M_5 = sign(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar),skA) at {20} in copy a_11
 
-get keys(pk(sk_11),sk_11) at {44} in copy a_12
+get keys(pk(sk_11),sk_11) at {45} in copy a_12
 
-in(c, sign(dt(a_13,a_14,~M_3,1,md(1),0,cs(0,0,0),h(dt(1-proj-dt(getmess(~M_5)),anchor_uri,~M_2,0,md(4),0,cs(0,0,0),nopar))),a_15)) with sign(dt(a_13,a_14,~M_3,1,md(1),0,cs(0,0,0),h(dt(1-proj-dt(getmess(~M_5)),anchor_uri,~M_2,0,md(4),0,cs(0,0,0),nopar))),a_15) = sign(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(0,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar))),a_15) at {22} in copy a_12
+in(c, sign(dt(a_13,a_14,~M_3,1,md(1),0,cs(0,0,0),h(dt(1-proj-dt(getmess(~M_5)),anchor_uri,~M_2,0,md(4),0,cs(0,0,0),nopar))),a_15)) with sign(dt(a_13,a_14,~M_3,1,md(1),0,cs(0,0,0),h(dt(1-proj-dt(getmess(~M_5)),anchor_uri,~M_2,0,md(4),0,cs(0,0,0),nopar))),a_15) = sign(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(0,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar))),a_15) at {23} in copy a_12
 
-in(c, (~M,md(1),0,0,0,0)) with ~M = pk(sk_8) at {25} in copy a_12
+in(c, (~M,md(1),0,0,0,0)) with ~M = pk(sk_8) at {26} in copy a_12
 
-get keys(pk(sk_8),sk_8) at {39} in copy a_12
+get keys(pk(sk_8),sk_8) at {40} in copy a_12
 
-new cj: bitstring creating cj_9 at {34} in copy a_12
+new cj: bitstring creating cj_9 at {35} in copy a_12
 
-event Derived(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(0,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar))),dt(cj_9,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(0,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(0,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar)))))) at {36} in copy a_12
+event Derived(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(0,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar))),dt(cj_9,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(0,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(0,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar)))))) at {37} in copy a_12
 
-insert derived(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(0,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar))),dt(cj_9,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(0,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(0,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar)))))) at {37} in copy a_12
+insert derived(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(0,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar))),dt(cj_9,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(0,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(0,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar)))))) at {38} in copy a_12
 
-out(c, ~M_6) with ~M_6 = sign(dt(cj_9,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(0,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(0,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar))))),sk_11) at {38} in copy a_12
+out(c, ~M_6) with ~M_6 = sign(dt(cj_9,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(0,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(0,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar))))),sk_11) at {39} in copy a_12
 
-in(c, (~M_5,~M_1,sign(dt(a_13,a_14,~M_3,1,md(1),0,cs(0,0,0),h(dt(1-proj-dt(getmess(~M_5)),anchor_uri,~M_2,0,md(4),0,cs(0,0,0),nopar))),~M_4),~M_3,~M_6,~M_1,sign(dt(a_16,a_17,a_18,3,md(1),0,cs(0,0,0),h(dt(1-proj-dt(getmess(~M_6)),thumb(~M_3),~M,2,md(1),0,cs(0,0,0),h(dt(a_13,a_14,~M_3,1,md(1),0,cs(0,0,0),h(dt(1-proj-dt(getmess(~M_5)),anchor_uri,~M_2,0,md(4),0,cs(0,0,0),nopar))))))),~M_4),a_19,a_20,a_21)) with ~M_5 = sign(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar),skA), ~M_1 = pk(sk_9), sign(dt(a_13,a_14,~M_3,1,md(1),0,cs(0,0,0),h(dt(1-proj-dt(getmess(~M_5)),anchor_uri,~M_2,0,md(4),0,cs(0,0,0),nopar))),~M_4) = sign(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(0,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar))),sk_9), ~M_3 = pk(sk_11), ~M_6 = sign(dt(cj_9,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(0,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(0,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar))))),sk_11), ~M_1 = pk(sk_9), sign(dt(a_16,a_17,a_18,3,md(1),0,cs(0,0,0),h(dt(1-proj-dt(getmess(~M_6)),thumb(~M_3),~M,2,md(1),0,cs(0,0,0),h(dt(a_13,a_14,~M_3,1,md(1),0,cs(0,0,0),h(dt(1-proj-dt(getmess(~M_5)),anchor_uri,~M_2,0,md(4),0,cs(0,0,0),nopar))))))),~M_4) = sign(dt(a_16,a_17,a_18,3,md(1),0,cs(0,0,0),h(dt(cj_9,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(0,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(0,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar))))))),sk_9) at {292} in copy a_22
+in(c, (~M_5,~M_1,sign(dt(a_13,a_14,~M_3,1,md(1),0,cs(0,0,0),h(dt(1-proj-dt(getmess(~M_5)),anchor_uri,~M_2,0,md(4),0,cs(0,0,0),nopar))),~M_4),~M_3,~M_6,~M_1,sign(dt(a_16,a_17,a_18,3,md(1),0,cs(0,0,0),h(dt(1-proj-dt(getmess(~M_6)),thumb(~M_3),~M,2,md(1),0,cs(0,0,0),h(dt(a_13,a_14,~M_3,1,md(1),0,cs(0,0,0),h(dt(1-proj-dt(getmess(~M_5)),anchor_uri,~M_2,0,md(4),0,cs(0,0,0),nopar))))))),~M_4),a_19,a_20,a_21)) with ~M_5 = sign(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar),skA), ~M_1 = pk(sk_9), sign(dt(a_13,a_14,~M_3,1,md(1),0,cs(0,0,0),h(dt(1-proj-dt(getmess(~M_5)),anchor_uri,~M_2,0,md(4),0,cs(0,0,0),nopar))),~M_4) = sign(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(0,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar))),sk_9), ~M_3 = pk(sk_11), ~M_6 = sign(dt(cj_9,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(0,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(0,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar))))),sk_11), ~M_1 = pk(sk_9), sign(dt(a_16,a_17,a_18,3,md(1),0,cs(0,0,0),h(dt(1-proj-dt(getmess(~M_6)),thumb(~M_3),~M,2,md(1),0,cs(0,0,0),h(dt(a_13,a_14,~M_3,1,md(1),0,cs(0,0,0),h(dt(1-proj-dt(getmess(~M_5)),anchor_uri,~M_2,0,md(4),0,cs(0,0,0),nopar))))))),~M_4) = sign(dt(a_16,a_17,a_18,3,md(1),0,cs(0,0,0),h(dt(cj_9,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(0,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(0,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar))))))),sk_9) at {296} in copy a_22
 
-get keys(pk(sk_9),sk_9) at {459} in copy a_22
+get keys(pk(sk_9),sk_9) at {466} in copy a_22
 
-get keys(pk(sk_11),sk_11) at {458} in copy a_22
+get keys(pk(sk_11),sk_11) at {465} in copy a_22
 
-get keys(pk(sk_9),sk_9) at {457} in copy a_22
+get keys(pk(sk_9),sk_9) at {464} in copy a_22
 
-event AcceptedRoot(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar)) at {420} in copy a_22
+event AcceptedRoot(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar)) at {427} in copy a_22
 
-event AcceptedLink(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar),dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(0,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar)))) at {421} in copy a_22
+event AcceptedLink(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar),dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(0,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar)))) at {428} in copy a_22
 
-event AcceptedLink(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(0,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar))),dt(cj_9,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(0,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(0,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar)))))) at {422} in copy a_22
+event AcceptedLink(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(0,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar))),dt(cj_9,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(0,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(0,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar)))))) at {429} in copy a_22
 
-event AcceptedLink(dt(cj_9,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(0,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(0,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar))))),dt(a_16,a_17,a_18,3,md(1),0,cs(0,0,0),h(dt(cj_9,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(0,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(0,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar)))))))) at {423} in copy a_22 (goal)
+event AcceptedLink(dt(cj_9,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(0,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(0,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar))))),dt(a_16,a_17,a_18,3,md(1),0,cs(0,0,0),h(dt(cj_9,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(0,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(0,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar)))))))) at {430} in copy a_22 (goal)
 
-The event AcceptedLink(dt(cj_9,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(0,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(0,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar))))),dt(a_16,a_17,a_18,3,md(1),0,cs(0,0,0),h(dt(cj_9,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(0,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(0,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar)))))))) is executed at {423} in copy a_22.
-The event HonestKey(pk(sk_8)) is executed at {4} in copy a_6.
+The event AcceptedLink(dt(cj_9,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(0,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(0,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar))))),dt(a_16,a_17,a_18,3,md(1),0,cs(0,0,0),h(dt(cj_9,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(0,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(0,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(0,0,0),nopar)))))))) is executed at {430} in copy a_22.
+The event HonestKey(pk(sk_8)) is executed at {5} in copy a_6.
 A trace has been found.
 RESULT event(AcceptedLink(dt(pj_15,pi_7,pk__6,pd_7,pm_1,pe_7,pt,pp),ch_4)) && event(HonestKey(pk__6)) ==> event(Derived(dt(pj_15,pi_7,pk__6,pd_7,pm_1,pe_7,pt,pp),ch_4)) || event(Corrupt(pk__6)) is false.
 
@@ -462,7 +462,7 @@ j_8 = j[t3 = p3_7,t2 = p2_7,t1 = 1,e = pe_7,m = 4,sk_2 = sk_6,k_1 = pk(sk_6),!1 
 cj_7 = cj[sk2 = sk_4,c3 = p3_8,c2 = p2_8,c1 = 1,ce = pe_8,cmx = md(b_2),k2 = pk(sk_4),s = sign(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(1,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(1,p2_7,p3_7),nopar))),k_10),sk_3 = sk_5,k_2 = pk(sk_5),!1 = @sid_4]
 sk_7 = sk[!1 = @sid_5]
 
-1. Event HonestKey(pk(sk_4)) may be executed at {4}.
+1. Event HonestKey(pk(sk_4)) may be executed at {5}.
 event(HonestKey(pk(sk_4))).
 
 2. The attacker has some term pop_4.
@@ -474,12 +474,12 @@ attacker(a_5).
 4. Using the function ta the attacker may obtain ta.
 attacker(ta).
 
-5. The entry keys(pk(sk_7),sk_7) may be inserted in a table at insert {5}.
+5. The entry keys(pk(sk_7),sk_7) may be inserted in a table at insert {6}.
 table(keys(pk(sk_7),sk_7)).
 
-6. The entry keys(pk(sk_7),sk_7) that may be in a table by 5 may be read at get {10}.
-The event Corrupt(pk(sk_7)) may be executed at {8}.
-So the message sk_7 may be sent to the attacker at output {9}.
+6. The entry keys(pk(sk_7),sk_7) that may be in a table by 5 may be read at get {11}.
+The event Corrupt(pk(sk_7)) may be executed at {9}.
+So the message sk_7 may be sent to the attacker at output {10}.
 attacker(sk_7).
 
 7. Using the function nopar the attacker may obtain nopar.
@@ -523,13 +523,13 @@ attacker(4).
 Using the function md the attacker may obtain md(4).
 attacker(md(4)).
 
-18. The message pk(sk_6) may be sent to the attacker at output {6}.
+18. The message pk(sk_6) may be sent to the attacker at output {7}.
 attacker(pk(sk_6)).
 
 19. Using the function anchor_uri the attacker may obtain anchor_uri.
 attacker(anchor_uri).
 
-20. The entry keys(pk(sk_6),sk_6) may be inserted in a table at insert {5}.
+20. The entry keys(pk(sk_6),sk_6) may be inserted in a table at insert {6}.
 table(keys(pk(sk_6),sk_6)).
 
 21. By 16, the attacker may know 4.
@@ -540,10 +540,10 @@ By 8, the attacker may know p3_7.
 Using the function 5-tuple the attacker may obtain (4,pe_7,1,p2_7,p3_7).
 attacker((4,pe_7,1,p2_7,p3_7)).
 
-22. The entry keys(pk(sk_6),sk_6) that may be in a table by 20 may be read at get {20}.
-The message (4,pe_7,1,p2_7,p3_7) that the attacker may have by 21 may be received at input {12}.
+22. The entry keys(pk(sk_6),sk_6) that may be in a table by 20 may be read at get {21}.
+The message (4,pe_7,1,p2_7,p3_7) that the attacker may have by 21 may be received at input {13}.
 We have 1 ≥ p3_7 && 1 ≥ 1 && 4 ≥ 4 && 3 ≥ pe_7 && 1 ≥ p2_7 && 4 ≥ 1.
-So the message sign(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(1,p2_7,p3_7),nopar),skA[]) may be sent to the attacker at output {19}.
+So the message sign(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(1,p2_7,p3_7),nopar),skA[]) may be sent to the attacker at output {20}.
 attacker(sign(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(1,p2_7,p3_7),nopar),skA[])).
 
 23. By 22, the attacker may know sign(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(1,p2_7,p3_7),nopar),skA[]).
@@ -591,7 +591,7 @@ attacker(b2_1).
 Using the function md the attacker may obtain md(b2_1).
 attacker(md(b2_1)).
 
-33. The message pk(sk_5) may be sent to the attacker at output {6}.
+33. The message pk(sk_5) may be sent to the attacker at output {7}.
 attacker(pk(sk_5)).
 
 34. We assume as hypothesis that
@@ -637,14 +637,14 @@ attacker(b_2).
 Using the function md the attacker may obtain md(b_2).
 attacker(md(b_2)).
 
-44. The message pk(sk_4) may be sent to the attacker at output {6}.
+44. The message pk(sk_4) may be sent to the attacker at output {7}.
 attacker(pk(sk_4)).
 
 45. By 33, the attacker may know pk(sk_5).
 Using the function thumb the attacker may obtain thumb(pk(sk_5)).
 attacker(thumb(pk(sk_5))).
 
-46. The entry keys(pk(sk_5),sk_5) may be inserted in a table at insert {5}.
+46. The entry keys(pk(sk_5),sk_5) may be inserted in a table at insert {6}.
 table(keys(pk(sk_5),sk_5)).
 
 47. We assume as hypothesis that
@@ -664,16 +664,16 @@ By 38, the attacker may know p3_8.
 Using the function 6-tuple the attacker may obtain (pk(sk_4),md(b_2),pe_8,1,p2_8,p3_8).
 attacker((pk(sk_4),md(b_2),pe_8,1,p2_8,p3_8)).
 
-50. The entry keys(pk(sk_4),sk_4) may be inserted in a table at insert {5}.
+50. The entry keys(pk(sk_4),sk_4) may be inserted in a table at insert {6}.
 table(keys(pk(sk_4),sk_4)).
 
-51. The entry keys(pk(sk_5),sk_5) that may be in a table by 46 may be read at get {44}.
-The message sign(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(1,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(1,p2_7,p3_7),nopar))),k_10) that the attacker may have by 48 may be received at input {22}.
-The message (pk(sk_4),md(b_2),pe_8,1,p2_8,p3_8) that the attacker may have by 49 may be received at input {25}.
-The entry keys(pk(sk_4),sk_4) that may be in a table by 50 may be read at get {39}.
-The event Derived(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(1,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(1,p2_7,p3_7),nopar))),dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(1,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(1,p2_7,p3_7),nopar)))))) may be executed at {36}.
+51. The entry keys(pk(sk_5),sk_5) that may be in a table by 46 may be read at get {45}.
+The message sign(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(1,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(1,p2_7,p3_7),nopar))),k_10) that the attacker may have by 48 may be received at input {23}.
+The message (pk(sk_4),md(b_2),pe_8,1,p2_8,p3_8) that the attacker may have by 49 may be received at input {26}.
+The entry keys(pk(sk_4),sk_4) that may be in a table by 50 may be read at get {40}.
+The event Derived(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(1,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(1,p2_7,p3_7),nopar))),dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(1,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(1,p2_7,p3_7),nopar)))))) may be executed at {37}.
 We have p2_9 ≥ p2_8 && pe_9 ≥ pe_8 && 1 ≥ 1 && p3_9 ≥ p3_8 && b2_1 ≥ b_2 && b_2 ≥ 1.
-So the message sign(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(1,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(1,p2_7,p3_7),nopar))))),sk_5) may be sent to the attacker at output {38}.
+So the message sign(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(1,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(1,p2_7,p3_7),nopar))))),sk_5) may be sent to the attacker at output {39}.
 attacker(sign(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(1,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(1,p2_7,p3_7),nopar))))),sk_5)).
 
 52. By 51, the attacker may know sign(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(1,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(1,p2_7,p3_7),nopar))))),sk_5).
@@ -746,7 +746,7 @@ By 6, the attacker may know sk_7.
 Using the function sign the attacker may obtain sign(dt(lj_4,li_4,lk_4,3,md(cm_7),le_4,cs(1,n2_4,n3_4),h(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(1,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(1,p2_7,p3_7),nopar))))))),sk_7).
 attacker(sign(dt(lj_4,li_4,lk_4,3,md(cm_7),le_4,cs(1,n2_4,n3_4),h(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(1,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(1,p2_7,p3_7),nopar))))))),sk_7)).
 
-67. The message pk(sk_7) may be sent to the attacker at output {6}.
+67. The message pk(sk_7) may be sent to the attacker at output {7}.
 attacker(pk(sk_7)).
 
 68. By 36, the attacker may know dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(1,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(1,p2_7,p3_7),nopar))).
@@ -767,12 +767,12 @@ By 2, the attacker may know pop_4.
 Using the function 10-tuple the attacker may obtain (sign(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(1,p2_7,p3_7),nopar),skA[]),pk(sk_7),sign(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(1,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(1,p2_7,p3_7),nopar))),sk_7),pk(sk_5),sign(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(1,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(1,p2_7,p3_7),nopar))))),sk_5),pk(sk_7),sign(dt(lj_4,li_4,lk_4,3,md(cm_7),le_4,cs(1,n2_4,n3_4),h(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(1,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(1,p2_7,p3_7),nopar))))))),sk_7),ta,a_5,pop_4).
 attacker((sign(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(1,p2_7,p3_7),nopar),skA[]),pk(sk_7),sign(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(1,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(1,p2_7,p3_7),nopar))),sk_7),pk(sk_5),sign(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(1,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(1,p2_7,p3_7),nopar))))),sk_5),pk(sk_7),sign(dt(lj_4,li_4,lk_4,3,md(cm_7),le_4,cs(1,n2_4,n3_4),h(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(1,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(1,p2_7,p3_7),nopar))))))),sk_7),ta,a_5,pop_4)).
 
-70. The message (sign(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(1,p2_7,p3_7),nopar),skA[]),pk(sk_7),sign(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(1,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(1,p2_7,p3_7),nopar))),sk_7),pk(sk_5),sign(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(1,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(1,p2_7,p3_7),nopar))))),sk_5),pk(sk_7),sign(dt(lj_4,li_4,lk_4,3,md(cm_7),le_4,cs(1,n2_4,n3_4),h(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(1,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(1,p2_7,p3_7),nopar))))))),sk_7),ta,a_5,pop_4) that the attacker may have by 69 may be received at input {292}.
-The entry keys(pk(sk_7),sk_7) that may be in a table by 5 may be read at get {459}.
-The entry keys(pk(sk_5),sk_5) that may be in a table by 46 may be read at get {458}.
-The entry keys(pk(sk_7),sk_7) that may be in a table by 5 may be read at get {457}.
+70. The message (sign(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(1,p2_7,p3_7),nopar),skA[]),pk(sk_7),sign(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(1,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(1,p2_7,p3_7),nopar))),sk_7),pk(sk_5),sign(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(1,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(1,p2_7,p3_7),nopar))))),sk_5),pk(sk_7),sign(dt(lj_4,li_4,lk_4,3,md(cm_7),le_4,cs(1,n2_4,n3_4),h(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(1,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(1,p2_7,p3_7),nopar))))))),sk_7),ta,a_5,pop_4) that the attacker may have by 69 may be received at input {296}.
+The entry keys(pk(sk_7),sk_7) that may be in a table by 5 may be read at get {466}.
+The entry keys(pk(sk_5),sk_5) that may be in a table by 46 may be read at get {465}.
+The entry keys(pk(sk_7),sk_7) that may be in a table by 5 may be read at get {464}.
 We have 1 ≥ 1 && 1 ≥ 1 && 1 ≥ 1 && b_2 ≥ cm_7 && b2_1 ≥ b_2 && 4 ≥ b2_1 && p3_8 ≥ n3_4 && p3_9 ≥ p3_8 && p3_7 ≥ p3_9 && p2_7 ≥ p2_9 && p2_8 ≥ n2_4 && p2_9 ≥ p2_8 && pe_7 ≥ pe_9 && pe_8 ≥ le_4 && pe_9 ≥ pe_8 && cm_7 ≥ 1 && 1 ≥ 1 && 4 ≥ 4.
-So event AcceptVia(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(1,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(1,p2_7,p3_7),nopar))))),dt(lj_4,li_4,lk_4,3,md(cm_7),le_4,cs(1,n2_4,n3_4),h(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(1,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(1,p2_7,p3_7),nopar)))))))) may be executed at {454}.
+So event AcceptVia(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(1,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(1,p2_7,p3_7),nopar))))),dt(lj_4,li_4,lk_4,3,md(cm_7),le_4,cs(1,n2_4,n3_4),h(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(1,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(1,p2_7,p3_7),nopar)))))))) may be executed at {461}.
 event(AcceptVia(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(1,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(1,p2_7,p3_7),nopar))))),dt(lj_4,li_4,lk_4,3,md(cm_7),le_4,cs(1,n2_4,n3_4),h(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(1,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(1,p2_7,p3_7),nopar))))))))).
 
 71. By 70, event(AcceptVia(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(1,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(1,p2_7,p3_7),nopar))))),dt(lj_4,li_4,lk_4,3,md(cm_7),le_4,cs(1,n2_4,n3_4),h(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(pj_15,pi_7,pk(sk_5),1,md(b2_1),pe_9,cs(1,p2_9,p3_9),h(dt(j_8,anchor_uri,pk(sk_6),0,md(4),pe_7,cs(1,p2_7,p3_7),nopar))))))))).
@@ -784,104 +784,104 @@ event(AcceptVia(dt(cj_7,thumb(pk(sk_5)),pk(sk_4),2,md(b_2),pe_8,cs(1,p2_8,p3_8),
 A more detailed output of the traces is available with
   set traceDisplay = long.
 
-new sk: skey creating sk_8 at {3} in copy a_6
+new sk: skey creating sk_8 at {4} in copy a_6
 
-event HonestKey(pk(sk_8)) at {4} in copy a_6 (goal)
+event HonestKey(pk(sk_8)) at {5} in copy a_6 (goal)
 
-insert keys(pk(sk_8),sk_8) at {5} in copy a_6
+insert keys(pk(sk_8),sk_8) at {6} in copy a_6
 
-out(c, ~M) with ~M = pk(sk_8) at {6} in copy a_6
+out(c, ~M) with ~M = pk(sk_8) at {7} in copy a_6
 
-new sk: skey creating sk_9 at {3} in copy a_7
+new sk: skey creating sk_9 at {4} in copy a_7
 
-event HonestKey(pk(sk_9)) at {4} in copy a_7
+event HonestKey(pk(sk_9)) at {5} in copy a_7
 
-insert keys(pk(sk_9),sk_9) at {5} in copy a_7
+insert keys(pk(sk_9),sk_9) at {6} in copy a_7
 
-out(c, ~M_1) with ~M_1 = pk(sk_9) at {6} in copy a_7
+out(c, ~M_1) with ~M_1 = pk(sk_9) at {7} in copy a_7
 
-new sk: skey creating sk_10 at {3} in copy a_8
+new sk: skey creating sk_10 at {4} in copy a_8
 
-event HonestKey(pk(sk_10)) at {4} in copy a_8
+event HonestKey(pk(sk_10)) at {5} in copy a_8
 
-insert keys(pk(sk_10),sk_10) at {5} in copy a_8
+insert keys(pk(sk_10),sk_10) at {6} in copy a_8
 
-out(c, ~M_2) with ~M_2 = pk(sk_10) at {6} in copy a_8
+out(c, ~M_2) with ~M_2 = pk(sk_10) at {7} in copy a_8
 
-new sk: skey creating sk_11 at {3} in copy a_9
+new sk: skey creating sk_11 at {4} in copy a_9
 
-event HonestKey(pk(sk_11)) at {4} in copy a_9
+event HonestKey(pk(sk_11)) at {5} in copy a_9
 
-insert keys(pk(sk_11),sk_11) at {5} in copy a_9
+insert keys(pk(sk_11),sk_11) at {6} in copy a_9
 
-out(c, ~M_3) with ~M_3 = pk(sk_11) at {6} in copy a_9
+out(c, ~M_3) with ~M_3 = pk(sk_11) at {7} in copy a_9
 
-get keys(pk(sk_9),sk_9) at {10} in copy a_10
+get keys(pk(sk_9),sk_9) at {11} in copy a_10
 
-event Corrupt(pk(sk_9)) at {8} in copy a_10
+event Corrupt(pk(sk_9)) at {9} in copy a_10
 
-out(c, ~M_4) with ~M_4 = sk_9 at {9} in copy a_10
+out(c, ~M_4) with ~M_4 = sk_9 at {10} in copy a_10
 
-get keys(pk(sk_10),sk_10) at {20} in copy a_11
+get keys(pk(sk_10),sk_10) at {21} in copy a_11
 
-in(c, (4,0,1,0,0)) at {12} in copy a_11
+in(c, (4,0,1,0,0)) at {13} in copy a_11
 
-new j: bitstring creating j_9 at {15} in copy a_11
+new j: bitstring creating j_9 at {16} in copy a_11
 
-event Minted(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar)) at {17} in copy a_11
+event Minted(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar)) at {18} in copy a_11
 
-event Granted(j_9,cs(1,0,0)) at {18} in copy a_11
+event Granted(j_9,cs(1,0,0)) at {19} in copy a_11
 
-out(c, ~M_5) with ~M_5 = sign(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar),skA) at {19} in copy a_11
+out(c, ~M_5) with ~M_5 = sign(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar),skA) at {20} in copy a_11
 
-get keys(pk(sk_11),sk_11) at {44} in copy a_12
+get keys(pk(sk_11),sk_11) at {45} in copy a_12
 
-in(c, sign(dt(a_13,a_14,~M_3,1,md(1),0,cs(1,0,0),h(dt(1-proj-dt(getmess(~M_5)),anchor_uri,~M_2,0,md(4),0,cs(1,0,0),nopar))),a_15)) with sign(dt(a_13,a_14,~M_3,1,md(1),0,cs(1,0,0),h(dt(1-proj-dt(getmess(~M_5)),anchor_uri,~M_2,0,md(4),0,cs(1,0,0),nopar))),a_15) = sign(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar))),a_15) at {22} in copy a_12
+in(c, sign(dt(a_13,a_14,~M_3,1,md(1),0,cs(1,0,0),h(dt(1-proj-dt(getmess(~M_5)),anchor_uri,~M_2,0,md(4),0,cs(1,0,0),nopar))),a_15)) with sign(dt(a_13,a_14,~M_3,1,md(1),0,cs(1,0,0),h(dt(1-proj-dt(getmess(~M_5)),anchor_uri,~M_2,0,md(4),0,cs(1,0,0),nopar))),a_15) = sign(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar))),a_15) at {23} in copy a_12
 
-in(c, (~M,md(1),0,1,0,0)) with ~M = pk(sk_8) at {25} in copy a_12
+in(c, (~M,md(1),0,1,0,0)) with ~M = pk(sk_8) at {26} in copy a_12
 
-get keys(pk(sk_8),sk_8) at {39} in copy a_12
+get keys(pk(sk_8),sk_8) at {40} in copy a_12
 
-new cj: bitstring creating cj_8 at {34} in copy a_12
+new cj: bitstring creating cj_8 at {35} in copy a_12
 
-event Derived(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar))),dt(cj_8,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(1,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar)))))) at {36} in copy a_12
+event Derived(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar))),dt(cj_8,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(1,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar)))))) at {37} in copy a_12
 
-insert derived(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar))),dt(cj_8,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(1,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar)))))) at {37} in copy a_12
+insert derived(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar))),dt(cj_8,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(1,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar)))))) at {38} in copy a_12
 
-out(c, ~M_6) with ~M_6 = sign(dt(cj_8,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(1,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar))))),sk_11) at {38} in copy a_12
+out(c, ~M_6) with ~M_6 = sign(dt(cj_8,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(1,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar))))),sk_11) at {39} in copy a_12
 
-in(c, (~M_5,~M_1,sign(dt(a_13,a_14,~M_3,1,md(1),0,cs(1,0,0),h(dt(1-proj-dt(getmess(~M_5)),anchor_uri,~M_2,0,md(4),0,cs(1,0,0),nopar))),~M_4),~M_3,~M_6,~M_1,sign(dt(a_16,a_17,a_18,3,md(1),0,cs(1,0,0),h(dt(1-proj-dt(getmess(~M_6)),thumb(~M_3),~M,2,md(1),0,cs(1,0,0),h(dt(a_13,a_14,~M_3,1,md(1),0,cs(1,0,0),h(dt(1-proj-dt(getmess(~M_5)),anchor_uri,~M_2,0,md(4),0,cs(1,0,0),nopar))))))),~M_4),ta,a_19,a_20)) with ~M_5 = sign(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar),skA), ~M_1 = pk(sk_9), sign(dt(a_13,a_14,~M_3,1,md(1),0,cs(1,0,0),h(dt(1-proj-dt(getmess(~M_5)),anchor_uri,~M_2,0,md(4),0,cs(1,0,0),nopar))),~M_4) = sign(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar))),sk_9), ~M_3 = pk(sk_11), ~M_6 = sign(dt(cj_8,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(1,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar))))),sk_11), ~M_1 = pk(sk_9), sign(dt(a_16,a_17,a_18,3,md(1),0,cs(1,0,0),h(dt(1-proj-dt(getmess(~M_6)),thumb(~M_3),~M,2,md(1),0,cs(1,0,0),h(dt(a_13,a_14,~M_3,1,md(1),0,cs(1,0,0),h(dt(1-proj-dt(getmess(~M_5)),anchor_uri,~M_2,0,md(4),0,cs(1,0,0),nopar))))))),~M_4) = sign(dt(a_16,a_17,a_18,3,md(1),0,cs(1,0,0),h(dt(cj_8,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(1,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar))))))),sk_9) at {292} in copy a_21
+in(c, (~M_5,~M_1,sign(dt(a_13,a_14,~M_3,1,md(1),0,cs(1,0,0),h(dt(1-proj-dt(getmess(~M_5)),anchor_uri,~M_2,0,md(4),0,cs(1,0,0),nopar))),~M_4),~M_3,~M_6,~M_1,sign(dt(a_16,a_17,a_18,3,md(1),0,cs(1,0,0),h(dt(1-proj-dt(getmess(~M_6)),thumb(~M_3),~M,2,md(1),0,cs(1,0,0),h(dt(a_13,a_14,~M_3,1,md(1),0,cs(1,0,0),h(dt(1-proj-dt(getmess(~M_5)),anchor_uri,~M_2,0,md(4),0,cs(1,0,0),nopar))))))),~M_4),ta,a_19,a_20)) with ~M_5 = sign(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar),skA), ~M_1 = pk(sk_9), sign(dt(a_13,a_14,~M_3,1,md(1),0,cs(1,0,0),h(dt(1-proj-dt(getmess(~M_5)),anchor_uri,~M_2,0,md(4),0,cs(1,0,0),nopar))),~M_4) = sign(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar))),sk_9), ~M_3 = pk(sk_11), ~M_6 = sign(dt(cj_8,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(1,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar))))),sk_11), ~M_1 = pk(sk_9), sign(dt(a_16,a_17,a_18,3,md(1),0,cs(1,0,0),h(dt(1-proj-dt(getmess(~M_6)),thumb(~M_3),~M,2,md(1),0,cs(1,0,0),h(dt(a_13,a_14,~M_3,1,md(1),0,cs(1,0,0),h(dt(1-proj-dt(getmess(~M_5)),anchor_uri,~M_2,0,md(4),0,cs(1,0,0),nopar))))))),~M_4) = sign(dt(a_16,a_17,a_18,3,md(1),0,cs(1,0,0),h(dt(cj_8,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(1,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar))))))),sk_9) at {296} in copy a_21
 
-get keys(pk(sk_9),sk_9) at {459} in copy a_21
+get keys(pk(sk_9),sk_9) at {466} in copy a_21
 
-get keys(pk(sk_11),sk_11) at {458} in copy a_21
+get keys(pk(sk_11),sk_11) at {465} in copy a_21
 
-get keys(pk(sk_9),sk_9) at {457} in copy a_21
+get keys(pk(sk_9),sk_9) at {464} in copy a_21
 
-event AcceptedRoot(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar)) at {420} in copy a_21
+event AcceptedRoot(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar)) at {427} in copy a_21
 
-event AcceptedLink(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar),dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar)))) at {421} in copy a_21
+event AcceptedLink(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar),dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar)))) at {428} in copy a_21
 
-event AcceptedLink(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar))),dt(cj_8,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(1,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar)))))) at {422} in copy a_21
+event AcceptedLink(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar))),dt(cj_8,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(1,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar)))))) at {429} in copy a_21
 
-event AcceptedLink(dt(cj_8,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(1,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar))))),dt(a_16,a_17,a_18,3,md(1),0,cs(1,0,0),h(dt(cj_8,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(1,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar)))))))) at {423} in copy a_21
+event AcceptedLink(dt(cj_8,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(1,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar))))),dt(a_16,a_17,a_18,3,md(1),0,cs(1,0,0),h(dt(cj_8,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(1,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar)))))))) at {430} in copy a_21
 
-event AcceptedLinkBy(pk(sk_9),dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar),dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar)))) at {424} in copy a_21
+event AcceptedLinkBy(pk(sk_9),dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar),dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar)))) at {431} in copy a_21
 
-event AcceptedLinkBy(pk(sk_11),dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar))),dt(cj_8,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(1,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar)))))) at {425} in copy a_21
+event AcceptedLinkBy(pk(sk_11),dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar))),dt(cj_8,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(1,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar)))))) at {432} in copy a_21
 
-event AcceptedLinkBy(pk(sk_9),dt(cj_8,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(1,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar))))),dt(a_16,a_17,a_18,3,md(1),0,cs(1,0,0),h(dt(cj_8,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(1,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar)))))))) at {426} in copy a_21
+event AcceptedLinkBy(pk(sk_9),dt(cj_8,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(1,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar))))),dt(a_16,a_17,a_18,3,md(1),0,cs(1,0,0),h(dt(cj_8,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(1,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar)))))))) at {433} in copy a_21
 
-event Accept(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar),dt(a_16,a_17,a_18,3,md(1),0,cs(1,0,0),h(dt(cj_8,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(1,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar))))))),ta,a_19,nodpop) at {451} in copy a_21
+event Accept(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar),dt(a_16,a_17,a_18,3,md(1),0,cs(1,0,0),h(dt(cj_8,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(1,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar))))))),ta,a_19,nodpop) at {458} in copy a_21
 
-event AcceptVia(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar),dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar)))) at {452} in copy a_21
+event AcceptVia(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar),dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar)))) at {459} in copy a_21
 
-event AcceptVia(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar))),dt(cj_8,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(1,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar)))))) at {453} in copy a_21
+event AcceptVia(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar))),dt(cj_8,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(1,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar)))))) at {460} in copy a_21
 
-event AcceptVia(dt(cj_8,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(1,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar))))),dt(a_16,a_17,a_18,3,md(1),0,cs(1,0,0),h(dt(cj_8,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(1,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar)))))))) at {454} in copy a_21 (goal)
+event AcceptVia(dt(cj_8,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(1,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar))))),dt(a_16,a_17,a_18,3,md(1),0,cs(1,0,0),h(dt(cj_8,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(1,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar)))))))) at {461} in copy a_21 (goal)
 
-The event AcceptVia(dt(cj_8,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(1,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar))))),dt(a_16,a_17,a_18,3,md(1),0,cs(1,0,0),h(dt(cj_8,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(1,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar)))))))) is executed at {454} in copy a_21.
-The event HonestKey(pk(sk_8)) is executed at {4} in copy a_6.
+The event AcceptVia(dt(cj_8,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(1,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar))))),dt(a_16,a_17,a_18,3,md(1),0,cs(1,0,0),h(dt(cj_8,thumb(pk(sk_11)),pk(sk_8),2,md(1),0,cs(1,0,0),h(dt(a_13,a_14,pk(sk_11),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_10),0,md(4),0,cs(1,0,0),nopar)))))))) is executed at {461} in copy a_21.
+The event HonestKey(pk(sk_8)) is executed at {5} in copy a_6.
 A trace has been found.
 RESULT event(AcceptVia(dt(pj_15,pi_7,pk__6,pd_7,pm_1,pe_7,pt,pp),ch_4)) && event(HonestKey(pk__6)) ==> event(Derived(dt(pj_15,pi_7,pk__6,pd_7,pm_1,pe_7,pt,pp),ch_4)) || event(Corrupt(pk__6)) is false.
 
@@ -908,7 +908,7 @@ sk_6 = sk[!1 = @sid_3]
 cj_7 = cj[sk2 = sk_6,c3 = p3_8,c2 = p2_8,c1 = 1,ce = pe_8,cmx = md(b_2),k2 = pk(sk_6),s = sign(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar),skA[]),sk_3 = sk_4,k_2 = pk(sk_4),!1 = @sid_4]
 cj_8 = cj[sk2 = sk_5,c3 = n3_4,c2 = n2_4,c1 = 1,ce = le_4,cmx = md(cm_7),k2 = pk(sk_5),s = sign(dt(cj_7,thumb(pk(sk_4)),pk(sk_6),1,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar))),sk_4),sk_3 = sk_6,k_2 = pk(sk_6),!1 = @sid_5]
 
-1. Event HonestKey(pk(sk_5)) may be executed at {4}.
+1. Event HonestKey(pk(sk_5)) may be executed at {5}.
 event(HonestKey(pk(sk_5))).
 
 2. The attacker has some term pop_4.
@@ -920,10 +920,10 @@ attacker(a_5).
 4. Using the function ta the attacker may obtain ta.
 attacker(ta).
 
-5. The entry keys(pk(sk_6),sk_6) may be inserted in a table at insert {5}.
+5. The entry keys(pk(sk_6),sk_6) may be inserted in a table at insert {6}.
 table(keys(pk(sk_6),sk_6)).
 
-6. The entry keys(pk(sk_4),sk_4) may be inserted in a table at insert {5}.
+6. The entry keys(pk(sk_4),sk_4) may be inserted in a table at insert {6}.
 table(keys(pk(sk_4),sk_4)).
 
 7. We assume as hypothesis that
@@ -953,10 +953,10 @@ By 7, the attacker may know p3_7.
 Using the function 5-tuple the attacker may obtain (m_11,pe_7,1,p2_7,p3_7).
 attacker((m_11,pe_7,1,p2_7,p3_7)).
 
-14. The entry keys(pk(sk_4),sk_4) that may be in a table by 6 may be read at get {20}.
-The message (m_11,pe_7,1,p2_7,p3_7) that the attacker may have by 13 may be received at input {12}.
+14. The entry keys(pk(sk_4),sk_4) that may be in a table by 6 may be read at get {21}.
+The message (m_11,pe_7,1,p2_7,p3_7) that the attacker may have by 13 may be received at input {13}.
 We have 1 ≥ p3_7 && 1 ≥ 1 && 4 ≥ m_11 && 3 ≥ pe_7 && 1 ≥ p2_7 && m_11 ≥ 1.
-So the message sign(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar),skA[]) may be sent to the attacker at output {19}.
+So the message sign(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar),skA[]) may be sent to the attacker at output {20}.
 attacker(sign(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar),skA[])).
 
 15. We assume as hypothesis that
@@ -975,7 +975,7 @@ attacker(b_2).
 Using the function md the attacker may obtain md(b_2).
 attacker(md(b_2)).
 
-20. The message pk(sk_6) may be sent to the attacker at output {6}.
+20. The message pk(sk_6) may be sent to the attacker at output {7}.
 attacker(pk(sk_6)).
 
 21. By 20, the attacker may know pk(sk_6).
@@ -987,12 +987,12 @@ By 15, the attacker may know p3_8.
 Using the function 6-tuple the attacker may obtain (pk(sk_6),md(b_2),pe_8,1,p2_8,p3_8).
 attacker((pk(sk_6),md(b_2),pe_8,1,p2_8,p3_8)).
 
-22. The entry keys(pk(sk_4),sk_4) that may be in a table by 6 may be read at get {44}.
-The message sign(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar),skA[]) that the attacker may have by 14 may be received at input {22}.
-The message (pk(sk_6),md(b_2),pe_8,1,p2_8,p3_8) that the attacker may have by 21 may be received at input {25}.
-The entry keys(pk(sk_6),sk_6) that may be in a table by 5 may be read at get {39}.
+22. The entry keys(pk(sk_4),sk_4) that may be in a table by 6 may be read at get {45}.
+The message sign(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar),skA[]) that the attacker may have by 14 may be received at input {23}.
+The message (pk(sk_6),md(b_2),pe_8,1,p2_8,p3_8) that the attacker may have by 21 may be received at input {26}.
+The entry keys(pk(sk_6),sk_6) that may be in a table by 5 may be read at get {40}.
 We have p2_7 ≥ p2_8 && pe_7 ≥ pe_8 && 1 ≥ 1 && p3_7 ≥ p3_8 && m_11 ≥ b_2 && b_2 ≥ 1.
-So the message sign(dt(cj_7,thumb(pk(sk_4)),pk(sk_6),1,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar))),sk_4) may be sent to the attacker at output {38}.
+So the message sign(dt(cj_7,thumb(pk(sk_4)),pk(sk_6),1,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar))),sk_4) may be sent to the attacker at output {39}.
 attacker(sign(dt(cj_7,thumb(pk(sk_4)),pk(sk_6),1,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar))),sk_4)).
 
 23. We assume as hypothesis that
@@ -1011,7 +1011,7 @@ attacker(cm_7).
 Using the function md the attacker may obtain md(cm_7).
 attacker(md(cm_7)).
 
-28. The message pk(sk_5) may be sent to the attacker at output {6}.
+28. The message pk(sk_5) may be sent to the attacker at output {7}.
 attacker(pk(sk_5)).
 
 29. By 28, the attacker may know pk(sk_5).
@@ -1023,18 +1023,18 @@ By 23, the attacker may know n3_4.
 Using the function 6-tuple the attacker may obtain (pk(sk_5),md(cm_7),le_4,1,n2_4,n3_4).
 attacker((pk(sk_5),md(cm_7),le_4,1,n2_4,n3_4)).
 
-30. The entry keys(pk(sk_5),sk_5) may be inserted in a table at insert {5}.
+30. The entry keys(pk(sk_5),sk_5) may be inserted in a table at insert {6}.
 table(keys(pk(sk_5),sk_5)).
 
-31. The entry keys(pk(sk_6),sk_6) that may be in a table by 5 may be read at get {44}.
-The message sign(dt(cj_7,thumb(pk(sk_4)),pk(sk_6),1,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar))),sk_4) that the attacker may have by 22 may be received at input {22}.
-The message (pk(sk_5),md(cm_7),le_4,1,n2_4,n3_4) that the attacker may have by 29 may be received at input {25}.
-The entry keys(pk(sk_5),sk_5) that may be in a table by 30 may be read at get {39}.
+31. The entry keys(pk(sk_6),sk_6) that may be in a table by 5 may be read at get {45}.
+The message sign(dt(cj_7,thumb(pk(sk_4)),pk(sk_6),1,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar))),sk_4) that the attacker may have by 22 may be received at input {23}.
+The message (pk(sk_5),md(cm_7),le_4,1,n2_4,n3_4) that the attacker may have by 29 may be received at input {26}.
+The entry keys(pk(sk_5),sk_5) that may be in a table by 30 may be read at get {40}.
 We have p2_8 ≥ n2_4 && pe_8 ≥ le_4 && 1 ≥ 1 && p3_8 ≥ n3_4 && b_2 ≥ cm_7 && cm_7 ≥ 1.
-So the message sign(dt(cj_8,thumb(pk(sk_6)),pk(sk_5),2,md(cm_7),le_4,cs(1,n2_4,n3_4),h(dt(cj_7,thumb(pk(sk_4)),pk(sk_6),1,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar))))),sk_6) may be sent to the attacker at output {38}.
+So the message sign(dt(cj_8,thumb(pk(sk_6)),pk(sk_5),2,md(cm_7),le_4,cs(1,n2_4,n3_4),h(dt(cj_7,thumb(pk(sk_4)),pk(sk_6),1,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar))))),sk_6) may be sent to the attacker at output {39}.
 attacker(sign(dt(cj_8,thumb(pk(sk_6)),pk(sk_5),2,md(cm_7),le_4,cs(1,n2_4,n3_4),h(dt(cj_7,thumb(pk(sk_4)),pk(sk_6),1,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar))))),sk_6)).
 
-32. The message pk(sk_4) may be sent to the attacker at output {6}.
+32. The message pk(sk_4) may be sent to the attacker at output {7}.
 attacker(pk(sk_4)).
 
 33. By 14, the attacker may know sign(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar),skA[]).
@@ -1048,11 +1048,11 @@ By 2, the attacker may know pop_4.
 Using the function 8-tuple the attacker may obtain (sign(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar),skA[]),pk(sk_4),sign(dt(cj_7,thumb(pk(sk_4)),pk(sk_6),1,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar))),sk_4),pk(sk_6),sign(dt(cj_8,thumb(pk(sk_6)),pk(sk_5),2,md(cm_7),le_4,cs(1,n2_4,n3_4),h(dt(cj_7,thumb(pk(sk_4)),pk(sk_6),1,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar))))),sk_6),ta,a_5,pop_4).
 attacker((sign(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar),skA[]),pk(sk_4),sign(dt(cj_7,thumb(pk(sk_4)),pk(sk_6),1,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar))),sk_4),pk(sk_6),sign(dt(cj_8,thumb(pk(sk_6)),pk(sk_5),2,md(cm_7),le_4,cs(1,n2_4,n3_4),h(dt(cj_7,thumb(pk(sk_4)),pk(sk_6),1,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar))))),sk_6),ta,a_5,pop_4)).
 
-34. The message (sign(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar),skA[]),pk(sk_4),sign(dt(cj_7,thumb(pk(sk_4)),pk(sk_6),1,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar))),sk_4),pk(sk_6),sign(dt(cj_8,thumb(pk(sk_6)),pk(sk_5),2,md(cm_7),le_4,cs(1,n2_4,n3_4),h(dt(cj_7,thumb(pk(sk_4)),pk(sk_6),1,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar))))),sk_6),ta,a_5,pop_4) that the attacker may have by 33 may be received at input {168}.
-The entry keys(pk(sk_4),sk_4) that may be in a table by 6 may be read at get {290}.
-The entry keys(pk(sk_6),sk_6) that may be in a table by 5 may be read at get {289}.
+34. The message (sign(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar),skA[]),pk(sk_4),sign(dt(cj_7,thumb(pk(sk_4)),pk(sk_6),1,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar))),sk_4),pk(sk_6),sign(dt(cj_8,thumb(pk(sk_6)),pk(sk_5),2,md(cm_7),le_4,cs(1,n2_4,n3_4),h(dt(cj_7,thumb(pk(sk_4)),pk(sk_6),1,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar))))),sk_6),ta,a_5,pop_4) that the attacker may have by 33 may be received at input {170}.
+The entry keys(pk(sk_4),sk_4) that may be in a table by 6 may be read at get {294}.
+The entry keys(pk(sk_6),sk_6) that may be in a table by 5 may be read at get {293}.
 We have pe_8 ≥ le_4 && pe_7 ≥ pe_8 && p2_8 ≥ n2_4 && p2_7 ≥ p2_8 && p3_8 ≥ n3_4 && p3_7 ≥ p3_8 && b_2 ≥ cm_7 && m_11 ≥ b_2 && 1 ≥ 1 && 1 ≥ 1 && 1 ≥ 1 && cm_7 ≥ 1 && m_11 ≥ 3.
-So event Accept(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar),dt(cj_8,thumb(pk(sk_6)),pk(sk_5),2,md(cm_7),le_4,cs(1,n2_4,n3_4),h(dt(cj_7,thumb(pk(sk_4)),pk(sk_6),1,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar))))),ta,a_5,nodpop) may be executed at {284}.
+So event Accept(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar),dt(cj_8,thumb(pk(sk_6)),pk(sk_5),2,md(cm_7),le_4,cs(1,n2_4,n3_4),h(dt(cj_7,thumb(pk(sk_4)),pk(sk_6),1,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar))))),ta,a_5,nodpop) may be executed at {288}.
 event(Accept(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar),dt(cj_8,thumb(pk(sk_6)),pk(sk_5),2,md(cm_7),le_4,cs(1,n2_4,n3_4),h(dt(cj_7,thumb(pk(sk_4)),pk(sk_6),1,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar))))),ta,a_5,nodpop)).
 
 35. By 34, event(Accept(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar),dt(cj_8,thumb(pk(sk_6)),pk(sk_5),2,md(cm_7),le_4,cs(1,n2_4,n3_4),h(dt(cj_7,thumb(pk(sk_4)),pk(sk_6),1,md(b_2),pe_8,cs(1,p2_8,p3_8),h(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar))))),ta,a_5,nodpop)).
@@ -1064,94 +1064,94 @@ event(Accept(dt(j_8,anchor_uri,pk(sk_4),0,md(m_11),pe_7,cs(1,p2_7,p3_7),nopar),d
 A more detailed output of the traces is available with
   set traceDisplay = long.
 
-new sk: skey creating sk_7 at {3} in copy a_6
+new sk: skey creating sk_7 at {4} in copy a_6
 
-event HonestKey(pk(sk_7)) at {4} in copy a_6 (goal)
+event HonestKey(pk(sk_7)) at {5} in copy a_6 (goal)
 
-insert keys(pk(sk_7),sk_7) at {5} in copy a_6
+insert keys(pk(sk_7),sk_7) at {6} in copy a_6
 
-out(c, ~M) with ~M = pk(sk_7) at {6} in copy a_6
+out(c, ~M) with ~M = pk(sk_7) at {7} in copy a_6
 
-new sk: skey creating sk_8 at {3} in copy a_7
+new sk: skey creating sk_8 at {4} in copy a_7
 
-event HonestKey(pk(sk_8)) at {4} in copy a_7
+event HonestKey(pk(sk_8)) at {5} in copy a_7
 
-insert keys(pk(sk_8),sk_8) at {5} in copy a_7
+insert keys(pk(sk_8),sk_8) at {6} in copy a_7
 
-out(c, ~M_1) with ~M_1 = pk(sk_8) at {6} in copy a_7
+out(c, ~M_1) with ~M_1 = pk(sk_8) at {7} in copy a_7
 
-new sk: skey creating sk_9 at {3} in copy a_8
+new sk: skey creating sk_9 at {4} in copy a_8
 
-event HonestKey(pk(sk_9)) at {4} in copy a_8
+event HonestKey(pk(sk_9)) at {5} in copy a_8
 
-insert keys(pk(sk_9),sk_9) at {5} in copy a_8
+insert keys(pk(sk_9),sk_9) at {6} in copy a_8
 
-out(c, ~M_2) with ~M_2 = pk(sk_9) at {6} in copy a_8
+out(c, ~M_2) with ~M_2 = pk(sk_9) at {7} in copy a_8
 
-get keys(pk(sk_9),sk_9) at {20} in copy a_9
+get keys(pk(sk_9),sk_9) at {21} in copy a_9
 
-in(c, (3,0,1,0,0)) at {12} in copy a_9
+in(c, (3,0,1,0,0)) at {13} in copy a_9
 
-new j: bitstring creating j_9 at {15} in copy a_9
+new j: bitstring creating j_9 at {16} in copy a_9
 
-event Minted(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar)) at {17} in copy a_9
+event Minted(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar)) at {18} in copy a_9
 
-event Granted(j_9,cs(1,0,0)) at {18} in copy a_9
+event Granted(j_9,cs(1,0,0)) at {19} in copy a_9
 
-out(c, ~M_3) with ~M_3 = sign(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar),skA) at {19} in copy a_9
+out(c, ~M_3) with ~M_3 = sign(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar),skA) at {20} in copy a_9
 
-get keys(pk(sk_9),sk_9) at {44} in copy a_10
+get keys(pk(sk_9),sk_9) at {45} in copy a_10
 
-in(c, ~M_3) with ~M_3 = sign(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar),skA) at {22} in copy a_10
+in(c, ~M_3) with ~M_3 = sign(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar),skA) at {23} in copy a_10
 
-in(c, (~M_1,md(1),0,1,0,0)) with ~M_1 = pk(sk_8) at {25} in copy a_10
+in(c, (~M_1,md(1),0,1,0,0)) with ~M_1 = pk(sk_8) at {26} in copy a_10
 
-get keys(pk(sk_8),sk_8) at {39} in copy a_10
+get keys(pk(sk_8),sk_8) at {40} in copy a_10
 
-new cj: bitstring creating cj_9 at {34} in copy a_10
+new cj: bitstring creating cj_9 at {35} in copy a_10
 
-event Derived(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar),dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar)))) at {36} in copy a_10
+event Derived(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar),dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar)))) at {37} in copy a_10
 
-insert derived(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar),dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar)))) at {37} in copy a_10
+insert derived(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar),dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar)))) at {38} in copy a_10
 
-out(c, ~M_4) with ~M_4 = sign(dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar))),sk_9) at {38} in copy a_10
+out(c, ~M_4) with ~M_4 = sign(dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar))),sk_9) at {39} in copy a_10
 
-get keys(pk(sk_8),sk_8) at {44} in copy a_11
+get keys(pk(sk_8),sk_8) at {45} in copy a_11
 
-in(c, ~M_4) with ~M_4 = sign(dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar))),sk_9) at {22} in copy a_11
+in(c, ~M_4) with ~M_4 = sign(dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar))),sk_9) at {23} in copy a_11
 
-in(c, (~M,md(1),0,1,0,0)) with ~M = pk(sk_7) at {25} in copy a_11
+in(c, (~M,md(1),0,1,0,0)) with ~M = pk(sk_7) at {26} in copy a_11
 
-get keys(pk(sk_7),sk_7) at {39} in copy a_11
+get keys(pk(sk_7),sk_7) at {40} in copy a_11
 
-new cj: bitstring creating cj_10 at {34} in copy a_11
+new cj: bitstring creating cj_10 at {35} in copy a_11
 
-event Derived(dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar))),dt(cj_10,thumb(pk(sk_8)),pk(sk_7),2,md(1),0,cs(1,0,0),h(dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar)))))) at {36} in copy a_11
+event Derived(dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar))),dt(cj_10,thumb(pk(sk_8)),pk(sk_7),2,md(1),0,cs(1,0,0),h(dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar)))))) at {37} in copy a_11
 
-insert derived(dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar))),dt(cj_10,thumb(pk(sk_8)),pk(sk_7),2,md(1),0,cs(1,0,0),h(dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar)))))) at {37} in copy a_11
+insert derived(dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar))),dt(cj_10,thumb(pk(sk_8)),pk(sk_7),2,md(1),0,cs(1,0,0),h(dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar)))))) at {38} in copy a_11
 
-out(c, ~M_5) with ~M_5 = sign(dt(cj_10,thumb(pk(sk_8)),pk(sk_7),2,md(1),0,cs(1,0,0),h(dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar))))),sk_8) at {38} in copy a_11
+out(c, ~M_5) with ~M_5 = sign(dt(cj_10,thumb(pk(sk_8)),pk(sk_7),2,md(1),0,cs(1,0,0),h(dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar))))),sk_8) at {39} in copy a_11
 
-in(c, (~M_3,~M_2,~M_4,~M_1,~M_5,ta,a_12,a_13)) with ~M_3 = sign(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar),skA), ~M_2 = pk(sk_9), ~M_4 = sign(dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar))),sk_9), ~M_1 = pk(sk_8), ~M_5 = sign(dt(cj_10,thumb(pk(sk_8)),pk(sk_7),2,md(1),0,cs(1,0,0),h(dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar))))),sk_8) at {168} in copy a_14
+in(c, (~M_3,~M_2,~M_4,~M_1,~M_5,ta,a_12,a_13)) with ~M_3 = sign(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar),skA), ~M_2 = pk(sk_9), ~M_4 = sign(dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar))),sk_9), ~M_1 = pk(sk_8), ~M_5 = sign(dt(cj_10,thumb(pk(sk_8)),pk(sk_7),2,md(1),0,cs(1,0,0),h(dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar))))),sk_8) at {170} in copy a_14
 
-get keys(pk(sk_9),sk_9) at {290} in copy a_14
+get keys(pk(sk_9),sk_9) at {294} in copy a_14
 
-get keys(pk(sk_8),sk_8) at {289} in copy a_14
+get keys(pk(sk_8),sk_8) at {293} in copy a_14
 
-event AcceptedRoot(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar)) at {255} in copy a_14
+event AcceptedRoot(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar)) at {259} in copy a_14
 
-event AcceptedLink(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar),dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar)))) at {256} in copy a_14
+event AcceptedLink(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar),dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar)))) at {260} in copy a_14
 
-event AcceptedLink(dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar))),dt(cj_10,thumb(pk(sk_8)),pk(sk_7),2,md(1),0,cs(1,0,0),h(dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar)))))) at {257} in copy a_14
+event AcceptedLink(dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar))),dt(cj_10,thumb(pk(sk_8)),pk(sk_7),2,md(1),0,cs(1,0,0),h(dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar)))))) at {261} in copy a_14
 
-event AcceptedLinkBy(pk(sk_9),dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar),dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar)))) at {258} in copy a_14
+event AcceptedLinkBy(pk(sk_9),dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar),dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar)))) at {262} in copy a_14
 
-event AcceptedLinkBy(pk(sk_8),dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar))),dt(cj_10,thumb(pk(sk_8)),pk(sk_7),2,md(1),0,cs(1,0,0),h(dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar)))))) at {259} in copy a_14
+event AcceptedLinkBy(pk(sk_8),dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar))),dt(cj_10,thumb(pk(sk_8)),pk(sk_7),2,md(1),0,cs(1,0,0),h(dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar)))))) at {263} in copy a_14
 
-event Accept(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar),dt(cj_10,thumb(pk(sk_8)),pk(sk_7),2,md(1),0,cs(1,0,0),h(dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar))))),ta,a_12,nodpop) at {284} in copy a_14 (goal)
+event Accept(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar),dt(cj_10,thumb(pk(sk_8)),pk(sk_7),2,md(1),0,cs(1,0,0),h(dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar))))),ta,a_12,nodpop) at {288} in copy a_14 (goal)
 
-The event Accept(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar),dt(cj_10,thumb(pk(sk_8)),pk(sk_7),2,md(1),0,cs(1,0,0),h(dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar))))),ta,a_12,nodpop) is executed at {284} in copy a_14.
-The event HonestKey(pk(sk_7)) is executed at {4} in copy a_6.
+The event Accept(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar),dt(cj_10,thumb(pk(sk_8)),pk(sk_7),2,md(1),0,cs(1,0,0),h(dt(cj_9,thumb(pk(sk_9)),pk(sk_8),1,md(1),0,cs(1,0,0),h(dt(j_9,anchor_uri,pk(sk_9),0,md(3),0,cs(1,0,0),nopar))))),ta,a_12,nodpop) is executed at {288} in copy a_14.
+The event HonestKey(pk(sk_7)) is executed at {5} in copy a_6.
 A trace has been found.
 RESULT event(Accept(r_9,dt(lj_4,li_4,lk_4,ld_4,lm,le_4,lt_4,lp_4),x_5,a_5,pj_15)) && event(HonestKey(lk_4)) ==> event(Invoked(lk_4,lj_4,x_5,a_5,pj_15)) || event(Corrupt(lk_4)) is false.
 

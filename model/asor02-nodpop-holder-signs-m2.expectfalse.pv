@@ -1,0 +1,22 @@
+(* asor02-nodpop-holder-signs-m2.expectfalse.pv — Madden M2 for asor-02
+   without holder binding (step 6 not performed), under the holder-signs
+   reading of step 1 (flag hs true): DT_i (i > 0) verifies under
+   DT_{i-1}.cnf (AAT-01's I1; a reading the draft does not state).
+   Expected: (a) true, (b) true, (c) false — step 6 not performed, an
+   observed chain is accepted from anyone, as in asor02-nodpop-m2.
+   Same queries as asor02-m2.expectfalse.pv. *)
+
+query pj: bitstring, pi: ident, pk_: pkey, pd: nat, pm: maxd, pe: nat, pt: caps, pp: bitstring, ch: bitstring;
+  event(AcceptedLink(dt(pj, pi, pk_, pd, pm, pe, pt, pp), ch)) && event(HonestKey(pk_))
+  ==> event(Derived(dt(pj, pi, pk_, pd, pm, pe, pt, pp), ch)) || event(Corrupt(pk_)).
+
+query pj: bitstring, pi: ident, pk_: pkey, pd: nat, pm: maxd, pe: nat, pt: caps, pp: bitstring, ch: bitstring;
+  event(AcceptVia(dt(pj, pi, pk_, pd, pm, pe, pt, pp), ch)) && event(HonestKey(pk_))
+  ==> event(Derived(dt(pj, pi, pk_, pd, pm, pe, pt, pp), ch)) || event(Corrupt(pk_)).
+
+query r: bitstring, lj: bitstring, li: ident, lk: pkey, ld: nat, lm: maxd, le: nat, lt: caps, lp: bitstring,
+      x: tool, a: bitstring, pj: bitstring;
+  event(Accept(r, dt(lj, li, lk, ld, lm, le, lt, lp), x, a, pj)) && event(HonestKey(lk))
+  ==> event(Invoked(lk, lj, x, a, pj)) || event(Corrupt(lk)).
+
+process ASOR02(false, true)

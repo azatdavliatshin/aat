@@ -31,4 +31,4 @@ query r: bitstring, lj: bitstring, li: ident, lk: pkey, ld: nat, lm: maxd, le: n
   event(Accept(r, dt(lj, li, lk, ld, lm, le, lt, lp), x, a, pj)) && event(HonestKey(lk))
   ==> event(Invoked(lk, lj, x, a, pj)) || event(Corrupt(lk)).
 
-process ASOR02(false)
+process ASOR02(false, false)

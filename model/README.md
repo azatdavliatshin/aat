@@ -38,13 +38,15 @@ CPU (about 9 minutes with `make -j6`); the slowest file is
 | `aat01-p4-inj.expectfalse.pv` | every check; P4 as an injective correspondence |
 | `aat01-m1.reachable.pv` | Madden M1: parent accepted after derivation (no compromise) |
 | `aat01-m2.pv` | Madden M2 (a), (b), (c) |
-| `asor02.pvl` | asor-02 token, roles (Anchor, Holder) and §6 Verifier with flag `dpop` |
+| `asor02.pvl` | asor-02 token, roles (Anchor, Holder) and §6 Verifier with flag `dpop` and flag `hs` (holder-signs reading) |
 | `asor02.pv` | asor-02, DPoP on; P1a, P1b′, P2, P3, P4 |
 | `asor02-p1b.expectfalse.pv` | asor-02, DPoP on; P1b as for AAT-01 (A1) |
 | `asor02-nodpop.expectfalse.pv` | asor-02, step 6 not performed; P1a, P1b, P1b′, P2, P3, P4 |
 | `asor02-m1.reachable.pv` | Madden M1 for asor-02 (DPoP on, no compromise) |
 | `asor02-m2.expectfalse.pv` | Madden M2 for asor-02, DPoP on |
 | `asor02-nodpop-m2.expectfalse.pv` | Madden M2 for asor-02, DPoP off |
+| `asor02-holder-signs-m2.pv` | Madden M2 for asor-02, DPoP on, holder-signs reading (`hs` true) |
+| `asor02-nodpop-holder-signs-m2.expectfalse.pv` | Madden M2 for asor-02, DPoP off, holder-signs reading (`hs` true) |
 
 ## The AAT-01 model
 
@@ -271,6 +273,12 @@ notes, not here.
 | `asor02-nodpop.expectfalse` | P2 | true | 161 |
 | `asor02-nodpop.expectfalse` | P3 (depth, exp) | true | 161 |
 | `asor02-nodpop.expectfalse` | P4 | **false** (trace) | 161 |
+| `asor02-holder-signs-m2` (DPoP on, `hs` true) | M2 (a) | true | 350 |
+| `asor02-holder-signs-m2` | M2 (b) | true | 350 |
+| `asor02-holder-signs-m2` | M2 (c) | true | 350 |
+| `asor02-nodpop-holder-signs-m2.expectfalse` (`hs` true) | M2 (a) | true | 143 |
+| `asor02-nodpop-holder-signs-m2.expectfalse` | M2 (b) | true | 143 |
+| `asor02-nodpop-holder-signs-m2.expectfalse` | M2 (c) | **false** (trace) | 143 |
 
 The Madden files (`*-m1.reachable`, `*-m2*`) are in "Madden properties"
 below.
@@ -384,6 +392,18 @@ holder did not make (P4).
 Seconds (model): `aat01-m2` 60, `asor02-m2.expectfalse` 539,
 `asor02-nodpop-m2.expectfalse` 175.
 
+**Holder-signs reading.** The flag `hs` of `asor02.pvl` replaces the key
+of step 1 for DT_i, i > 0: with `hs` true, DT_i verifies under
+DT_{i-1}.cnf instead of the configured key selected by `kid` (AAT-01's
+I1); everything else is unchanged. This is a reading the draft does not
+state, not a rule of asor-02. With DPoP on (`asor02-holder-signs-m2`):
+(a) no, (b) no, (c) no (all true, 350 s). With DPoP off
+(`asor02-nodpop-holder-signs-m2.expectfalse`): (a) no, (b) no, (c)
+**yes** (false, trace; 143 s), as in `asor02-nodpop-m2`. The (a)/(b)
+difference between the profiles is therefore caused by step 1 naming no
+key for i > 0 (A1): with the parent's `cnf` as the verifying key, the
+asor-02 column equals the AAT-01 column.
+
 Trace summaries (`out/*.trace.txt`):
 
 - **M1, AAT-01.** The anchor mints a root for H1; H1 derives a child for
@@ -429,6 +449,8 @@ key lets the attacker extend any chain, and with its own key in the leaf
 `cnf` have the request accepted even with DPoP (M2 b). DPoP in asor-02
 gives exactly P4: a leaf naming an honest key is used only by that key's
 holder. It binds the presenter of the leaf, not the deriver of each link.
+The M2 (a)/(b) difference is caused by A1 alone ("Holder-signs reading"
+under "Madden properties").
 
 ## What the model does not say
 

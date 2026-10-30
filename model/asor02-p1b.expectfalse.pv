@@ -9,4 +9,4 @@ query pj: bitstring, pi: ident, pk_: pkey, pd: nat, pm: maxd, pe: nat, pt: caps,
   event(AcceptedLink(dt(pj, pi, pk_, pd, pm, pe, pt, pp), ch)) && event(HonestKey(pk_))
   ==> event(Derived(dt(pj, pi, pk_, pd, pm, pe, pt, pp), ch)) || event(Corrupt(pk_)).
 
-process ASOR02(true)
+process ASOR02(true, false)
