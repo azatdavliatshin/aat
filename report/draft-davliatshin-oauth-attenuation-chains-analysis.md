@@ -78,8 +78,8 @@ informative:
     author:
     - name: Bruno Blanchet
   MADDEN-REVIEW:
-    title: "Review of the attenuating delegation chain drafts"
-    target: https://mailarchive.ietf.org/arch/browse/oauth/
+    title: "Review of draft-niyikiza-oauth-attenuating-agent-tokens-01 on the OAuth list"
+    target: https://mailarchive.ietf.org/arch/msg/oauth/9RkGndj2O23qOTvv1IRHlJjc0Cg/
     author:
     - name: Neil Madden
     date: 2026
@@ -667,11 +667,48 @@ Section 8.
 
   -02: open -- unchanged design; `aat_hash` is computed the same way.
 
-- B19 (Sections 4.2, 8.9): the review's points as AAT-01 answers them. TODO(argument)
+- B19 (Sections 4.2, 4.7, 8.9): the review's points as AAT-01 answers
+  them. {{MADDEN-REVIEW}}, posted on the OAuth list the day -01 appeared,
+  makes two technical points about the chain, apart from the comparison
+  with HMAC-chained Macaroons and SPKI/SDSI: a parent token stays valid
+  after a child has been derived from it, so the design lacks the
+  re-keying of Macaroons; and only the leaf proves possession, so an agent
+  that sees the bytes of an intermediate or root token could use them.
+  The author's reply on the list called additive derivation intended and
+  every token holder-bound. This report names the points M1 and M2
+  ({{model-properties}}) and checks them in the model rather than in the
+  reply.
+  The second point -01 answers in its text. Section 4.2 (I1) requires the
+  derived token to be signed by the holder of the parent, Section 4.6 (I5)
+  commits it to that parent's bytes, and Section 4.7 (I6) requires the
+  presenter to prove possession of the leaf key. A token observed in
+  transit can therefore neither be extended, since derivation needs its
+  holder's key, nor presented as a leaf, nor moved under another parent.
+  The model confirms this for -01: against an attacker who sees every
+  token and may hold any holder key other than that of the token in
+  question, no link is derived from it (M2 a, P1b), no request is accepted
+  through such a link (M2 b), and no request is accepted with it (M2 c,
+  P4).
+  The first point -01 does not state. Nothing in the text says that a
+  parent remains valid after derivation; Section 8.9 puts revocation out
+  of scope and recommends short lifetimes, and Sections 8.1.2 and 8.4
+  give the consequence, that a compromised holder key exercises the full
+  authority of every token bound to it until expiry, without the property
+  behind it. The model shows M1 as a run of honest roles alone: a holder
+  derives a child from its token and is then accepted with that same
+  token, with no key compromised. It is how the design works, not an
+  attack on it. This implementation checks I1, I5 and I6 and keeps no
+  state that would retire a parent after derivation, since -01 defines
+  none.
 
-  -02: open -- same mechanism; the author answers the review in -02
-  Sections 1.3, 9.1.1 and 9.4. M1 and M2 ({{model-properties}}) are this
-  report's independent check of it; the vectors do not bear on it.
+  -02: closed as design -- -02 Section 9.1.1 says that derivation is
+  additive, that every token in a chain carries a holder key, and that a
+  sub-agent holding its parent's bytes cannot invoke with them; -02
+  Section 9.4 says that AATs do not re-key, that a compromised holder key
+  exposes every token bound to it, and gives deriving to a fresh key and
+  destroying the parent's key as the approximation (-02 Section 9.10).
+  M1 and M2 ({{model-properties}}) are this report's independent check of
+  it; the vectors do not bear on it.
 
 ## Proof of Possession (B20 to B23) {#aat-pop}
 
@@ -701,7 +738,17 @@ Section 8.
   -02: closed -- -02 Section 9.9 separates the one-sided MAX_IAT_SKEW from
   the bilateral PoP window (J.20.4, J.20.15, J.20.16).
 
-- B23 (Section 5): PoP binds the leaf only. TODO(argument)
+- B23 (Section 5): PoP binds the leaf only. In -01 the PoP JWT names the
+  leaf by `aat_id`, which must equal the leaf's `jti` (Section 5.3), a
+  value chosen by whoever derived the leaf; neither the leaf's bytes nor
+  the chain enter the PoP signature. Which chain a PoP belongs to
+  therefore rests on `jti` being unique across derivers, which nothing
+  checks (steps 3j and 4b1 accept any non-empty string), and `aat_aud` is
+  optional. The model shows the consequence: one PoP signed by an honest
+  holder is accepted under two different chains that end in leaves with
+  that holder's key and that `jti` (trace `aat01-p4-inj`,
+  {{model-results}}). This implementation compares `aat_id` with the leaf
+  `jti`, as -01 says, and nothing more.
 
   -02: closed -- `aat_hash` binds the PoP JWT to the exact leaf instance
   (J.20.7), and through `par_hash` to the whole chain above it. A present
