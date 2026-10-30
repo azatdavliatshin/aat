@@ -502,7 +502,14 @@ Section 8.
   J.8.24). An empty range with equal bounds and an exclusive side (min
   equal to max, min_inclusive false) is still well-formed.
 
-- B5 (Section 3.4): value model and equality. TODO(argument)
+- B5 (Section 3.4): value model and equality. -01 says only that
+  `exact.value` is "any scalar" and must be equal "exactly"; it does not
+  say whether null is a scalar, whether `1` equals `"1"` or `1.0`, or what
+  happens to a number a parser cannot hold exactly. This implementation
+  takes string, number and boolean, compares by JCS, and refuses integers
+  beyond 2^53-1 so that a constraint and the tool see the same value. That
+  refusal covers integers only: a fraction such as 1.00000000000000001 is
+  still read as 1.
 
   -02: closed -- `exact.value` may be a string, number, boolean or null,
   equality is by JCS, and the admissibility rule of -02 Section 3.4
