@@ -24,9 +24,9 @@ reached. For `.expectfalse.pv` and `.reachable.pv` models the derivation
 and the trace of each false query (for reachability: of each reached
 event) go to `out/<name>.trace.txt`. Model names are
 `<profile>[-variant][.expectfalse|.reachable].pv`; each runs with
-`common.pvl` and `<profile>.pvl`. The whole set takes about 25 minutes of
-CPU (about 9 minutes with `make -j6`); the slowest file is
-`asor02-m2.expectfalse.pv` (about 9 minutes).
+`common.pvl` and `<profile>.pvl`. The whole set takes about 28 minutes of
+CPU (about 8 minutes with `make -j6`); the slowest file is
+`asor02-m2.expectfalse.pv` (about 8 minutes).
 
 | File | Content |
 |---|---|
@@ -250,35 +250,29 @@ notes, not here.
 
 | Model | Query | Result | Seconds (model) |
 |---|---|---|---|
-| `aat01` | P1a | true | 63 |
-| `aat01` | P1b | true | 63 |
-| `aat01` | P2 | true | 63 |
-| `aat01` | P3 | true | 63 |
-| `aat01` | P4 (non-injective) | true | 63 |
-| `aat01-no-i5.expectfalse` | P1a | true | 22 |
-| `aat01-no-i5.expectfalse` | P1b | **false** (trace) | 22 |
-| `aat01-no-i6.expectfalse` | P4 | **false** (trace) | 17 |
-| `aat01-p4-inj.expectfalse` | P4 injective | **false** (trace) | 34 |
-| `aat01-p4-inj.expectfalse` | P4 non-injective (printed by ProVerif alongside) | true | 34 |
-| `asor02` (DPoP on) | P1a | true | 245 |
-| `asor02` | P1b′ | true | 245 |
-| `asor02` | P2 | true | 245 |
-| `asor02` | P3 (depth, exp) | true | 245 |
-| `asor02` | P3 (rule 5) | true | 245 |
-| `asor02` | P4 (non-injective) | true | 245 |
-| `asor02-p1b.expectfalse` (DPoP on) | P1b | **false** (trace) | 57 |
-| `asor02-nodpop.expectfalse` | P1a | true | 161 |
-| `asor02-nodpop.expectfalse` | P1b | **false** (trace) | 161 |
-| `asor02-nodpop.expectfalse` | P1b′ | true | 161 |
-| `asor02-nodpop.expectfalse` | P2 | true | 161 |
-| `asor02-nodpop.expectfalse` | P3 (depth, exp) | true | 161 |
-| `asor02-nodpop.expectfalse` | P4 | **false** (trace) | 161 |
-| `asor02-holder-signs-m2` (DPoP on, `hs` true) | M2 (a) | true | 350 |
-| `asor02-holder-signs-m2` | M2 (b) | true | 350 |
-| `asor02-holder-signs-m2` | M2 (c) | true | 350 |
-| `asor02-nodpop-holder-signs-m2.expectfalse` (`hs` true) | M2 (a) | true | 143 |
-| `asor02-nodpop-holder-signs-m2.expectfalse` | M2 (b) | true | 143 |
-| `asor02-nodpop-holder-signs-m2.expectfalse` | M2 (c) | **false** (trace) | 143 |
+| `aat01` | P1a | true | 42 |
+| `aat01` | P1b | true | 42 |
+| `aat01` | P2 | true | 42 |
+| `aat01` | P3 | true | 42 |
+| `aat01` | P4 (non-injective) | true | 42 |
+| `aat01-no-i5.expectfalse` | P1a | true | 16 |
+| `aat01-no-i5.expectfalse` | P1b | **false** (trace) | 16 |
+| `aat01-no-i6.expectfalse` | P4 | **false** (trace) | 12 |
+| `aat01-p4-inj.expectfalse` | P4 injective | **false** (trace) | 23 |
+| `aat01-p4-inj.expectfalse` | P4 non-injective (printed by ProVerif alongside) | true | 23 |
+| `asor02` (DPoP on) | P1a | true | 197 |
+| `asor02` | P1b′ | true | 197 |
+| `asor02` | P2 | true | 197 |
+| `asor02` | P3 (depth, exp) | true | 197 |
+| `asor02` | P3 (rule 5) | true | 197 |
+| `asor02` | P4 (non-injective) | true | 197 |
+| `asor02-p1b.expectfalse` (DPoP on) | P1b | **false** (trace) | 37 |
+| `asor02-nodpop.expectfalse` | P1a | true | 113 |
+| `asor02-nodpop.expectfalse` | P1b | **false** (trace) | 113 |
+| `asor02-nodpop.expectfalse` | P1b′ | true | 113 |
+| `asor02-nodpop.expectfalse` | P2 | true | 113 |
+| `asor02-nodpop.expectfalse` | P3 (depth, exp) | true | 113 |
+| `asor02-nodpop.expectfalse` | P4 | **false** (trace) | 113 |
 
 The Madden files (`*-m1.reachable`, `*-m2*`) are in "Madden properties"
 below.
@@ -368,7 +362,7 @@ roles only.
 | Profile | M1 reached? | Seconds (model) |
 |---|---|---|
 | AAT-01 | yes (trace) | 1 |
-| asor-02 (DPoP on) | yes (trace) | 208 |
+| asor-02 (DPoP on) | yes (trace) | 139 |
 
 This is a property of both designs, not a defect: neither re-keys the
 parent or revokes it on derivation (AAT-01 §8.9 defers revocation;
@@ -389,8 +383,8 @@ holder did not make (P4).
 | asor-02, DPoP on | **yes** (false, trace) | **yes** (false, trace) | no (P4 true) |
 | asor-02, DPoP off | **yes** (false, trace) | **yes** (false, trace) | **yes** (false, trace) |
 
-Seconds (model): `aat01-m2` 60, `asor02-m2.expectfalse` 539,
-`asor02-nodpop-m2.expectfalse` 175.
+Seconds (model): `aat01-m2` 39, `asor02-m2.expectfalse` 475,
+`asor02-nodpop-m2.expectfalse` 120.
 
 **Holder-signs reading.** The flag `hs` of `asor02.pvl` replaces the key
 of step 1 for DT_i, i > 0: with `hs` true, DT_i verifies under
