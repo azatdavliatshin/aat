@@ -574,7 +574,17 @@ Section 8.
   -02: closed -- the notes to -02 Section 8 say the bound holds by
   induction (steps 3h, 4h and 4j); -02 has no per-child lifetime step.
 
-- B11 (Section 7): which anchor key verifies the root and what `iss` means. TODO(argument)
+- B11 (Section 7): which anchor key verifies the root and what `iss`
+  means. In -01 the trust anchors are "a set of public keys" without
+  issuer names; the root verifies under any of them (step 3b), and step 3k
+  requires only that `root.iss` be a URI. Section 3.2 says that `iss`
+  identifies the root issuer, but nothing ties it to the key that
+  verified the signature. When an enforcement point trusts more than one
+  issuer, any of them can sign a root that names another as `iss`, and the
+  chain verifies. Within -01 this does not change a verdict, since nothing
+  else reads `root.iss`; it matters as soon as audit or local policy relies
+  on the issuer. The `aat-01` profile follows -01 and accepts the root
+  under any anchor; the `aat-02` profile implements the new step 3k.
 
   -02: closed -- trust anchors are (issuer, key) pairs; step 3k compares
   the root's `iss` with the issuer of the anchor that verified the
