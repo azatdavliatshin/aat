@@ -516,18 +516,35 @@ Section 8.
   replaces this implementation's refusal of integers above 2^53-1 (J.8.8
   permit; J.8.7, J.8.10, J.8.14 deny).
 
-- B6 (Section 3.4): arrays as sets. TODO(argument)
+- B6 (Section 3.4): arrays as sets. -01 does not say whether order or
+  duplicates matter in the arrays of `contains` and `subset`, so two
+  verifiers can disagree on the same argument. This implementation treats
+  both arrays as sets.
 
   -02: closed -- -02 Section 3.4: contains and subset "treat their arrays
   as sets" (J.26.11, J.26.12).
 
-- B7 (Section 3.4): unknown members of a core constraint type. TODO(argument)
+- B7 (Section 3.4): unknown members of a core constraint type. -01
+  specifies what to do with an unknown constraint type and says that
+  unknown top-level claims are ignored, but not what to do with an unknown
+  member of a known type. Ignoring it would be unsafe: a misspelt bound
+  such as `maximum` for `max` would leave the argument unbounded. This
+  implementation rejects such a constraint as malformed.
 
   -02: closed -- well-formedness allows "no members other than" those of
   the type (J.21.12, `maximum`). The strict reading of -01 taken by this
   implementation is now the text.
 
-- B8 (Sections 3.6.2, 4.5): key-set rule and tool omission. TODO(argument)
+- B8 (Sections 3.6.2, 4.5): key-set rule and tool omission. Under a
+  non-empty constraint map -01 fixes the shape of an invocation: every
+  named argument must be present and no other may appear. A derived token
+  may drop a whole tool (Section 3.6.2) but must keep exactly the parent's
+  argument keys, because adding or dropping a key yields invocations the
+  parent would reject. The rules are consistent; the cost is rigidity. A
+  holder cannot forbid one argument while keeping the tool, and an
+  argument the issuer wants to leave optional cannot be constrained at
+  all; only a parent with an empty map lets a child choose keys. This
+  implementation follows the rules as written.
 
   -02: moot -- `optional` and `"*"` (-02 Section 3.3, the key rules of -02
   Section 4.5, steps 4p2 and 4p3) give the means the closed-world key rule
