@@ -764,7 +764,7 @@ Contact:
 : Azat Davliatshin, ardavlyatshin@gmail.com
 
 Information date:
-: TODO(date of posting)
+: 2026-11-01
 
 # Security Considerations
 
@@ -824,4 +824,10 @@ vector suite.
 # Acknowledgements
 {:numbered="false"}
 
-TODO(acknowledgements)
+The author of the AAT drafts published the -02 test-vector suite and its
+comparison script, which made the AAT-02 results in this report
+reproducible by anyone; the author of asor-02 published the test vectors
+used for the asor-02 profile. The M1 and M2 properties of the model follow
+the two points of Neil Madden's review of AAT on the OAuth working group
+list. The author of this report thanks all three. Any error in reading the
+drafts is the author's own.
