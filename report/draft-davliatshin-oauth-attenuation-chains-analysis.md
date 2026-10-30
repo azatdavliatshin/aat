@@ -442,10 +442,11 @@ Section 8.
   of -01 defines subsumption as a fixed table of (derived, parent)
   constraint-type pairs and declares every other pair invalid. The table
   leaves out some pairs whose narrowing is decidable from the values alone.
-  For a composite parent nothing is lost: an `exact` under an `any` can be
-  written as a one-clause `any`, which the table allows. For two pairs it
-  is: a `one_of` whose members all fall inside a parent `range`, and an
-  `exact` under a `not_one_of`, have no equivalent in the parent's type.
+  For a composite parent the table loses nothing of its own: an `exact`
+  under an `any` can be written as a one-clause `any` (see B2). Two pairs
+  are lost outright: a `one_of` whose members all fall inside a parent
+  `range`, and an `exact` under a `not_one_of`, have no equivalent in the
+  parent's type.
   This implementation follows the table and rejects all of them. -02 keeps
   the table and names the choice: the verifier compares types, not values,
   so that every verifier gives the same verdict.
@@ -455,12 +456,28 @@ Section 8.
   and J.8.4 deny semantically narrower pairs, and their notes call this
   conservative by design.
 
-- B2 (Section 4.5): non-composite child under a composite parent. TODO(argument)
+- B2 (Section 4.5): non-composite child under a composite parent. Section
+  4.5 of -01 gives rules for `all` and `any` only against a parent of the
+  same type, so a plain constraint under a composite parent falls under the
+  closing sentence and is invalid. This implementation rejects it. Nothing
+  is lost beyond B1, because the child can be written in the parent's
+  type. Under an `any`, a one-clause `any` is valid when the child narrows
+  one of the parent's clauses. Under an `all`, the child has to narrow
+  every parent clause: -01 matches each parent clause to a distinct
+  derived clause, so the child is repeated once per clause, while -02 lets
+  one derived clause satisfy several. Each step goes through the table, so
+  the rewrite fails exactly where a clause meets one of the two pairs of
+  B1, and an `all` with more clauses meets them more often.
 
   -02: closed as design -- J.8.4 (range under all) and J.19.1 (exact under
   any) are denied; J.18.1 denies all under any.
 
-- B3 (Section 4.5): empty composite constraints. TODO(argument)
+- B3 (Section 4.5): empty composite constraints. Section 4.5 of -01 says
+  only that a derived `any` must contain at least one clause. An empty
+  `all` is satisfied by every value and an empty `any` by none, so an empty
+  parent `all` grants the argument without limit and an empty parent `any`
+  forbids it; -01 addresses neither. This implementation treats an empty
+  clause list as malformed for both types, in either position.
 
   -02: closed -- -02 Section 4.5 makes an empty all or any invalid in both
   the parent and the derived position; it is denied at steps 3n and 4o
