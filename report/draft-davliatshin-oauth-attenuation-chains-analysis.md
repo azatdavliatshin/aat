@@ -438,7 +438,17 @@ Section 8.
 
 ## Constraints (B1 to B8) {#aat-constraints}
 
-- B1 (Section 4.5): cross-type subsumption is an allow-list. TODO(argument)
+- B1 (Section 4.5): cross-type subsumption is an allow-list. Section 4.5
+  of -01 defines subsumption as a fixed table of (derived, parent)
+  constraint-type pairs and declares every other pair invalid. The table
+  leaves out some pairs whose narrowing is decidable from the values alone.
+  For a composite parent nothing is lost: an `exact` under an `any` can be
+  written as a one-clause `any`, which the table allows. For two pairs it
+  is: a `one_of` whose members all fall inside a parent `range`, and an
+  `exact` under a `not_one_of`, have no equivalent in the parent's type.
+  This implementation follows the table and rejects all of them. -02 keeps
+  the table and names the choice: the verifier compares types, not values,
+  so that every verifier gives the same verdict.
 
   -02: closed as design -- -02 Section 4.5 lists every valid (parent,
   derived) pair and says "Every other pair is invalid"; J.19.1 to J.19.7
