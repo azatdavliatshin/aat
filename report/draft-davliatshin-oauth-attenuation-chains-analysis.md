@@ -483,7 +483,19 @@ Section 8.
   the parent and the derived position; it is denied at steps 3n and 4o
   (J.21.7, J.16.3).
 
-- B4 (Section 4.5): range corner cases. TODO(argument)
+- B4 (Section 4.5): range corner cases. Section 4.5 of -01 compares the
+  bounds of a derived `range` with the parent's, one bound at a time. It
+  does not say what a range that no number satisfies means (`min` greater
+  than `max`, or equal bounds with an exclusive side), nor what an
+  inclusivity flag without its bound means. This implementation applies
+  the bound rules literally, which never widens authority. An empty
+  derived range whose bounds lie inside the parent's is accepted and
+  denies every value; one whose bounds lie outside is rejected, although
+  an empty set narrows anything. Under an empty parent every derived range
+  that passes the bound rules is itself empty. A flag without its bound
+  has no effect. A verifier that rejects empty ranges as malformed
+  therefore denies more than this one, never less, and neither grants
+  anything the parent does not.
 
   -02: partly -- -02 Section 3.4 well-formedness requires min not greater
   than max and inclusivity flags only with their bound (J.8.6, J.8.21,
