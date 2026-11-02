@@ -31,6 +31,7 @@ informative:
   RFC7515:
   RFC7517:
   RFC7519:
+  RFC7638:
   RFC7800:
   RFC8037:
   RFC8141:
@@ -77,8 +78,8 @@ informative:
     author:
     - name: Bruno Blanchet
   MADDEN-REVIEW:
-    title: "Review of the attenuating delegation chain drafts"
-    target: https://mailarchive.ietf.org/arch/browse/oauth/
+    title: "Review of draft-niyikiza-oauth-attenuating-agent-tokens-01 on the OAuth list"
+    target: https://mailarchive.ietf.org/arch/msg/oauth/9RkGndj2O23qOTvv1IRHlJjc0Cg/
     author:
     - name: Neil Madden
     date: 2026
@@ -165,10 +166,14 @@ link:
 
 holder:
 : The party named by a token's confirmation claim ({{RFC7800}}) as able to
-  use it or derive from it.
+  present it; in AAT-01 and AAT-02 also the only party able to derive from
+  it (I1).
 
 issuer:
-: The party whose key signs a token.
+: The party whose key signs a token. In asor-02 this is the `iss` of an
+  access token ({{RFC9068}}); in AAT-01 and AAT-02 the root issuer signs
+  the root, and a derived token is signed by its parent's holder, whose
+  key thumbprint is its `iss`.
 
 attenuation:
 : Producing a link whose authority (capabilities, depth, lifetime) is no
@@ -180,10 +185,16 @@ PoP:
 
 "AAT-01" is {{AAT-01}}; "AAT-02" is {{AAT-02}}; "asor-02" is {{ASOR-02}}.
 
-Related documents used below: {{RFC8785}} (canonical JSON, used by both
-drafts for hashing and comparison), {{RFC9278}} (JWK thumbprint URI) and
-{{RFC9396}} (rich authorization requests, the model for structured
-authority). TODO(check each against the drafts' own use)
+Related documents used below: {{RFC8785}} (JSON Canonicalization Scheme:
+asor-02 requires the JWS header and payload of every token to be its
+output, Section 3, and compares a constraint it cannot evaluate by its
+bytes, Section 4.3; AAT-01 requires it for the PoP JWT payload and for
+comparing `hta` with the invocation arguments, Sections 5.2 and 7; -02
+drops the payload requirement and compares constraint values and
+arguments by it, -02 Section 3.4), {{RFC9278}} (JWK thumbprint URI, the
+`iss` of a derived AAT; asor-02 binds the holder by a {{RFC7638}}
+thumbprint in `cnf` instead) and {{RFC9396}} (rich authorization
+requests; both drafts carry authority as `authorization_details`).
 
 Finding labels A1 to A7 (asor-02), B1 to B25 (AAT-01), C1 to C10 (AAT-02)
 and M1, M2 (the two properties of {{model-properties}}) are this document's
@@ -358,46 +369,63 @@ ProVerif 2.05, seconds of CPU per model file. -->
 
 | Model | Seconds | Query | Result |
 |---|---|---|---|
-| aat01 | 63 | P1a | true |
-| aat01 | 63 | P1b | true |
-| aat01 | 63 | P2 | true |
-| aat01 | 63 | P3 | true |
-| aat01 | 63 | P4 | true |
-| aat01-no-i5 | 22 | P1a | true |
-| aat01-no-i5 | 22 | P1b | false |
-| aat01-no-i6 | 17 | P4 | false |
-| aat01-p4-inj | 34 | P4 injective | false |
-| aat01-p4-inj | 34 | P4 | true |
+| aat01 | 42 | P1a | true |
+| aat01 | 42 | P1b | true |
+| aat01 | 42 | P2 | true |
+| aat01 | 42 | P3 | true |
+| aat01 | 42 | P4 | true |
+| aat01-no-i5 | 16 | P1a | true |
+| aat01-no-i5 | 16 | P1b | false |
+| aat01-no-i6 | 12 | P4 | false |
+| aat01-p4-inj | 23 | P4 injective | false |
+| aat01-p4-inj | 23 | P4 | true |
 | aat01-m1 | 1 | M1 | reached |
-| aat01-m2 | 60 | M2 (a) | true |
-| aat01-m2 | 60 | M2 (b) | true |
-| aat01-m2 | 60 | M2 (c) = P4 | true |
-| asor02 | 245 | P1a | true |
-| asor02 | 245 | P1b' | true |
-| asor02 | 245 | P2 | true |
-| asor02 | 245 | P3 (depth, expiry) | true |
-| asor02 | 245 | P3 (maximum depth) | true |
-| asor02 | 245 | P4 | true |
-| asor02-p1b | 57 | P1b | false |
-| asor02-nodpop | 161 | P1a | true |
-| asor02-nodpop | 161 | P1b | false |
-| asor02-nodpop | 161 | P1b' | true |
-| asor02-nodpop | 161 | P2 | true |
-| asor02-nodpop | 161 | P3 (depth, expiry) | true |
-| asor02-nodpop | 161 | P4 | false |
-| asor02-m1 | 208 | M1 | reached |
-| asor02-m2 (DPoP on) | 539 | M2 (a) | false |
-| asor02-m2 (DPoP on) | 539 | M2 (b) | false |
-| asor02-m2 (DPoP on) | 539 | M2 (c) = P4 | true |
-| asor02-nodpop-m2 | 175 | M2 (a) | false |
-| asor02-nodpop-m2 | 175 | M2 (b) | false |
-| asor02-nodpop-m2 | 175 | M2 (c) = P4 | false |
+| aat01-m2 | 39 | M2 (a) | true |
+| aat01-m2 | 39 | M2 (b) | true |
+| aat01-m2 | 39 | M2 (c) = P4 | true |
+| asor02 | 197 | P1a | true |
+| asor02 | 197 | P1b' | true |
+| asor02 | 197 | P2 | true |
+| asor02 | 197 | P3 (depth, expiry) | true |
+| asor02 | 197 | P3 (maximum depth) | true |
+| asor02 | 197 | P4 | true |
+| asor02-p1b | 37 | P1b | false |
+| asor02-nodpop | 113 | P1a | true |
+| asor02-nodpop | 113 | P1b | false |
+| asor02-nodpop | 113 | P1b' | true |
+| asor02-nodpop | 113 | P2 | true |
+| asor02-nodpop | 113 | P3 (depth, expiry) | true |
+| asor02-nodpop | 113 | P4 | false |
+| asor02-m1 | 139 | M1 | reached |
+| asor02-m2 (DPoP on) | 475 | M2 (a) | false |
+| asor02-m2 (DPoP on) | 475 | M2 (b) | false |
+| asor02-m2 (DPoP on) | 475 | M2 (c) = P4 | true |
+| asor02-nodpop-m2 | 120 | M2 (a) | false |
+| asor02-nodpop-m2 | 120 | M2 (b) | false |
+| asor02-nodpop-m2 | 120 | M2 (c) = P4 | false |
+| asor02-holder-signs-m2 (DPoP on, `hs`) | 350 | M2 (a) | true |
+| asor02-holder-signs-m2 | 350 | M2 (b) | true |
+| asor02-holder-signs-m2 | 350 | M2 (c) = P4 | true |
+| asor02-nodpop-holder-signs-m2 (`hs`) | 143 | M2 (a) | true |
+| asor02-nodpop-holder-signs-m2 | 143 | M2 (b) | true |
+| asor02-nodpop-holder-signs-m2 | 143 | M2 (c) = P4 | false |
 {: #tbl-results title="ProVerif results (version 2.05)"}
 
-A "false" result for a variant model is the expected outcome of that
-variant (a check removed, or a property the profile does not claim); each
-is accompanied by a ProVerif trace in `model/out/`. TODO(argument: how to
-read the table).
+Each row is one query of one model file. A file without a suffix is a
+profile with every check in place, and every query of it is expected
+true. A `.expectfalse` file is a variant with one check removed
+(`no-i5`, `no-i6`, `nodpop`) or asks for a property the profile does not
+claim (`p4-inj`, `asor02-p1b`, the asor-02 M2 files), and at least one of
+its queries is expected false; a `.reachable` file asks whether an event
+occurs in a run of honest roles only, and "reached" is the expected
+answer. A "false" in a variant is therefore the expected outcome of that
+variant, not a failed proof; each is accompanied by a ProVerif derivation
+and trace in `model/out/`, summarized in `model/README.md`. `hs` is the
+holder-signs flag of the asor-02 model ({{cross}}). A "true" is a
+ProVerif proof for an unbounded number of sessions of the bounded model
+({{model-limits}}), not a statement about the draft text. Seconds are
+wall-clock per model file on one machine under `make -j6`, from
+`model/out/SUMMARY.md`; they are indicative.
 
 ## What the Model Does Not Say {#model-limits}
 
@@ -438,50 +466,113 @@ Section 8.
 
 ## Constraints (B1 to B8) {#aat-constraints}
 
-- B1 (Section 4.5): cross-type subsumption is an allow-list. TODO(argument)
+- B1 (Section 4.5): cross-type subsumption is an allow-list. Section 4.5
+  of -01 defines subsumption as a fixed table of (derived, parent)
+  constraint-type pairs and declares every other pair invalid. The table
+  leaves out some pairs whose narrowing is decidable from the values alone.
+  For a composite parent the table loses nothing of its own: an `exact`
+  under an `any` can be written as a one-clause `any` (see B2). Two pairs
+  are lost outright: a `one_of` whose members all fall inside a parent
+  `range`, and an `exact` under a `not_one_of`, have no equivalent in the
+  parent's type.
+  This implementation follows the table and rejects all of them. -02 keeps
+  the table and names the choice: the verifier compares types, not values,
+  so that every verifier gives the same verdict.
 
   -02: closed as design -- -02 Section 4.5 lists every valid (parent,
   derived) pair and says "Every other pair is invalid"; J.19.1 to J.19.7
   and J.8.4 deny semantically narrower pairs, and their notes call this
   conservative by design.
 
-- B2 (Section 4.5): non-composite child under a composite parent. TODO(argument)
+- B2 (Section 4.5): non-composite child under a composite parent. Section
+  4.5 of -01 gives rules for `all` and `any` only against a parent of the
+  same type, so a plain constraint under a composite parent falls under the
+  closing sentence and is invalid. This implementation rejects it. Nothing
+  is lost beyond B1, because the child can be written in the parent's
+  type. Under an `any`, a one-clause `any` is valid when the child narrows
+  one of the parent's clauses. Under an `all`, the child has to narrow
+  every parent clause: -01 matches each parent clause to a distinct
+  derived clause, so the child is repeated once per clause, while -02 lets
+  one derived clause satisfy several. Each step goes through the table, so
+  the rewrite fails exactly where a clause meets one of the two pairs of
+  B1, and an `all` with more clauses meets them more often.
 
   -02: closed as design -- J.8.4 (range under all) and J.19.1 (exact under
   any) are denied; J.18.1 denies all under any.
 
-- B3 (Section 4.5): empty composite constraints. TODO(argument)
+- B3 (Section 4.5): empty composite constraints. Section 4.5 of -01 says
+  only that a derived `any` must contain at least one clause. An empty
+  `all` is satisfied by every value and an empty `any` by none, so an empty
+  parent `all` grants the argument without limit and an empty parent `any`
+  forbids it; -01 addresses neither. This implementation treats an empty
+  clause list as malformed for both types, in either position.
 
   -02: closed -- -02 Section 4.5 makes an empty all or any invalid in both
   the parent and the derived position; it is denied at steps 3n and 4o
   (J.21.7, J.16.3).
 
-- B4 (Section 4.5): range corner cases. TODO(argument)
+- B4 (Section 4.5): range corner cases. Section 4.5 of -01 compares the
+  bounds of a derived `range` with the parent's, one bound at a time. It
+  does not say what a range that no number satisfies means (`min` greater
+  than `max`, or equal bounds with an exclusive side), nor what an
+  inclusivity flag without its bound means. This implementation applies
+  the bound rules literally, which never widens authority. An empty
+  derived range whose bounds lie inside the parent's is accepted and
+  denies every value; one whose bounds lie outside is rejected, although
+  an empty set narrows anything. Under an empty parent every derived range
+  that passes the bound rules is itself empty. A flag without its bound
+  has no effect. A verifier that rejects empty ranges as malformed
+  therefore denies more than this one, never less, and neither grants
+  anything the parent does not.
 
   -02: partly -- -02 Section 3.4 well-formedness requires min not greater
   than max and inclusivity flags only with their bound (J.8.6, J.8.21,
   J.8.24). An empty range with equal bounds and an exclusive side (min
   equal to max, min_inclusive false) is still well-formed.
 
-- B5 (Section 3.4): value model and equality. TODO(argument)
+- B5 (Section 3.4): value model and equality. -01 says only that
+  `exact.value` is "any scalar" and must be equal "exactly"; it does not
+  say whether null is a scalar, whether `1` equals `"1"` or `1.0`, or what
+  happens to a number a parser cannot hold exactly. This implementation
+  takes string, number and boolean, compares by JCS, and refuses integers
+  beyond 2^53-1 so that a constraint and the tool see the same value. That
+  refusal covers integers only: a fraction such as 1.00000000000000001 is
+  still read as 1.
 
   -02: closed -- `exact.value` may be a string, number, boolean or null,
   equality is by JCS, and the admissibility rule of -02 Section 3.4
   replaces this implementation's refusal of integers above 2^53-1 (J.8.8
   permit; J.8.7, J.8.10, J.8.14 deny).
 
-- B6 (Section 3.4): arrays as sets. TODO(argument)
+- B6 (Section 3.4): arrays as sets. -01 does not say whether order or
+  duplicates matter in the arrays of `contains` and `subset`, so two
+  verifiers can disagree on the same argument. This implementation treats
+  both arrays as sets.
 
   -02: closed -- -02 Section 3.4: contains and subset "treat their arrays
   as sets" (J.26.11, J.26.12).
 
-- B7 (Section 3.4): unknown members of a core constraint type. TODO(argument)
+- B7 (Section 3.4): unknown members of a core constraint type. -01
+  specifies what to do with an unknown constraint type and says that
+  unknown top-level claims are ignored, but not what to do with an unknown
+  member of a known type. Ignoring it would be unsafe: a misspelt bound
+  such as `maximum` for `max` would leave the argument unbounded. This
+  implementation rejects such a constraint as malformed.
 
   -02: closed -- well-formedness allows "no members other than" those of
   the type (J.21.12, `maximum`). The strict reading of -01 taken by this
   implementation is now the text.
 
-- B8 (Sections 3.6.2, 4.5): key-set rule and tool omission. TODO(argument)
+- B8 (Sections 3.6.2, 4.5): key-set rule and tool omission. Under a
+  non-empty constraint map -01 fixes the shape of an invocation: every
+  named argument must be present and no other may appear. A derived token
+  may drop a whole tool (Section 3.6.2) but must keep exactly the parent's
+  argument keys, because adding or dropping a key yields invocations the
+  parent would reject. The rules are consistent; the cost is rigidity. A
+  holder cannot forbid one argument while keeping the tool, and an
+  argument the issuer wants to leave optional cannot be constrained at
+  all; only a parent with an empty map lets a child choose keys. This
+  implementation follows the rules as written.
 
   -02: moot -- `optional` and `"*"` (-02 Section 3.3, the key rules of -02
   Section 4.5, steps 4p2 and 4p3) give the means the closed-world key rule
@@ -489,89 +580,202 @@ Section 8.
 
 ## Chain (B9 to B19) {#aat-chain}
 
-- B9 (Section 4, Section 7): redundant checks (I2e, step 5). TODO(argument)
+- B9 (Section 4, Section 7): redundant checks (I2e, step 5). Some checks
+  of -01 Section 7 follow from others. `child.del_depth <=
+  parent.del_max_depth` (4e) follows from 4g and 4m, `child.del_depth <=
+  MAX_DELEGATION_DEPTH` (4f) from 3i, 4g and 4m, and the "defense in depth"
+  step 5 from 3c and 4d. No input fails one of them alone; this
+  implementation keeps all of them, and its property tests reach 4e only
+  together with 4g or 4m. Redundant checks are harmless, but a test suite
+  cannot cover them as single faults.
 
   -02: open -- unchanged in -02 Section 8. The suite's README names "steps
   4e, 4f and 5" among the checks that can never be the only fault. J.10.c
   reaches 4e only as the first of two faults (4m also fails).
 
-- B10 (Section 4.4): MAX_TOKEN_LIFETIME is redundant by construction. TODO(argument)
+- B10 (Section 4.4): MAX_TOKEN_LIFETIME is redundant by construction. A
+  child cannot outlive its parent, so a lifetime bound checked on the root
+  holds for every link; the note to step 4l of -01 says as much. This
+  implementation checks it on every token anyway.
 
   -02: closed -- the notes to -02 Section 8 say the bound holds by
   induction (steps 3h, 4h and 4j); -02 has no per-child lifetime step.
 
-- B11 (Section 7): which anchor key verifies the root and what `iss` means. TODO(argument)
+- B11 (Section 7): which anchor key verifies the root and what `iss`
+  means. In -01 the trust anchors are "a set of public keys" without
+  issuer names; the root verifies under any of them (step 3b), and step 3k
+  requires only that `root.iss` be a URI. Section 3.2 says that `iss`
+  identifies the root issuer, but nothing ties it to the key that
+  verified the signature. When an enforcement point trusts more than one
+  issuer, any of them can sign a root that names another as `iss`, and the
+  chain verifies. Within -01 this does not change a verdict, since nothing
+  else reads `root.iss`; it matters as soon as audit or local policy relies
+  on the issuer. The `aat-01` profile follows -01 and accepts the root
+  under any anchor; the `aat-02` profile implements the new step 3k.
 
   -02: closed -- trust anchors are (issuer, key) pairs; step 3k compares
   the root's `iss` with the issuer of the anchor that verified the
   signature (J.21.6, J.21.22, J.21.23).
 
-- B12 (Section 4.2): I1 comparison of a URN as a string. TODO(argument)
+- B12 (Section 4.2): I1 comparison of a URN as a string. I1 requires
+  `child.iss` to equal `jwk_thumbprint_uri(parent.cnf.jwk)`, a URN.
+  {{RFC8141}} makes parts of a URN case-insensitive, so "equals" can be
+  read as a string or as a URN comparison. This implementation compares
+  strings exactly; it computes the thumbprint for OKP keys only, with the
+  member order of {{RFC7638}}. An exact comparison can only deny more, never
+  less.
 
   -02: open -- step 4c still says "equals"; -02 says nothing about
   case-insensitive comparison of the URN ({{RFC8141}}). J.27.6 pins only
   the thumbprint members.
 
-- B13 (Sections 3.2, 7, 8.13): algorithms and thumbprints. TODO(argument)
+- B13 (Sections 3.2, 7, 8.13): algorithms and thumbprints. -01 Section 3.2
+  requires support for Ed25519, while Sections 7 and 8.13 admit the DPoP
+  algorithm list, including ES256 and RS256, and mention Ed448; I1 would
+  then need thumbprints for those key types as well. This implementation
+  accepts only `EdDSA` with an OKP Ed25519 key and always refuses
+  symmetric algorithms (Section 8.13).
 
   -02: closed -- the fully-specified `Ed25519` ({{RFC9864}}); -02 forbids
   accepting `EdDSA` and requires `alg` to be consistent with the key's
   `kty` and `crv` (J.7.5, J.7.8, J.7.10, J.14.b).
 
-- B14 (Section 7): parse before verify. TODO(argument)
+- B14 (Section 7): parse before verify. -01 Section 7 forbids reading
+  claims before the signature is verified, but step 4b needs the parent's
+  parsed `cnf.jwk`, and step 2c lets `jti` be extracted first. This
+  implementation checks the size limits (2a, 2b), parses every token, and
+  then verifies. The verdict is the same either way; only the reported
+  code for a forged malformed token differs (`malformed` rather than
+  `signature_invalid`).
 
   -02: closed -- steps 3b, 4b and 7b fix the order per token. With pairs
   walked in order, the parent's `cnf.jwk` is parsed before the child's
   signature is needed. The `aat-02` profile follows the order literally;
   `aat-01` keeps parse-first.
 
-- B15 (Sections 3.2, 3.4): `sub`. TODO(argument)
+- B15 (Sections 3.2, 3.4): `sub`. -01 Section 3.2 "intentionally omits"
+  `sub`, and Section 3.4 says a token must not be rejected solely for
+  claims outside those defined. Rejecting a token with `sub` is therefore
+  not required, and arguably not allowed. This implementation rejects it
+  by default and has an option to accept it.
 
   -02: open -- -02 still "intentionally omits the sub claim" and requires
   unrecognized top-level claims to be ignored. The `aat-02` profile does
   not reject `sub` by default (`rejectSub` false). No vector carries `sub`
   (J.27.1 covers other unrecognized claims).
 
-- B16 (Section 3.2): `jti` format. TODO(argument)
+- B16 (Section 3.2): `jti` format. -01 says `jti` SHOULD be a UUIDv7 and,
+  when a UUID is used, MUST be lowercase and hyphenated, but steps 3j and
+  4b1 check only for a non-empty string. This implementation accepts any
+  non-empty string and rejects a UUID-shaped value with upper-case
+  letters.
 
   -02: closed -- the notes to -02 Section 8 say the lowercase UUID form
   "binds producers and has no verification step". The `aat-02` profile
   checks only for a non-empty string (`aat-01` still rejects upper-case
   UUIDs).
 
-- B17 (Section 7): limits without defaults. TODO(argument)
+- B17 (Section 7): limits without defaults. MAX_DELEGATION_DEPTH has no
+  recommended value in -01; the other limits (MAX_IAT_SKEW 30 s,
+  MAX_TOKEN_LIFETIME 90 days, MAX_CONSTRAINT_DEPTH 32, MAX_TOKEN_SIZE
+  64 KiB, MAX_STACK_SIZE 256 KiB) are RECOMMENDED. Whether a chain is
+  valid then depends on local configuration, and a test vector has to
+  state the limits it assumes. This implementation uses 16 for the depth.
 
   -02: closed -- MAX_DELEGATION_DEPTH is at least 8 (J.10.f, J.21.15,
   J.21.19); the suite states every parameter.
 
-- B18 (Section 4.6): `par_hash` covers the signing input, not the signature. TODO(argument)
+- B18 (Section 4.6): `par_hash` covers the signing input, not the
+  signature. Two JWS with the same signing input and different signature
+  bytes are therefore the same parent for I5. With Ed25519 and strict
+  verification this cannot be exploited; the choice is still worth stating
+  in the draft, since a profile with a malleable signature algorithm would
+  inherit it.
 
   -02: open -- unchanged design; `aat_hash` is computed the same way.
 
-- B19 (Sections 4.2, 8.9): the review's points as AAT-01 answers them. TODO(argument)
+- B19 (Sections 4.2, 4.7, 8.9): the review's points as AAT-01 answers
+  them. {{MADDEN-REVIEW}}, posted on the OAuth list the day -01 appeared,
+  makes two technical points about the chain, apart from the comparison
+  with HMAC-chained Macaroons and SPKI/SDSI: a parent token stays valid
+  after a child has been derived from it, so the design lacks the
+  re-keying of Macaroons; and only the leaf proves possession, so an agent
+  that sees the bytes of an intermediate or root token could use them.
+  The author's reply on the list called additive derivation intended and
+  every token holder-bound. This report names the points M1 and M2
+  ({{model-properties}}) and checks them in the model rather than in the
+  reply.
+  The second point -01 answers in its text. Section 4.2 (I1) requires the
+  derived token to be signed by the holder of the parent, Section 4.6 (I5)
+  commits it to that parent's bytes, and Section 4.7 (I6) requires the
+  presenter to prove possession of the leaf key. A token observed in
+  transit can therefore neither be extended, since derivation needs its
+  holder's key, nor presented as a leaf, nor moved under another parent.
+  The model confirms this for -01: against an attacker who sees every
+  token and may hold any holder key other than that of the token in
+  question, no link is derived from it (M2 a, P1b), no request is accepted
+  through such a link (M2 b), and no request is accepted with it (M2 c,
+  P4).
+  The first point -01 does not state. Nothing in the text says that a
+  parent remains valid after derivation; Section 8.9 puts revocation out
+  of scope and recommends short lifetimes, and Sections 8.1.2 and 8.4
+  give the consequence, that a compromised holder key exercises the full
+  authority of every token bound to it until expiry, without the property
+  behind it. The model shows M1 as a run of honest roles alone: a holder
+  derives a child from its token and is then accepted with that same
+  token, with no key compromised. It is how the design works, not an
+  attack on it. This implementation checks I1, I5 and I6 and keeps no
+  state that would retire a parent after derivation, since -01 defines
+  none.
 
-  -02: open -- same mechanism; the author answers the review in -02
-  Sections 1.3, 9.1.1 and 9.4. M1 and M2 ({{model-properties}}) are this
-  report's independent check of it; the vectors do not bear on it.
+  -02: closed as design -- -02 Section 9.1.1 says that derivation is
+  additive, that every token in a chain carries a holder key, and that a
+  sub-agent holding its parent's bytes cannot invoke with them; -02
+  Section 9.4 says that AATs do not re-key, that a compromised holder key
+  exposes every token bound to it, and gives deriving to a fresh key and
+  destroying the parent's key as the approximation (-02 Section 9.10).
+  M1 and M2 ({{model-properties}}) are this report's independent check of
+  it; the vectors do not bear on it.
 
 ## Proof of Possession (B20 to B23) {#aat-pop}
 
-- B20 (Section 5.2): PoP header and `typ`. TODO(argument)
+- B20 (Section 5.2): PoP header and `typ`. -01 specifies no `typ`, `kid`
+  or `jwk` header parameter for the PoP JWT, so nothing distinguishes it
+  from another JWT signed by the same key. This implementation looks only
+  at `alg`.
 
   -02: closed -- `typ` is `aat-pop+jwt` (J.7.1, J.7.2); a `jwk` header
   parameter is ignored as a key source (J.7.14).
 
-- B21 (Sections 5.2, 7): JCS of the whole PoP payload. TODO(argument)
+- B21 (Sections 5.2, 7): JCS of the whole PoP payload. -01 Section 5.2
+  requires the holder to serialize the whole PoP payload with JCS, but
+  step 7f compares only `hta`, and nothing says whether an enforcement
+  point must reject a payload that is not canonical. This implementation
+  rejects it: the payload bytes must equal their JCS re-serialization.
 
   -02: closed (requirement dropped) -- -02 Appendix F: "PoP payloads no longer
   need to be JCS-canonical". Only `hta` is compared (step 7f).
 
-- B22 (Section 7): clock tolerance. TODO(argument)
+- B22 (Section 7): clock tolerance. -01 recommends a PoP window of 30
+  seconds either side, and separately a one-sided MAX_IAT_SKEW of 30
+  seconds for tokens; it does not say whether the two are the same
+  parameter. This implementation keeps them apart: the PoP window is its
+  own option, symmetric, with inclusive bounds.
 
   -02: closed -- -02 Section 9.9 separates the one-sided MAX_IAT_SKEW from
   the bilateral PoP window (J.20.4, J.20.15, J.20.16).
 
-- B23 (Section 5): PoP binds the leaf only. TODO(argument)
+- B23 (Section 5): PoP binds the leaf only. In -01 the PoP JWT names the
+  leaf by `aat_id`, which must equal the leaf's `jti` (Section 5.3), a
+  value chosen by whoever derived the leaf; neither the leaf's bytes nor
+  the chain enter the PoP signature. Which chain a PoP belongs to
+  therefore rests on `jti` being unique across derivers, which nothing
+  checks (steps 3j and 4b1 accept any non-empty string), and `aat_aud` is
+  optional. The model shows the consequence: one PoP signed by an honest
+  holder is accepted under two different chains that end in leaves with
+  that holder's key and that `jti` (trace `aat01-p4-inj`,
+  {{model-results}}). This implementation compares `aat_id` with the leaf
+  `jti`, as -01 says, and nothing more.
 
   -02: closed -- `aat_hash` binds the PoP JWT to the exact leaf instance
   (J.20.7), and through `par_hash` to the whole chain above it. A present
@@ -580,13 +784,23 @@ Section 8.
 
 ## Coverage (B24, B25) {#aat-coverage}
 
-- B24 (Section 3.3): empty constraint map and absent arguments. TODO(argument)
+- B24 (Section 3.3): empty constraint map and absent arguments. A tool
+  with an empty constraint map accepts any arguments, while a tool with
+  even one constraint rejects an invocation that leaves out a constrained
+  argument, even one under `wildcard`. -01 Section 3.3 states both, but
+  the step from "no constraints" to "one constraint" changes the meaning
+  of every other argument, which is easy to misread. This implementation
+  follows the text.
 
   -02: closed -- `{}` is equivalent to `{"*": {"constraint_type":
   "wildcard"}}`, normalized at steps 4p and 6b (J.8.1, J.8.2, J.19.15,
   J.22.17).
 
-- B25: no published test vectors; the 41 vectors are ours. TODO(argument)
+- B25: no published test vectors; the 41 vectors are ours. -01 came with
+  no test vectors. The 41 vectors in `verifier/vectors/aat/` were written
+  for this report from its own reading of -01. They show that the
+  implementation matches that reading, not that the reading matches the
+  author's.
 
   -02: closed -- 229 author vectors; 229 of 229 agree here.
 
@@ -675,29 +889,149 @@ with what this implementation does.
 
 <!-- What goes here: A1 to A7, section of asor-02, argument. -->
 
-- A1 (Section 6, step 1): which key verifies a link below the root. TODO(argument)
-- A2 (Section 3, Section 4.3): `del_max_depth` inheritance. TODO(argument)
-- A3 (Section 3, Section 6): root without principal, `malformed` or step 3. TODO(argument)
-- A4 (Section 6, step 3): chain length bound by convention. TODO(argument)
-- A5: coverage of the 35 vectors. TODO(argument)
-- A6 (Sections 4.3, 6): a child's `del_max_depth` has no effect. TODO(argument)
-- A7 (Sections 6.1, 9.4): who mints a link below the root. TODO(argument)
+- A1 (Section 6, step 1): which key verifies a link below the root. Step
+  1 of asor-02 Section 6 verifies the signature of every DT_i, takes the
+  algorithm from the verifier's "own configuration for the key", and
+  requires DT_0 to verify under a trusted root key. Which key verifies
+  DT_i for i > 0 it does not say, and no other rule relates the signer of
+  a link to its parent: not to the parent's `cnf`, as I1 of AAT-01 does,
+  nor to its `iss`, nor to the root key. Section 7 puts `cnf` in every
+  token, but `cnf` binds the party that presents the leaf (step 6), not
+  the party that signs the next link. Table 1 of Section 6.1 is
+  consistent with this: below the root it claims only that each child
+  commits to the parent instance, nothing about who signed it. A
+  verifier can therefore only apply a configured key set, selected by
+  `kid`, at every position. The author's implementations run "under a
+  single-signer trust model" (Section 11) and the 35 vectors sign every
+  hop with one key, so neither decides the point. With one configured key
+  the question does not arise. With several, the link checks accept a
+  child signed by any of them: the model states this as P1b false and
+  P1b' true (`asor02-p1b`, {{model-results}}), and M2 (a) and (b) follow
+  from it ({{cross}}): one compromised configured key extends any chain,
+  and with the attacker's own key in the leaf `cnf` the request is
+  accepted even with DPoP. This implementation selects the key by `kid`
+  from one configured set for every DT_i, which is all the text allows.
+- A2 (Section 3, Section 4.3): `del_max_depth` inheritance. Section 3
+  requires `del_max_depth` in DT_0 only, and rule 5 of Section 4.3
+  compares `C.del_max_depth <= P.del_max_depth` for every link. When the
+  parent carries none, the rule has nothing to compare against; when the
+  child carries none, rule 3's "absence means unbounded" is written for
+  constraints, not for this claim. The vectors' children normally omit
+  it, and `reject_child_raises_del_max_depth` raises it directly under
+  the root. This implementation compares a child's value with the
+  nearest ancestor that states one, and lets a child without the claim
+  pass rule 5.
+- A3 (Section 3, Section 6): root without principal, `malformed` or step
+  3. Section 3 says that a chain whose DT_0 carries no `sub`, or an empty
+  one, is malformed; step 3 of Section 6 checks the same condition again
+  ("DT_0.sub is a non-empty string") and says deny, and Table 2 has no
+  step-3 name for it (`principal_altered` is for a `sub` that differs
+  from DT_0's). The vector `reject_root_without_principal` expects
+  `malformed`. This implementation follows the vector and reports it at
+  parse time.
+- A4 (Section 6, step 3): chain length bound by convention. Step 3
+  requires `n < DT_0.del_max_depth`, where Section 6 writes the chain as
+  DT_0 ... DT_n, so n is the index of the last token and the chain has
+  n + 1 tokens; Section 3 calls `del_max_depth` "the maximum permitted
+  chain length". The two agree only if n is read as that index: a chain
+  of exactly `del_max_depth` tokens is then accepted and one token more
+  is denied. Read as a count, the same test denies the chain of
+  `del_max_depth` tokens. No vector reaches the boundary (A5). This
+  implementation reads n as the index.
+- A5: coverage of the 35 vectors. The vectors are signed with one public
+  HS256 test key, so step 1 is exercised only for an algorithm off the
+  accepted list, not for a wrong key or an unknown `kid`; `cnf` carries a
+  stand-in thumbprint with no key, so step 6 is not exercised; `now` is
+  0, so step 5 is exercised for monotonic expiry only; no vector reaches
+  `depth_invalid` (step 3), the JCS parse names (`non_canonical`,
+  `duplicate_member`, `non_finite`), step 7, or step 8 beyond
+  `audience_mismatch` (`scope_not_granted`, `ceiling_exceeded`,
+  `unknown_constraint`, cumulative totals); rule 5 is exercised only
+  directly under the root (A2). The verifier covers these in its own
+  tests, with generated Ed25519 keys for step 6; those tests are this
+  work's reading, not the author's.
+- A6 (Sections 4.3, 6): a child's `del_max_depth` has no effect. Step 3
+  bounds the chain by `DT_0.del_max_depth` alone, and rule 5 only
+  forbids a child from raising the value. A DT_1 carrying `del_max_depth`
+  1 therefore still admits DT_2 and DT_3 below it: the claim is checked
+  for monotonicity and never used as a limit. The model's `asor02-p1b`
+  trace shows exactly this chain ({{model-results}}). In AAT-01, I2
+  requires `derived.del_depth <= parent.del_max_depth` at every link,
+  so there the value binds. This implementation follows the asor-02
+  text.
+- A7 (Sections 6.1, 9.4): who mints a link below the root. asor-02 does
+  not name the signer of a child, and its verbs differ: Section 6.1 has
+  "an issuer validating a parent before minting a child", Section 9.4 a
+  parent that "can mint any number of children" and "two issuers
+  allocating offline" from one budget, Section 11 "a single-signer trust
+  model". A Delegation Token is an OAuth JWT access token ({{RFC9068}})
+  with its own `iss` (Sections 2 and 3), and nothing requires the holder
+  of DT_{i-1} to take part in signing DT_i. This report therefore reads
+  asor-02 as issuer-minted attenuation verified offline: the holder of a
+  parent is bound by `cnf` and named by `client_id`, and a link is signed
+  by a key the verifier is configured to accept. Under that reading P1b,
+  a link made by the holder of its parent, is not a property asor-02
+  claims, and its failure (A1) is a different trust model rather than a
+  defect: what a chain establishes is P1b', and its security is that of
+  the weakest configured key. In the model the asor-02 holder signs the
+  child with its own key, so holder keys and configured keys are one
+  population, each agent its own issuer; this is one admissible
+  deployment, and the queries and verdicts are the same under either
+  reading. Where a deployment keeps issuer keys apart from agent keys,
+  the M2 (a) and (b) results need a compromised issuer key, not an agent
+  key.
 
 # Cross-Draft Observations {#cross}
 
 <!-- What goes here: holder-derived versus issuer-minted; the M1/M2 table,
 one line per cell. -->
 
-AAT-01 is holder-derived: each link is signed by the key of the previous
-holder. asor-02 is issuer-minted (A7): each link is signed by an issuer
-key, and the previous holder is bound by `cnf` but takes no part in signing.
-TODO(argument)
+Both drafts build the same chain: a root signed by a trusted key, each
+link committing to its parent's signing input by `par_hash`, depth,
+expiry and capabilities narrowing at every hop, a holder key in every
+token and a proof of possession for the leaf. The model treats them as
+two instances of one structure, and the shared properties come out the
+same: the invoked tool was granted at the root (P2), the leaf's depth,
+maximum depth and expiry are bounded by the root's (P3), a leaf naming an
+honest key is used only by that key's holder (P4; for asor-02 with DPoP
+on), and a parent remains accepted after its holder has derived from it
+(M1), in both.
+
+They differ in one place: who signs a link below the root. AAT-01 is
+holder-derived: I1 requires the link to be signed by the key the parent
+names in `cnf`, so the holder of a token is the only party that can
+extend the chain below it. asor-02 is issuer-minted (A7): a link is
+signed by a key the verifier is configured to accept, the holder of the
+parent is bound by `cnf` and named by `client_id`, and nothing requires
+it to take part in the signing (A1). {{tbl-madden}} shows what follows
+for M2. In the AAT-01 row an attacker who sees every token and may hold
+any key but that of the token in question can neither derive below it
+(a), nor have a request accepted through a link its holder did not make
+(b), nor use it (c). In the asor-02 rows the same attacker, holding any
+one configured key, which need not belong to the chain, signs a link
+below an honest token and the link checks accept it (a); naming its own
+key in the forged leaf's `cnf`, it is accepted at step 6 with its own
+DPoP proof (b), since DPoP binds the presenter of the leaf and not the
+signer of each link. DPoP decides (c) only. The security of an asor-02
+chain is therefore that of the weakest key its verifier is configured to
+accept; where issuer keys and agent keys are kept apart, (a) and (b)
+need a compromised issuer key.
+
+The last row isolates the cause. With one change to the asor-02 model,
+the flag `hs` of `asor02.pvl`, a link verifies under its parent's `cnf`
+instead of the configured key, and every M2 result for asor-02 with DPoP
+equals the AAT-01 result (`asor02-holder-signs-m2`, {{tbl-results}});
+with DPoP off, (a) and (b) become no and (c) stays yes. The M2 difference
+between the drafts is caused by A1 alone. This is a reading asor-02 does
+not state, not a rule of it; adopting it would make the signer of a link
+the holder of its parent, which is the other draft's design.
 
 | Profile | M1 | M2 (a) | M2 (b) | M2 (c) |
 |---|---|---|---|---|
 | AAT-01 | parent accepted after derivation: yes | no | no | no |
 | asor-02, DPoP on | yes | yes: one configured key extends any chain | yes: attacker's own key in the forged leaf's `cnf` | no: DPoP gives P4 |
 | asor-02, DPoP off | yes | yes | yes | yes: an observed chain is accepted from anyone |
+| asor-02, DPoP on, holder-signs reading (`hs`) | not run | no | no | no |
 {: #tbl-madden title="M1 and M2 on both profiles"}
 
 # Implementation Status {#impl-status}
@@ -758,7 +1092,18 @@ Licensing:
 Implementation experience:
 : The AAT-02 profile was written from the -02 text and then run against the
   author's vector suite; it agreed on all 229 vectors on the first run.
-  TODO(argument: summary of sections 6 and 7)
+  Of the 25 observations made on AAT-01 while implementing it
+  ({{findings-aat}}), the -02 text decides 19 (15 closed, 3 closed as
+  design, 1 by dropping the requirement), decides one in part (B4), makes
+  one moot (B8) and leaves four unchanged (B9, B12, B15, B18); ten points
+  of the -02 text are underdetermined for an implementer (C1 to C10), and
+  no vector decides any of them against this implementation. On asor-02
+  ({{findings-asor}}) the main point is A1 with A7: Section 6 names no key
+  for a link below the root, and the model states what the chain then
+  guarantees; A2 to A6 are smaller gaps in the text and in the vectors'
+  coverage. Where a draft was decidable the implementation followed it;
+  where it was not, the choice is recorded in this document, not only in
+  the code.
 
 Contact:
 : Azat Davliatshin, ardavlyatshin@gmail.com
