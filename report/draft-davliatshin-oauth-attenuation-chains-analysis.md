@@ -13,7 +13,7 @@ venue:
   type: Working Group
   mail: oauth@ietf.org
   arch: https://mailarchive.ietf.org/arch/browse/oauth/
-date: 2026-10-19
+date: 2026-11-02
 stand_alone: yes
 pi: [toc, sortrefs, symrefs]
 author:
@@ -91,9 +91,9 @@ written from each draft's text, with profiles for AAT -01, AAT -02 and
 asor-02, and a ProVerif model of the chain structures of AAT -01 and
 asor-02. The AAT -02 profile, written from the text and then run against
 the author's 229-vector test suite, agrees with it on all 229 vectors. Of
-25 observations recorded on AAT -01, the -02 text resolves 18 (16 closed,
-2 closed as intended design); one is partly resolved, one no longer arises,
-and five remain open. The report lists ten points where -02 leaves an
+25 observations recorded on AAT -01, the -02 text resolves 19 (16 closed,
+3 closed as intended design); one is partly resolved, one no longer arises,
+and four remain open. The report lists ten points where -02 leaves an
 implementer more than one conforming behaviour. Two properties raised in
 public review are checked on both chain structures. The author of this
 report is not an author of either draft. The report specifies nothing; it
@@ -463,22 +463,23 @@ Section 8.
 ## Constraints (B1 to B8) {#aat-constraints}
 
 - B1 (Section 4.5): cross-type subsumption is an allow-list. Section 4.5
-  of -01 defines subsumption as a fixed table of (derived, parent)
-  constraint-type pairs and declares every other pair invalid. The table
-  leaves out some pairs whose narrowing is decidable from the values alone.
-  For a composite parent the table loses nothing of its own: an `exact`
+  of -01 defines subsumption as a fixed list of per-type rules over
+  (derived, parent) constraint-type pairs and declares every other pair
+  invalid (-02 writes the same list as a table). The list leaves out some
+  pairs whose narrowing is decidable from the values alone.
+  For a composite parent the list loses nothing of its own: an `exact`
   under an `any` can be written as a one-clause `any` (see B2). Two pairs
   are lost outright: a `one_of` whose members all fall inside a parent
   `range`, and an `exact` under a `not_one_of`, have no equivalent in the
   parent's type.
-  This implementation follows the table and rejects all of them. -02 keeps
-  the table and names the choice: the verifier compares types, not values,
+  This implementation follows the list and rejects all of them. -02 keeps
+  the pairs and names the choice: the verifier compares types, not values,
   so that every verifier gives the same verdict.
 
   -02: closed as design -- -02 Section 4.5 lists every valid (parent,
-  derived) pair and says "Every other pair is invalid"; J.19.1 to J.19.7
-  and J.8.4 deny semantically narrower pairs, and their notes call this
-  conservative by design.
+  derived) pair and says "Every other pair is invalid"; J.19.1, J.19.4 to
+  J.19.7 and J.8.4 deny semantically narrower pairs, and their notes call
+  this conservative by design.
 
 - B2 (Section 4.5): non-composite child under a composite parent. Section
   4.5 of -01 gives rules for `all` and `any` only against a parent of the
@@ -489,7 +490,7 @@ Section 8.
   one of the parent's clauses. Under an `all`, the child has to narrow
   every parent clause: -01 matches each parent clause to a distinct
   derived clause, so the child is repeated once per clause, while -02 lets
-  one derived clause satisfy several. Each step goes through the table, so
+  one derived clause satisfy several. Each step goes through the pairs, so
   the rewrite fails exactly where a clause meets one of the two pairs of
   B1, and an `all` with more clauses meets them more often.
 
@@ -626,8 +627,9 @@ Section 8.
   the thumbprint members.
 
 - B13 (Sections 3.2, 7, 8.13): algorithms and thumbprints. -01 Section 3.2
-  requires support for Ed25519, while Sections 7 and 8.13 admit the DPoP
-  algorithm list, including ES256 and RS256, and mention Ed448; I1 would
+  requires support for Ed25519, while Section 8.13 admits the DPoP
+  algorithm list, including ES256 and RS256, and the closing note of
+  Section 7 mentions Ed448; I1 would
   then need thumbprints for those key types as well. This implementation
   accepts only `EdDSA` with an OKP Ed25519 key and always refuses
   symmetric algorithms (Section 8.13).
@@ -729,7 +731,8 @@ Section 8.
   sub-agent holding its parent's bytes cannot invoke with them; -02
   Section 9.4 says that AATs do not re-key, that a compromised holder key
   exposes every token bound to it, and gives deriving to a fresh key and
-  destroying the parent's key as the approximation (-02 Section 9.10).
+  destroying the parent's key as the approximation (-02 Section 9.4,
+  with the fresh holder key of -02 Section 9.10).
   M1 and M2 ({{model-properties}}) are this report's independent check of
   it; the vectors do not bear on it.
 
@@ -842,8 +845,10 @@ with what this implementation does.
   -02 types `aat_aud` as a string, but gives it "the semantics of the JWT
   aud claim" ({{RFC7519}}, Section 4.1.3), which allows an array. Whether
   an array `aat_aud` naming the enforcement point is accepted is not
-  stated; step 6c, by contrast, explicitly allows `aud` to be an array.
-  This implementation: anything other than a matching string is denied.
+  stated: -02 Section 3.2 has `aat_aud` identify an enforcement point "by
+  exact string comparison", which leans towards a string, while step 6c
+  explicitly allows `aud` to be an array. This implementation: anything
+  other than a matching string is denied.
 
 - C6 (steps 3b, 3k): "the trust anchor whose key verified the signature".
   When two anchors share one key under different issuers (rotation,
@@ -1089,9 +1094,10 @@ Implementation experience:
 : The AAT-02 profile was written from the -02 text and then run against the
   author's vector suite; it agreed on all 229 vectors on the first run.
   Of the 25 observations made on AAT-01 while implementing it
-  ({{findings-aat}}), the -02 text decides 19 (15 closed, 3 closed as
-  design, 1 by dropping the requirement), decides one in part (B4), makes
-  one moot (B8) and leaves four unchanged (B9, B12, B15, B18); ten points
+  ({{findings-aat}}), the -02 text decides 19 (16 closed, one of them by
+  dropping the requirement, and 3 closed as design), decides one in part
+  (B4), makes one moot (B8) and leaves four unchanged (B9, B12, B15, B18);
+  ten points
   of the -02 text are underdetermined for an implementer (C1 to C10), and
   no vector decides any of them against this implementation. On asor-02
   ({{findings-asor}}) the main point is A1 with A7: Section 6 names no key
@@ -1105,7 +1111,7 @@ Contact:
 : Azat Davliatshin, ardavlyatshin@gmail.com
 
 Information date:
-: 2026-11-01
+: 2026-11-02
 
 # Security Considerations
 
