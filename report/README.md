@@ -2,7 +2,7 @@
 
 Source of the implementation and analysis report (Internet-Draft,
 Informational, RFC 7942 shape). The source is
-`draft-davliatshin-oauth-attenuation-chains-analysis.md` (kramdown-rfc);
+`draft-davliatshin-oauth-attenuation-chains-report.md` (kramdown-rfc);
 `.xml`, `.txt` and `.html` are build products and are not committed.
 
 ## Toolchain

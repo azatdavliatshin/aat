@@ -1,4 +1,4 @@
-DRAFT := draft-davliatshin-oauth-attenuation-chains-analysis
+DRAFT := draft-davliatshin-oauth-attenuation-chains-report
 SRC   := $(DRAFT).md
 OUT   := $(DRAFT)-00
 

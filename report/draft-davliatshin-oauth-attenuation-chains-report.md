@@ -1,7 +1,7 @@
 ---
 title: "Independent Implementation and Formal Analysis of Attenuating Delegation Chains for AI Agents"
 abbrev: "Attenuation Chains Analysis"
-docname: draft-davliatshin-oauth-attenuation-chains-analysis-00
+docname: draft-davliatshin-oauth-attenuation-chains-report-00
 category: info
 submissiontype: IETF
 ipr: trust200902
