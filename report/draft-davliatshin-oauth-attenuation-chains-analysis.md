@@ -15,11 +15,7 @@ venue:
   arch: https://mailarchive.ietf.org/arch/browse/oauth/
 date: 2026-10-19
 stand_alone: yes
-pi:
-  toc: yes
-  tocdepth: 1
-  sortrefs: yes
-  symrefs: yes
+pi: [toc, sortrefs, symrefs]
 author:
 - ins: A. Davliatshin
   name: Azat Davliatshin
