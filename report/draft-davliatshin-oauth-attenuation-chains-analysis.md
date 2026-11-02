@@ -166,10 +166,14 @@ link:
 
 holder:
 : The party named by a token's confirmation claim ({{RFC7800}}) as able to
-  use it or derive from it.
+  present it; in AAT-01 and AAT-02 also the only party able to derive from
+  it (I1).
 
 issuer:
-: The party whose key signs a token.
+: The party whose key signs a token. In asor-02 this is the `iss` of an
+  access token ({{RFC9068}}); in AAT-01 and AAT-02 the root issuer signs
+  the root, and a derived token is signed by its parent's holder, whose
+  key thumbprint is its `iss`.
 
 attenuation:
 : Producing a link whose authority (capabilities, depth, lifetime) is no
@@ -181,10 +185,16 @@ PoP:
 
 "AAT-01" is {{AAT-01}}; "AAT-02" is {{AAT-02}}; "asor-02" is {{ASOR-02}}.
 
-Related documents used below: {{RFC8785}} (canonical JSON, used by both
-drafts for hashing and comparison), {{RFC9278}} (JWK thumbprint URI) and
-{{RFC9396}} (rich authorization requests, the model for structured
-authority). TODO(check each against the drafts' own use)
+Related documents used below: {{RFC8785}} (JSON Canonicalization Scheme:
+asor-02 requires the JWS header and payload of every token to be its
+output, Section 3, and compares a constraint it cannot evaluate by its
+bytes, Section 4.3; AAT-01 requires it for the PoP JWT payload and for
+comparing `hta` with the invocation arguments, Sections 5.2 and 7; -02
+drops the payload requirement and compares constraint values and
+arguments by it, -02 Section 3.4), {{RFC9278}} (JWK thumbprint URI, the
+`iss` of a derived AAT; asor-02 binds the holder by a {{RFC7638}}
+thumbprint in `cnf` instead) and {{RFC9396}} (rich authorization
+requests; both drafts carry authority as `authorization_details`).
 
 Finding labels A1 to A7 (asor-02), B1 to B25 (AAT-01), C1 to C10 (AAT-02)
 and M1, M2 (the two properties of {{model-properties}}) are this document's
@@ -359,46 +369,63 @@ ProVerif 2.05, seconds of CPU per model file. -->
 
 | Model | Seconds | Query | Result |
 |---|---|---|---|
-| aat01 | 63 | P1a | true |
-| aat01 | 63 | P1b | true |
-| aat01 | 63 | P2 | true |
-| aat01 | 63 | P3 | true |
-| aat01 | 63 | P4 | true |
-| aat01-no-i5 | 22 | P1a | true |
-| aat01-no-i5 | 22 | P1b | false |
-| aat01-no-i6 | 17 | P4 | false |
-| aat01-p4-inj | 34 | P4 injective | false |
-| aat01-p4-inj | 34 | P4 | true |
+| aat01 | 42 | P1a | true |
+| aat01 | 42 | P1b | true |
+| aat01 | 42 | P2 | true |
+| aat01 | 42 | P3 | true |
+| aat01 | 42 | P4 | true |
+| aat01-no-i5 | 16 | P1a | true |
+| aat01-no-i5 | 16 | P1b | false |
+| aat01-no-i6 | 12 | P4 | false |
+| aat01-p4-inj | 23 | P4 injective | false |
+| aat01-p4-inj | 23 | P4 | true |
 | aat01-m1 | 1 | M1 | reached |
-| aat01-m2 | 60 | M2 (a) | true |
-| aat01-m2 | 60 | M2 (b) | true |
-| aat01-m2 | 60 | M2 (c) = P4 | true |
-| asor02 | 245 | P1a | true |
-| asor02 | 245 | P1b' | true |
-| asor02 | 245 | P2 | true |
-| asor02 | 245 | P3 (depth, expiry) | true |
-| asor02 | 245 | P3 (maximum depth) | true |
-| asor02 | 245 | P4 | true |
-| asor02-p1b | 57 | P1b | false |
-| asor02-nodpop | 161 | P1a | true |
-| asor02-nodpop | 161 | P1b | false |
-| asor02-nodpop | 161 | P1b' | true |
-| asor02-nodpop | 161 | P2 | true |
-| asor02-nodpop | 161 | P3 (depth, expiry) | true |
-| asor02-nodpop | 161 | P4 | false |
-| asor02-m1 | 208 | M1 | reached |
-| asor02-m2 (DPoP on) | 539 | M2 (a) | false |
-| asor02-m2 (DPoP on) | 539 | M2 (b) | false |
-| asor02-m2 (DPoP on) | 539 | M2 (c) = P4 | true |
-| asor02-nodpop-m2 | 175 | M2 (a) | false |
-| asor02-nodpop-m2 | 175 | M2 (b) | false |
-| asor02-nodpop-m2 | 175 | M2 (c) = P4 | false |
+| aat01-m2 | 39 | M2 (a) | true |
+| aat01-m2 | 39 | M2 (b) | true |
+| aat01-m2 | 39 | M2 (c) = P4 | true |
+| asor02 | 197 | P1a | true |
+| asor02 | 197 | P1b' | true |
+| asor02 | 197 | P2 | true |
+| asor02 | 197 | P3 (depth, expiry) | true |
+| asor02 | 197 | P3 (maximum depth) | true |
+| asor02 | 197 | P4 | true |
+| asor02-p1b | 37 | P1b | false |
+| asor02-nodpop | 113 | P1a | true |
+| asor02-nodpop | 113 | P1b | false |
+| asor02-nodpop | 113 | P1b' | true |
+| asor02-nodpop | 113 | P2 | true |
+| asor02-nodpop | 113 | P3 (depth, expiry) | true |
+| asor02-nodpop | 113 | P4 | false |
+| asor02-m1 | 139 | M1 | reached |
+| asor02-m2 (DPoP on) | 475 | M2 (a) | false |
+| asor02-m2 (DPoP on) | 475 | M2 (b) | false |
+| asor02-m2 (DPoP on) | 475 | M2 (c) = P4 | true |
+| asor02-nodpop-m2 | 120 | M2 (a) | false |
+| asor02-nodpop-m2 | 120 | M2 (b) | false |
+| asor02-nodpop-m2 | 120 | M2 (c) = P4 | false |
+| asor02-holder-signs-m2 (DPoP on, `hs`) | 350 | M2 (a) | true |
+| asor02-holder-signs-m2 | 350 | M2 (b) | true |
+| asor02-holder-signs-m2 | 350 | M2 (c) = P4 | true |
+| asor02-nodpop-holder-signs-m2 (`hs`) | 143 | M2 (a) | true |
+| asor02-nodpop-holder-signs-m2 | 143 | M2 (b) | true |
+| asor02-nodpop-holder-signs-m2 | 143 | M2 (c) = P4 | false |
 {: #tbl-results title="ProVerif results (version 2.05)"}
 
-A "false" result for a variant model is the expected outcome of that
-variant (a check removed, or a property the profile does not claim); each
-is accompanied by a ProVerif trace in `model/out/`. TODO(argument: how to
-read the table).
+Each row is one query of one model file. A file without a suffix is a
+profile with every check in place, and every query of it is expected
+true. A `.expectfalse` file is a variant with one check removed
+(`no-i5`, `no-i6`, `nodpop`) or asks for a property the profile does not
+claim (`p4-inj`, `asor02-p1b`, the asor-02 M2 files), and at least one of
+its queries is expected false; a `.reachable` file asks whether an event
+occurs in a run of honest roles only, and "reached" is the expected
+answer. A "false" in a variant is therefore the expected outcome of that
+variant, not a failed proof; each is accompanied by a ProVerif derivation
+and trace in `model/out/`, summarized in `model/README.md`. `hs` is the
+holder-signs flag of the asor-02 model ({{cross}}). A "true" is a
+ProVerif proof for an unbounded number of sessions of the bounded model
+({{model-limits}}), not a statement about the draft text. Seconds are
+wall-clock per model file on one machine under `make -j6`, from
+`model/out/SUMMARY.md`; they are indicative.
 
 ## What the Model Does Not Say {#model-limits}
 
@@ -959,16 +986,52 @@ with what this implementation does.
 <!-- What goes here: holder-derived versus issuer-minted; the M1/M2 table,
 one line per cell. -->
 
-AAT-01 is holder-derived: each link is signed by the key of the previous
-holder. asor-02 is issuer-minted (A7): each link is signed by an issuer
-key, and the previous holder is bound by `cnf` but takes no part in signing.
-TODO(argument)
+Both drafts build the same chain: a root signed by a trusted key, each
+link committing to its parent's signing input by `par_hash`, depth,
+expiry and capabilities narrowing at every hop, a holder key in every
+token and a proof of possession for the leaf. The model treats them as
+two instances of one structure, and the shared properties come out the
+same: the invoked tool was granted at the root (P2), the leaf's depth,
+maximum depth and expiry are bounded by the root's (P3), a leaf naming an
+honest key is used only by that key's holder (P4; for asor-02 with DPoP
+on), and a parent remains accepted after its holder has derived from it
+(M1), in both.
+
+They differ in one place: who signs a link below the root. AAT-01 is
+holder-derived: I1 requires the link to be signed by the key the parent
+names in `cnf`, so the holder of a token is the only party that can
+extend the chain below it. asor-02 is issuer-minted (A7): a link is
+signed by a key the verifier is configured to accept, the holder of the
+parent is bound by `cnf` and named by `client_id`, and nothing requires
+it to take part in the signing (A1). {{tbl-madden}} shows what follows
+for M2. In the AAT-01 row an attacker who sees every token and may hold
+any key but that of the token in question can neither derive below it
+(a), nor have a request accepted through a link its holder did not make
+(b), nor use it (c). In the asor-02 rows the same attacker, holding any
+one configured key, which need not belong to the chain, signs a link
+below an honest token and the link checks accept it (a); naming its own
+key in the forged leaf's `cnf`, it is accepted at step 6 with its own
+DPoP proof (b), since DPoP binds the presenter of the leaf and not the
+signer of each link. DPoP decides (c) only. The security of an asor-02
+chain is therefore that of the weakest key its verifier is configured to
+accept; where issuer keys and agent keys are kept apart, (a) and (b)
+need a compromised issuer key.
+
+The last row isolates the cause. With one change to the asor-02 model,
+the flag `hs` of `asor02.pvl`, a link verifies under its parent's `cnf`
+instead of the configured key, and every M2 result for asor-02 with DPoP
+equals the AAT-01 result (`asor02-holder-signs-m2`, {{tbl-results}});
+with DPoP off, (a) and (b) become no and (c) stays yes. The M2 difference
+between the drafts is caused by A1 alone. This is a reading asor-02 does
+not state, not a rule of it; adopting it would make the signer of a link
+the holder of its parent, which is the other draft's design.
 
 | Profile | M1 | M2 (a) | M2 (b) | M2 (c) |
 |---|---|---|---|---|
 | AAT-01 | parent accepted after derivation: yes | no | no | no |
 | asor-02, DPoP on | yes | yes: one configured key extends any chain | yes: attacker's own key in the forged leaf's `cnf` | no: DPoP gives P4 |
 | asor-02, DPoP off | yes | yes | yes | yes: an observed chain is accepted from anyone |
+| asor-02, DPoP on, holder-signs reading (`hs`) | not run | no | no | no |
 {: #tbl-madden title="M1 and M2 on both profiles"}
 
 # Implementation Status {#impl-status}
@@ -1029,7 +1092,18 @@ Licensing:
 Implementation experience:
 : The AAT-02 profile was written from the -02 text and then run against the
   author's vector suite; it agreed on all 229 vectors on the first run.
-  TODO(argument: summary of sections 6 and 7)
+  Of the 25 observations made on AAT-01 while implementing it
+  ({{findings-aat}}), the -02 text decides 19 (15 closed, 3 closed as
+  design, 1 by dropping the requirement), decides one in part (B4), makes
+  one moot (B8) and leaves four unchanged (B9, B12, B15, B18); ten points
+  of the -02 text are underdetermined for an implementer (C1 to C10), and
+  no vector decides any of them against this implementation. On asor-02
+  ({{findings-asor}}) the main point is A1 with A7: Section 6 names no key
+  for a link below the root, and the model states what the chain then
+  guarantees; A2 to A6 are smaller gaps in the text and in the vectors'
+  coverage. Where a draft was decidable the implementation followed it;
+  where it was not, the choice is recorded in this document, not only in
+  the code.
 
 Contact:
 : Azat Davliatshin, ardavlyatshin@gmail.com
