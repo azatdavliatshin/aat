@@ -6,6 +6,7 @@ import { okpThumbprint } from "../holder.js";
 import { ExactNumber, isExactObject, parseJsonExact, type ExactObject, type ExactValue, type JsonObject, type JsonValue } from "../json.js";
 import { verifyJws, type ParsedJws } from "../jws.js";
 import { fail, type Failure, type Outcome } from "../result.js";
+import { isAbsoluteUri } from "../uri.js";
 import { AAT_DEFAULTS, AAT_TYPE, THUMBPRINT_PREFIX, type AatOptions } from "./aat01.js";
 import { authorizeArgs, constraintsNarrow, keyRules, parseArgMap, requiredKept, type ArgMap, type ToolMap } from "./aat02-constraints.js";
 import { popStep, readInvocation, type PopInput } from "./aat02-pop.js";
@@ -286,7 +287,7 @@ export function verifyAat02(input: readonly string[] | Aat02Presentation, opts: 
   if (rMax === undefined) return deny("3i", "malformed", "del_max_depth must be a non-negative integer", 0);
   if (rMax > lim.maxDelegationDepth) return deny("3i", "I2", "del_max_depth exceeds MAX_DELEGATION_DEPTH", 0);
   if (!nonEmptyString(rc.jti)) return deny("3j", "malformed", "jti must be a non-empty string", 0);
-  if (typeof rc.iss !== "string" || !/^[A-Za-z][A-Za-z0-9+.-]*:\S+$/.test(rc.iss)) return deny("3k", "root_invalid", "root iss must be a URI", 0);
+  if (typeof rc.iss !== "string" || !isAbsoluteUri(rc.iss)) return deny("3k", "root_invalid", "root iss must be an absolute-URI (RFC 3986)", 0);
   // §8 step 3k, RFC 8725 §3.8: iss is the issuer of the anchor whose key verified the signature.
   if (!verifying.some((a) => a.iss === rc.iss)) return deny("3k", "root_invalid", "root iss is not the issuer of the trust anchor that verified it", 0);
   const rKey = holderKey(rc);
